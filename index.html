@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Andrei - AI-автоматизация бизнеса под ключ</title>
+<title>MorozAi - AI-автоматизация бизнеса под ключ</title>
 <meta name="description" content="AI-агенты, интеграции, автоматизации для микробизнеса. Python, n8n, Claude, GPT. Прототип за 3-7 дней." />
 <meta property="og:title" content="Автоматизирую ваш бизнес - AI, n8n, Python" />
 <meta property="og:description" content="AI-агенты, интеграции и автоматизации, экономящие сотни часов." />
@@ -17,7 +17,7 @@
     theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] } } },
   }
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Unbounded:wght@700&display=swap" rel="stylesheet" />
 <style>
   :root {
     --bg:#08090B; --panel:#0F1115; --panel-2:#0B0C10; --card:#0F1115;
@@ -75,6 +75,30 @@
   .icon-btn { width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center; border-radius:.5rem; border:1px solid var(--border); background:var(--panel-2); color:var(--text-muted); cursor:pointer; transition:all .15s ease; }
   .icon-btn:hover { color:var(--text); }
   .divider-y { border-top:1px solid var(--border-soft); border-bottom:1px solid var(--border-soft); }
+  /* Brand logo */
+  .brand-logo {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+  .brand-moroz {
+    color: #22D3EE;
+    text-shadow: 0 0 8px rgba(34,211,238,0.65), 0 0 20px rgba(34,211,238,0.3);
+  }
+  .brand-ai {
+    color: #A78BFA;
+    text-shadow: 0 0 8px rgba(167,139,250,0.65), 0 0 20px rgba(167,139,250,0.3);
+  }
+  html.light .brand-moroz {
+    color: #0891B2;
+    text-shadow: none;
+  }
+  html.light .brand-ai {
+    color: #7C3AED;
+    text-shadow: none;
+  }
 </style>
 </head>
 <body class="antialiased">
@@ -84,7 +108,7 @@
   <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between gap-3">
     <a href="#top" class="flex items-center gap-2 font-bold">
       <img src="avatar.png" alt="logo" class="w-9 h-9 rounded-lg" style="background:#1B1E3A;object-fit:cover;" />
-      <span>Andrei <span class="text-dim font-normal">· automation</span></span>
+      <span class="brand-logo"><span class="brand-moroz">Moroz</span><span class="brand-ai">Ai</span></span>
     </a>
     <nav class="hidden md:flex items-center gap-6 text-sm text-muted">
       <a href="#services" class="hover:opacity-100 opacity-80" data-i18n="nav.services">Услуги</a>
@@ -470,7 +494,7 @@
 <!-- FOOTER -->
 <footer class="py-10" style="border-top:1px solid var(--border-soft);">
   <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row justify-between gap-4 text-sm text-dim">
-    <div>© <span id="year"></span> Andrei · <span data-i18n="foot.legal">Самозанятый, Республика Беларусь · УНП по запросу</span></div>
+    <div>© <span id="year"></span> <span class="brand-logo" style="font-size:.85rem"><span class="brand-moroz">Moroz</span><span class="brand-ai">Ai</span></span> · <span data-i18n="foot.legal">Самозанятый, Республика Беларусь · УНП по запросу</span></div>
     <div class="flex gap-4">
       <a href="#top" class="hover:opacity-80" data-i18n="foot.top">Наверх</a>
       <a href="#contact" class="hover:opacity-80" data-i18n="foot.contact">Связаться</a>
