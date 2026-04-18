@@ -429,9 +429,9 @@
       </form>
 
       <div class="mt-8 pt-6 border-t border-soft flex flex-wrap gap-5 text-sm">
-        <a href="https://t.me/IDonRumata" class="hover:opacity-80">💬 Telegram: @IDonRumata</a>
+        <a href="https://t.me/automation_landing_bot" class="hover:opacity-80">📱 Автоматизация бизнеса</a>
         <a href="mailto:andrei.maroz.eu@gmail.com" class="hover:opacity-80">✉️ andrei.maroz.eu@gmail.com</a>
-        <a href="https://github.com/IDonRumata" class="hover:opacity-80">💻 github.com/IDonRumata</a>
+        <a href="https://github.com/devity84pro" class="hover:opacity-80">💻 github.com/devity84pro</a>
       </div>
     </div>
   </div>
@@ -746,7 +746,7 @@ function submitLead(e) {
   e.preventDefault();
   const form = e.target;
   const msg = `Новая заявка\nИмя: ${form.name.value.trim()}\nКонтакт: ${form.contact.value.trim()}\nЗадача: ${form.task.value.trim() || '-'}`;
-  window.open('https://t.me/IDonRumata?text=' + encodeURIComponent(msg), '_blank');
+  window.open('https://t.me/automation_landing_bot?text=' + encodeURIComponent(msg), '_blank');
   document.getElementById('formOk').classList.remove('hidden');
   form.reset();
   return false;
