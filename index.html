@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Andrei - AI-автоматизация бизнеса под ключ</title>
+<meta name="description" content="AI-агенты, интеграции, автоматизации для микробизнеса. Python, n8n, Claude, GPT. Прототип за 3-7 дней." />
+<meta property="og:title" content="Автоматизирую ваш бизнес - AI, n8n, Python" />
+<meta property="og:description" content="AI-агенты, интеграции и автоматизации, экономящие сотни часов." />
+<meta property="og:type" content="website" />
+<link rel="icon" type="image/png" href="avatar.png" />
+<link rel="apple-touch-icon" href="avatar.png" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] } } },
+  }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:#08090B; --panel:#0F1115; --panel-2:#0B0C10; --card:#0F1115;
+    --border:#1F2128; --border-soft:rgba(255,255,255,0.06);
+    --text:#E5E7EB; --text-muted:#9CA3AF; --text-dim:#6B7280;
+    --grid:rgba(255,255,255,0.03);
+    --glass:rgba(15,17,21,0.7); --glass-border:rgba(255,255,255,0.08);
+  }
+  html.light {
+    --bg:#FAFAFB; --panel:#F5F5F7; --panel-2:#FFFFFF; --card:#FFFFFF;
+    --border:#E5E7EB; --border-soft:rgba(0,0,0,0.08);
+    --text:#0F172A; --text-muted:#475569; --text-dim:#64748B;
+    --grid:rgba(0,0,0,0.05);
+    --glass:rgba(255,255,255,0.75); --glass-border:rgba(0,0,0,0.06);
+  }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; transition: background .25s ease, color .25s ease; }
+  .grid-bg {
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(124,92,255,0.18), transparent 40%),
+      radial-gradient(circle at 80% 30%, rgba(34,211,238,0.12), transparent 40%),
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: auto, auto, 44px 44px, 44px 44px;
+  }
+  .glass { background:var(--glass); backdrop-filter: blur(12px); border-bottom:1px solid var(--glass-border); }
+  .gradient-text { background:linear-gradient(90deg,#a78bfa 0%,#22d3ee 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .btn-primary { background:linear-gradient(90deg,#7C5CFF,#22D3EE); color:#0B0B10; font-weight:700; transition:all .2s ease; }
+  .btn-primary:hover { filter:brightness(1.1); transform:translateY(-1px); }
+  .card { background:var(--card); border:1px solid var(--border); transition:all .2s ease; }
+  .card:hover { transform:translateY(-2px); }
+  html.dark .card:hover { border-color:#2A2D36; }
+  html.light .card:hover { border-color:#CBD5E1; box-shadow:0 6px 20px rgba(15,23,42,0.06); }
+  .panel-soft { background:var(--panel); }
+  .border-soft { border-color:var(--border-soft); }
+  .text-muted { color:var(--text-muted); }
+  .text-dim { color:var(--text-dim); }
+  .pill { background:rgba(124,92,255,0.12); border:1px solid rgba(124,92,255,0.3); color:#8B5CF6; }
+  html.light .pill { color:#6D28D9; }
+  .dot { width:8px; height:8px; border-radius:9999px; background:#34D399; box-shadow:0 0 12px #34D399; }
+  details[open] summary .chev { transform:rotate(180deg); }
+  .chev { transition:transform .2s ease; display:inline-block; }
+  .marquee { mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+  .marquee-track { animation: scroll 30s linear infinite; }
+  @keyframes scroll { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+  input, textarea, select { background:var(--panel-2); border:1px solid var(--border); color:var(--text); }
+  input:focus, textarea:focus, select:focus { outline:none; border-color:#7C5CFF; box-shadow:0 0 0 3px rgba(124,92,255,0.2); }
+  .chip { border:1px solid var(--border); background:var(--panel-2); padding:.35rem .6rem; border-radius:.5rem; font-size:.8rem; color:var(--text-muted); cursor:pointer; transition:all .15s ease; }
+  .chip:hover { color:var(--text); }
+  .chip.active { border-color:#7C5CFF; color:#7C5CFF; background:rgba(124,92,255,0.08); }
+  .icon-btn { width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center; border-radius:.5rem; border:1px solid var(--border); background:var(--panel-2); color:var(--text-muted); cursor:pointer; transition:all .15s ease; }
+  .icon-btn:hover { color:var(--text); }
+  .divider-y { border-top:1px solid var(--border-soft); border-bottom:1px solid var(--border-soft); }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- NAV -->
+<header class="sticky top-0 z-50 glass">
+  <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between gap-3">
+    <a href="#top" class="flex items-center gap-2 font-bold">
+      <img src="avatar.png" alt="logo" class="w-9 h-9 rounded-lg" style="background:#1B1E3A;object-fit:cover;" />
+      <span>Andrei <span class="text-dim font-normal">· automation</span></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-6 text-sm text-muted">
+      <a href="#services" class="hover:opacity-100 opacity-80" data-i18n="nav.services">Услуги</a>
+      <a href="#cases" class="hover:opacity-100 opacity-80" data-i18n="nav.cases">Кейсы</a>
+      <a href="#process" class="hover:opacity-100 opacity-80" data-i18n="nav.process">Процесс</a>
+      <a href="#pricing" class="hover:opacity-100 opacity-80" data-i18n="nav.pricing">Тарифы</a>
+      <a href="#faq" class="hover:opacity-100 opacity-80">FAQ</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <select id="langSelect" class="chip !py-1.5 !pr-7" aria-label="Language">
+        <option value="ru">RU</option>
+        <option value="en">EN</option>
+        <option value="pl">PL</option>
+      </select>
+      <button id="themeToggle" class="icon-btn" aria-label="Theme">
+        <span id="themeIcon">🌙</span>
+      </button>
+      <a href="#contact" class="btn-primary px-4 py-2 rounded-lg text-sm hidden sm:inline-block" data-i18n="nav.cta">Аудит</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" class="grid-bg">
+  <div class="max-w-6xl mx-auto px-5 pt-20 pb-24">
+    <div class="flex items-center gap-2 mb-6">
+      <span class="dot"></span>
+      <span class="text-sm text-muted" data-i18n="hero.slots">Беру 2 проекта в работу в этом месяце</span>
+    </div>
+    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
+      <span data-i18n="hero.title1">Автоматизирую ваш бизнес</span><br />
+      <span class="gradient-text" data-i18n="hero.title2">за 3-7 дней до рабочего прототипа</span>
+    </h1>
+    <p class="mt-6 text-lg md:text-xl text-muted max-w-2xl" data-i18n="hero.sub">
+      Строю AI-агентов, интеграции и автоматизации, которые убирают ручную работу и экономят десятки часов в неделю. Python, n8n, Claude, GPT, Voice API.
+    </p>
+    <div class="mt-8 flex flex-col sm:flex-row gap-3">
+      <a href="#contact" class="btn-primary px-6 py-3 rounded-xl text-base" data-i18n="hero.cta1">Получить бесплатный аудит</a>
+      <a href="#cases" class="px-6 py-3 rounded-xl border border-soft hover:opacity-80 text-center" data-i18n="hero.cta2">Смотреть кейсы</a>
+    </div>
+
+    <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="card rounded-2xl p-5"><div class="text-3xl font-bold gradient-text">3+</div><div class="text-sm text-muted mt-1" data-i18n="hero.m1">production-ботов в работе</div></div>
+      <div class="card rounded-2xl p-5"><div class="text-3xl font-bold gradient-text">80%</div><div class="text-sm text-muted mt-1" data-i18n="hero.m2">экономия токенов LLM через pre-filter</div></div>
+      <div class="card rounded-2xl p-5"><div class="text-3xl font-bold gradient-text">24/7</div><div class="text-sm text-muted mt-1" data-i18n="hero.m3">автономная работа на VPS</div></div>
+      <div class="card rounded-2xl p-5"><div class="text-3xl font-bold gradient-text" data-i18n="hero.m4v">1 день</div><div class="text-sm text-muted mt-1" data-i18n="hero.m4">от идеи до MVP на n8n</div></div>
+    </div>
+  </div>
+
+  <div class="divider-y panel-soft py-5 marquee overflow-hidden">
+    <div class="marquee-track flex gap-10 whitespace-nowrap text-dim text-sm px-5">
+      <span>Python</span><span>·</span><span>n8n</span><span>·</span><span>Make</span><span>·</span><span>Zapier</span><span>·</span><span>Claude</span><span>·</span><span>GPT-4o</span><span>·</span><span>FastAPI</span><span>·</span><span>aiogram</span><span>·</span><span>PostgreSQL</span><span>·</span><span>Redis</span><span>·</span><span>Docker</span><span>·</span><span>Whisper</span><span>·</span><span>Voice API</span><span>·</span><span>Telegram Mini App</span><span>·</span><span>WhatsApp</span><span>·</span><span>NocoDB</span><span>·</span><span>Supabase</span>
+      <span>Python</span><span>·</span><span>n8n</span><span>·</span><span>Make</span><span>·</span><span>Zapier</span><span>·</span><span>Claude</span><span>·</span><span>GPT-4o</span><span>·</span><span>FastAPI</span><span>·</span><span>aiogram</span><span>·</span><span>PostgreSQL</span><span>·</span><span>Redis</span><span>·</span><span>Docker</span><span>·</span><span>Whisper</span><span>·</span><span>Voice API</span><span>·</span><span>Telegram Mini App</span><span>·</span><span>WhatsApp</span><span>·</span><span>NocoDB</span><span>·</span><span>Supabase</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="py-24">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="flex items-end justify-between flex-wrap gap-4 mb-10">
+      <div>
+        <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="serv.pill">Что я делаю</div>
+        <h2 class="text-3xl md:text-4xl font-bold" data-i18n="serv.title">Полный цикл автоматизации - от идеи до продакшена</h2>
+      </div>
+      <p class="text-muted max-w-md" data-i18n="serv.sub">Не просто «собираю сценарии». Проектирую архитектуру, пишу код, деплою на ваш сервер, передаю с документацией.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">🤖</div><h3 class="font-semibold text-lg" data-i18n="serv.c1.t">AI-агенты и чат-боты</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c1.d">Telegram, WhatsApp, Web. Claude/GPT + память, Function Calling, интеграция с CRM и базой знаний.</p></div>
+      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">📱</div><h3 class="font-semibold text-lg" data-i18n="serv.c2.t">Telegram Mini App</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c2.d">Полноценные веб-приложения внутри Telegram: каталоги, записи, оплаты, личный кабинет.</p></div>
+      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">🔗</div><h3 class="font-semibold text-lg" data-i18n="serv.c3.t">Интеграции любых API</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c3.d">CRM, платёжки, почта, гугл-таблицы, 1С, маркетплейсы. Связываю в единый поток.</p></div>
+      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">⚙️</div><h3 class="font-semibold text-lg" data-i18n="serv.c4.t">n8n / Make / Zapier</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c4.d">Быстрый MVP за 1-3 дня. Если no-code «не тянет» - переписываю критичное на Python.</p></div>
+      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">📞</div><h3 class="font-semibold text-lg" data-i18n="serv.c5.t">Voice-роботы и IVR</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c5.d">Голосовые ассистенты на Voice API + Whisper + LLM. Входящие, опросы, квалификация лидов.</p></div>
+      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">🧠</div><h3 class="font-semibold text-lg" data-i18n="serv.c6.t">Prompt Engineering</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c6.d">Системные промпты, пайплайны, XML-структуры, prompt caching. До 80% экономии на токенах.</p></div>
+      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">📊</div><h3 class="font-semibold text-lg" data-i18n="serv.c7.t">Дашборды и отчёты</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c7.d">Автоматические отчёты в Telegram/Email, BI-дашборды на NocoDB / Metabase, live-метрики.</p></div>
+      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">🧾</div><h3 class="font-semibold text-lg" data-i18n="serv.c8.t">Генерация документов</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c8.d">Договоры, акты, КП по шаблонам. Авто-заполнение из CRM, подпись, отправка клиенту.</p></div>
+      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">🚀</div><h3 class="font-semibold text-lg" data-i18n="serv.c9.t">MVP за 5-10 дней</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c9.d">VibeCoding: AI-ускоренная разработка. Проверяю гипотезу быстро и дёшево.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TASKS -->
+<section class="py-20 panel-soft divider-y">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="tasks.pill">Какие задачи закрываю</div>
+    <h2 class="text-3xl md:text-4xl font-bold mb-10" data-i18n="tasks.title">Переводим рутину на автопилот</h2>
+    <div class="grid md:grid-cols-2 gap-3">
+      <div class="flex items-start gap-3 p-4 rounded-xl border border-soft hover:opacity-90"><span style="color:#34D399">✓</span><div data-i18n="tasks.1"><b>Автоматизация продаж.</b> Лид → CRM → квалификация AI → распределение менеджеру → напоминания → отчёт руководителю.</div></div>
+      <div class="flex items-start gap-3 p-4 rounded-xl border border-soft hover:opacity-90"><span style="color:#34D399">✓</span><div data-i18n="tasks.2"><b>Обработка заявок 24/7.</b> Бот принимает, классифицирует, отвечает на 80% типовых вопросов, эскалирует сложные.</div></div>
+      <div class="flex items-start gap-3 p-4 rounded-xl border border-soft hover:opacity-90"><span style="color:#34D399">✓</span><div data-i18n="tasks.3"><b>Логистика и диспетчеризация.</b> Авто-распределение заказов, уведомления клиентам, трекинг, сводки водителям.</div></div>
+      <div class="flex items-start gap-3 p-4 rounded-xl border border-soft hover:opacity-90"><span style="color:#34D399">✓</span><div data-i18n="tasks.4"><b>Голосовые роботы.</b> Исходящие опросы, подтверждения записи, холодный обзвон с AI-диалогом.</div></div>
+      <div class="flex items-start gap-3 p-4 rounded-xl border border-soft hover:opacity-90"><span style="color:#34D399">✓</span><div data-i18n="tasks.5"><b>Аналитика и отчёты.</b> Ежедневные сводки продаж, P&L, KPI команды - сразу в Telegram руководителю.</div></div>
+      <div class="flex items-start gap-3 p-4 rounded-xl border border-soft hover:opacity-90"><span style="color:#34D399">✓</span><div data-i18n="tasks.6"><b>AI-ассистенты для сотрудников.</b> Бот по базе знаний компании: регламенты, скрипты, ответы на вопросы.</div></div>
+      <div class="flex items-start gap-3 p-4 rounded-xl border border-soft hover:opacity-90"><span style="color:#34D399">✓</span><div data-i18n="tasks.7"><b>Контент-фабрика.</b> Авто-генерация постов, картинок, озвучки, публикация в TG / IG / YT.</div></div>
+      <div class="flex items-start gap-3 p-4 rounded-xl border border-soft hover:opacity-90"><span style="color:#34D399">✓</span><div data-i18n="tasks.8"><b>RPA-рутина.</b> Парсинг, выгрузки, сверки, перенос данных между системами без «ручной копипасты».</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section id="cases" class="py-24">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="cases.pill">Production-кейсы</div>
+    <h2 class="text-3xl md:text-4xl font-bold mb-3" data-i18n="cases.title">Реальные продукты, которые работают прямо сейчас</h2>
+    <p class="text-muted mb-10 max-w-2xl" data-i18n="cases.sub">Не «выдуманные скриншоты», а действующие системы на серверах. Код на GitHub, демо по запросу.</p>
+
+    <div class="grid md:grid-cols-3 gap-4">
+      <!-- ГраФин -->
+      <div class="card rounded-2xl p-6">
+        <div class="flex items-center gap-2 text-xs text-muted mb-3"><span class="dot"></span> <span data-i18n="cases.live">В продакшене</span></div>
+        <h3 class="text-xl font-bold" data-i18n="cases.c1.t">ГраФин - образовательный бот</h3>
+        <p class="text-muted text-sm mt-2" data-i18n="cases.c1.d">5-дневный курс в Telegram с приёмом платежей, FSM, напоминаниями и выдачей контента по расписанию. + отдельный AI-ассистент для чата курса.</p>
+        <ul class="text-sm mt-4 space-y-1">
+          <li data-i18n="cases.c1.l1">→ aiogram 3, PostgreSQL, Redis, bePaid</li>
+          <li data-i18n="cases.c1.l2">→ grafin-assistant: AI-бот поддержки в чате</li>
+          <li data-i18n="cases.c1.l3">→ могу собрать Telegram Mini App (каталог, оплаты, ЛК)</li>
+        </ul>
+        <div class="mt-5 pt-4 border-t border-soft text-sm">
+          <span class="text-muted" data-i18n="cases.result">Результат:</span> <b style="color:#34D399" data-i18n="cases.c1.r">продаёт 24/7 без участия владельца</b>
+        </div>
+      </div>
+
+      <!-- SP500 -->
+      <div class="card rounded-2xl p-6">
+        <div class="flex items-center gap-2 text-xs text-muted mb-3"><span class="dot"></span> <span data-i18n="cases.live">В продакшене</span></div>
+        <h3 class="text-xl font-bold" data-i18n="cases.c2.t">S&P 500 Analyzer</h3>
+        <p class="text-muted text-sm mt-2" data-i18n="cases.c2.d">Автоматический анализ 500 акций, scoring 0-100 (technical + fundamental + sentiment), сигналы каждые 15 минут.</p>
+        <ul class="text-sm mt-4 space-y-1">
+          <li data-i18n="cases.c2.l1">→ Python + yfinance + Finnhub + GPT-4o</li>
+          <li data-i18n="cases.c2.l2">→ SQLite WAL, systemd, бэктест 365 дней</li>
+          <li data-i18n="cases.c2.l3">→ 11 команд, авто-отчёты Пн/Ср/Пт</li>
+        </ul>
+        <div class="mt-5 pt-4 border-t border-soft text-sm">
+          <span class="text-muted" data-i18n="cases.result">Результат:</span> <b style="color:#34D399" data-i18n="cases.c2.r">Win rate 56%, profit factor 1.12</b>
+        </div>
+      </div>
+
+      <!-- Travel Sentinel -->
+      <div class="card rounded-2xl p-6">
+        <div class="flex items-center gap-2 text-xs text-muted mb-3"><span class="dot"></span> <span data-i18n="cases.live">В продакшене</span></div>
+        <h3 class="text-xl font-bold" data-i18n="cases.c3.t">Travel Sentinel</h3>
+        <p class="text-muted text-sm mt-2" data-i18n="cases.c3.d">AI-агент мониторит туры, авиабилеты и круизы, проверяет визовые требования, алертит на падение цен.</p>
+        <ul class="text-sm mt-4 space-y-1">
+          <li data-i18n="cases.c3.l1">→ n8n + Claude 3.5 Sonnet (оркестрация)</li>
+          <li data-i18n="cases.c3.l2">→ FastAPI + PostgreSQL + Aviasales/Travelata</li>
+          <li data-i18n="cases.c3.l3">→ Brave Search для визовой разведки</li>
+        </ul>
+        <div class="mt-5 pt-4 border-t border-soft text-sm">
+          <span class="text-muted" data-i18n="cases.result">Результат:</span> <b style="color:#34D399" data-i18n="cases.c3.r">экономия 20-40% на турах, кеш виз</b>
+        </div>
+      </div>
+
+      <!-- MedAI -->
+      <div class="card rounded-2xl p-6">
+        <div class="flex items-center gap-2 text-xs text-muted mb-3"><span class="dot"></span> <span data-i18n="cases.live">В продакшене</span></div>
+        <h3 class="text-xl font-bold" data-i18n="cases.c4.t">MedAI - личный медицинский ассистент</h3>
+        <p class="text-muted text-sm mt-2" data-i18n="cases.c4.d">Приватный Telegram-бот: загрузка анализов (PDF/фото), голосовые жалобы, тренд-графики, экспорт для врача.</p>
+        <ul class="text-sm mt-4 space-y-1">
+          <li data-i18n="cases.c4.l1">→ aiogram 3, PostgreSQL, Alembic</li>
+          <li data-i18n="cases.c4.l2">→ GPT-4o + Whisper + Vision</li>
+          <li data-i18n="cases.c4.l3">→ Fernet-шифрование, анонимизация перед LLM</li>
+        </ul>
+        <div class="mt-5 pt-4 border-t border-soft text-sm">
+          <span class="text-muted" data-i18n="cases.result">Результат:</span> <b style="color:#34D399" data-i18n="cases.c4.r">безопасное хранение мед-данных, proactive напоминания</b>
+        </div>
+      </div>
+
+      <!-- grafin-assistant -->
+      <div class="card rounded-2xl p-6">
+        <div class="flex items-center gap-2 text-xs text-muted mb-3"><span class="dot"></span> <span data-i18n="cases.live">В продакшене</span></div>
+        <h3 class="text-xl font-bold">grafin-assistant</h3>
+        <p class="text-muted text-sm mt-2" data-i18n="cases.c5.d">AI-бот поддержки в чате образовательного курса: отвечает на вопросы учеников по базе знаний 24/7.</p>
+        <ul class="text-sm mt-4 space-y-1">
+          <li data-i18n="cases.c5.l1">→ Claude + RAG по материалам курса</li>
+          <li data-i18n="cases.c5.l2">→ Разгружает автора от рутины</li>
+          <li data-i18n="cases.c5.l3">→ Эскалирует сложные вопросы человеку</li>
+        </ul>
+        <div class="mt-5 pt-4 border-t border-soft text-sm">
+          <span class="text-muted" data-i18n="cases.result">Результат:</span> <b style="color:#34D399" data-i18n="cases.c5.r">-70% нагрузки на саппорт</b>
+        </div>
+      </div>
+
+      <!-- Ваш -->
+      <div class="card rounded-2xl p-6 flex flex-col justify-between" style="background:linear-gradient(135deg,rgba(124,92,255,0.12),rgba(34,211,238,0.08));">
+        <div>
+          <div class="text-xs text-muted mb-3" data-i18n="cases.next">Следующий кейс</div>
+          <h3 class="text-xl font-bold" data-i18n="cases.your.t">Ваш проект</h3>
+          <p class="text-muted text-sm mt-2" data-i18n="cases.your.d">Бесплатный аудит, архитектура за 2 дня, прототип за неделю. Разберу вашу задачу честно, без «продажи воздуха».</p>
+        </div>
+        <a href="#contact" class="btn-primary mt-5 px-5 py-3 rounded-lg text-center" data-i18n="cases.your.cta">Обсудить задачу</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="py-24 panel-soft divider-y">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="proc.pill">Как я работаю</div>
+    <h2 class="text-3xl md:text-4xl font-bold mb-10" data-i18n="proc.title">6 шагов. Без сюрпризов и «ещё месяц-другой»</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="card rounded-2xl p-6"><div class="font-bold text-sm mb-2" style="color:#a78bfa" data-i18n="proc.s1.n">Шаг 01 · 0</div><h3 class="font-semibold" data-i18n="proc.s1.t">Бесплатный аудит</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s1.d">30-минутный созвон. Разбираю ваши процессы, показываю, где деньги текут мимо кассы.</p></div>
+      <div class="card rounded-2xl p-6"><div class="font-bold text-sm mb-2" style="color:#a78bfa" data-i18n="proc.s2.n">Шаг 02 · 1-2 дня</div><h3 class="font-semibold" data-i18n="proc.s2.t">Архитектура</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s2.d">Схема решения, стек, сроки, бюджет. Письменно, без двусмысленностей.</p></div>
+      <div class="card rounded-2xl p-6"><div class="font-bold text-sm mb-2" style="color:#a78bfa" data-i18n="proc.s3.n">Шаг 03 · 3-14 дней</div><h3 class="font-semibold" data-i18n="proc.s3.t">Разработка</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s3.d">Код, интеграции, промпты. Прогресс каждые 2-3 дня, вы видите, за что платите.</p></div>
+      <div class="card rounded-2xl p-6"><div class="font-bold text-sm mb-2" style="color:#a78bfa" data-i18n="proc.s4.n">Шаг 04</div><h3 class="font-semibold" data-i18n="proc.s4.t">Тестирование</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s4.d">Прогон на ваших кейсах. Ловлю edge-cases до прода, а не после жалоб.</p></div>
+      <div class="card rounded-2xl p-6"><div class="font-bold text-sm mb-2" style="color:#a78bfa" data-i18n="proc.s5.n">Шаг 05</div><h3 class="font-semibold" data-i18n="proc.s5.t">Запуск</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s5.d">Деплой на ваш VPS, документация, видео-инструкция для команды.</p></div>
+      <div class="card rounded-2xl p-6"><div class="font-bold text-sm mb-2" style="color:#a78bfa" data-i18n="proc.s6.n">Шаг 06</div><h3 class="font-semibold" data-i18n="proc.s6.t">Поддержка</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s6.d">30 дней гарантии бесплатно. Дальше - абонемент или работа по часам.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="py-24">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="why.pill">Почему я</div>
+        <h2 class="text-3xl md:text-4xl font-bold mb-6" data-i18n="why.title">Инженер-прикладник, а не «кнопочник в n8n»</h2>
+        <p class="text-muted" data-i18n="why.sub">Большинство «автоматизаторов» останавливаются там, где no-code упирается в лимиты. Я дохожу до Python, async, retry-логики и prompt caching - в проде решают эти детали.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="card rounded-2xl p-5"><div class="text-2xl">⚡</div><div class="font-semibold mt-2" data-i18n="why.b1.t">Быстро</div><div class="text-sm text-muted" data-i18n="why.b1.d">Прототип за дни</div></div>
+        <div class="card rounded-2xl p-5"><div class="text-2xl">🎯</div><div class="font-semibold mt-2" data-i18n="why.b2.t">Чётко</div><div class="text-sm text-muted" data-i18n="why.b2.d">Фикс-цена и фикс-срок</div></div>
+        <div class="card rounded-2xl p-5"><div class="text-2xl">🔍</div><div class="font-semibold mt-2" data-i18n="why.b3.t">Прозрачно</div><div class="text-sm text-muted" data-i18n="why.b3.d">Код на GitHub, доступ у вас</div></div>
+        <div class="card rounded-2xl p-5"><div class="text-2xl">🛡️</div><div class="font-semibold mt-2" data-i18n="why.b4.t">Надёжно</div><div class="text-sm text-muted" data-i18n="why.b4.d">Retry, логи, бэкапы</div></div>
+        <div class="card rounded-2xl p-5"><div class="text-2xl">🧩</div><div class="font-semibold mt-2" data-i18n="why.b5.t">Без вендор-лока</div><div class="text-sm text-muted" data-i18n="why.b5.d">Свой сервер, свои ключи</div></div>
+        <div class="card rounded-2xl p-5"><div class="text-2xl">💸</div><div class="font-semibold mt-2" data-i18n="why.b6.t">Экономно</div><div class="text-sm text-muted" data-i18n="why.b6.d">Prompt caching режет LLM-бюджет</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROI CALCULATOR -->
+<section class="py-20 panel-soft divider-y">
+  <div class="max-w-4xl mx-auto px-5">
+    <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="calc.pill">Калькулятор</div>
+    <h2 class="text-3xl md:text-4xl font-bold mb-2" data-i18n="calc.title">Сколько вы теряете на ручной работе</h2>
+    <p class="text-muted mb-8" data-i18n="calc.sub">Прикиньте за 10 секунд. Цифры остаются у вас в браузере.</p>
+
+    <div class="card rounded-2xl p-6 md:p-8">
+      <div class="flex items-center gap-2 mb-5 flex-wrap">
+        <span class="text-sm text-muted mr-1" data-i18n="calc.currency">Валюта:</span>
+        <button class="chip currency-chip" data-cur="USD">$ USD</button>
+        <button class="chip currency-chip" data-cur="EUR">€ EUR</button>
+        <button class="chip currency-chip" data-cur="PLN">zł PLN</button>
+        <button class="chip currency-chip" data-cur="BYN">Br BYN</button>
+        <button class="chip currency-chip" data-cur="RUB">₽ RUB</button>
+      </div>
+      <div class="grid md:grid-cols-3 gap-5">
+        <label class="block">
+          <span class="text-sm text-muted" data-i18n="calc.hours">Часов в день на рутину</span>
+          <input id="hours" type="number" min="0" step="0.5" value="3" class="mt-2 w-full rounded-lg px-3 py-2" />
+        </label>
+        <label class="block">
+          <span class="text-sm text-muted"><span data-i18n="calc.rate">Стоимость часа</span>, <span class="cur-label">$</span></span>
+          <input id="rate" type="number" min="0" value="15" class="mt-2 w-full rounded-lg px-3 py-2" />
+        </label>
+        <label class="block">
+          <span class="text-sm text-muted" data-i18n="calc.people">Сотрудников на этой рутине</span>
+          <input id="people" type="number" min="1" value="1" class="mt-2 w-full rounded-lg px-3 py-2" />
+        </label>
+      </div>
+      <div class="mt-6 grid md:grid-cols-3 gap-3 text-center">
+        <div class="rounded-xl border border-soft p-5"><div class="text-sm text-muted" data-i18n="calc.monthly">Потери в месяц</div><div id="monthly" class="text-2xl font-bold mt-1">-</div></div>
+        <div class="rounded-xl border border-soft p-5"><div class="text-sm text-muted" data-i18n="calc.yearly">Потери в год</div><div id="yearly" class="text-2xl font-bold gradient-text mt-1">-</div></div>
+        <div class="rounded-xl border border-soft p-5"><div class="text-sm text-muted" data-i18n="calc.payback">Окупаемость автоматизации</div><div id="payback" class="text-2xl font-bold mt-1" style="color:#34D399">-</div></div>
+      </div>
+      <p class="text-xs text-dim mt-4" data-i18n="calc.note">Расчёт: часы × ставка × 22 рабочих дня × сотрудников. Окупаемость против пакета «Стандарт».</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="py-24">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="price.pill">Тарифы</div>
+    <h2 class="text-3xl md:text-4xl font-bold mb-3" data-i18n="price.title">Прозрачные пакеты. Без «обсудим по факту»</h2>
+    <p class="text-muted mb-10" data-i18n="price.sub">Фикс-цена согласуем на аудите. Ниже - ориентир, чтобы вы понимали порядок бюджета.</p>
+
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="card rounded-2xl p-6">
+        <div class="text-sm text-muted" data-i18n="price.p1.n">Мини</div>
+        <div class="text-3xl font-bold mt-1"><span class="price" data-min="300" data-max="500">-</span></div>
+        <p class="text-sm text-muted mt-2" data-i18n="price.p1.d">Точечная автоматизация 1 процесса</p>
+        <ul class="text-sm mt-5 space-y-2">
+          <li data-i18n="price.p1.l1">✓ 1 сценарий в n8n / Make</li>
+          <li data-i18n="price.p1.l2">✓ До 3 интеграций (CRM, почта, TG)</li>
+          <li data-i18n="price.p1.l3">✓ Срок 3-5 дней</li>
+          <li data-i18n="price.p1.l4">✓ Инструкция + 14 дней поддержки</li>
+        </ul>
+        <a href="#contact" class="block text-center mt-6 px-4 py-2 rounded-lg border border-soft hover:opacity-80" data-i18n="price.choose">Выбрать</a>
+      </div>
+
+      <div class="card rounded-2xl p-6 relative" style="border-color:#7C5CFF;">
+        <div class="absolute -top-3 left-6 text-xs px-2 py-1 rounded-full" style="background:#7C5CFF;color:#0B0B10;font-weight:700;" data-i18n="price.popular">Популярный</div>
+        <div class="text-sm text-muted" data-i18n="price.p2.n">Стандарт</div>
+        <div class="text-3xl font-bold mt-1"><span class="price" data-min="800" data-max="1500">-</span></div>
+        <p class="text-sm text-muted mt-2" data-i18n="price.p2.d">AI-бот или многошаговая автоматизация</p>
+        <ul class="text-sm mt-5 space-y-2">
+          <li data-i18n="price.p2.l1">✓ Telegram / WhatsApp / Web-бот</li>
+          <li data-i18n="price.p2.l2">✓ LLM-агент с памятью и Function Calling</li>
+          <li data-i18n="price.p2.l3">✓ База данных + админка</li>
+          <li data-i18n="price.p2.l4">✓ Деплой на VPS, логи, бэкапы</li>
+          <li data-i18n="price.p2.l5">✓ Срок 7-14 дней, 30 дней поддержки</li>
+        </ul>
+        <a href="#contact" class="block text-center mt-6 px-4 py-2 rounded-lg btn-primary" data-i18n="price.choose">Выбрать</a>
+      </div>
+
+      <div class="card rounded-2xl p-6">
+        <div class="text-sm text-muted" data-i18n="price.p3.n">Премиум</div>
+        <div class="text-3xl font-bold mt-1"><span data-i18n="price.from">от</span> <span class="price" data-min="2000" data-max="0">-</span></div>
+        <p class="text-sm text-muted mt-2" data-i18n="price.p3.d">Полноценный AI-продукт или MVP</p>
+        <ul class="text-sm mt-5 space-y-2">
+          <li data-i18n="price.p3.l1">✓ Кастомный backend (FastAPI)</li>
+          <li data-i18n="price.p3.l2">✓ Voice API, голосовой робот</li>
+          <li data-i18n="price.p3.l3">✓ Мульти-агентная архитектура</li>
+          <li data-i18n="price.p3.l4">✓ Дашборды, роли, права</li>
+          <li data-i18n="price.p3.l5">✓ Срок 3-6 недель, SLA</li>
+        </ul>
+        <a href="#contact" class="block text-center mt-6 px-4 py-2 rounded-lg border border-soft hover:opacity-80" data-i18n="price.discuss">Обсудить</a>
+      </div>
+    </div>
+    <p class="text-xs text-dim mt-6" data-i18n="price.legal">Оплата в USD / EUR / PLN / BYN / RUB / USDT. Самозанятый (Беларусь), закрывающие документы предоставляю.</p>
+  </div>
+</section>
+
+<!-- CTA FORM -->
+<section id="contact" class="py-24">
+  <div class="max-w-3xl mx-auto px-5">
+    <div class="card rounded-3xl p-8 md:p-10" style="background:radial-gradient(circle at 0% 0%,rgba(124,92,255,0.15),transparent 50%),var(--card);">
+      <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="form.pill">Заявка</div>
+      <h2 class="text-3xl md:text-4xl font-bold" data-i18n="form.title">Оставьте заявку - пришлю 3 варианта автоматизации под вашу задачу</h2>
+      <p class="text-muted mt-3" data-i18n="form.sub">Отвечу в течение 4 часов в рабочее время. Без спама и автоворонок.</p>
+
+      <form id="leadForm" class="mt-6 grid gap-3" onsubmit="return submitLead(event)">
+        <input required name="name" data-i18n-ph="form.name" placeholder="Ваше имя" class="rounded-lg px-4 py-3" />
+        <input required name="contact" data-i18n-ph="form.contact" placeholder="Telegram @username или email" class="rounded-lg px-4 py-3" />
+        <textarea name="task" rows="3" data-i18n-ph="form.task" placeholder="В 1-2 предложениях: что болит, что хочется автоматизировать" class="rounded-lg px-4 py-3"></textarea>
+        <button type="submit" class="btn-primary rounded-lg px-5 py-3 mt-1" data-i18n="form.submit">Получить бесплатный аудит</button>
+        <p class="text-xs text-dim" data-i18n="form.privacy">Нажимая кнопку, вы соглашаетесь на обработку данных. Не передаю третьим лицам.</p>
+        <div id="formOk" class="hidden text-sm" style="color:#34D399" data-i18n="form.ok">Заявка отправлена. Напишу в течение нескольких часов.</div>
+      </form>
+
+      <div class="mt-8 pt-6 border-t border-soft flex flex-wrap gap-5 text-sm">
+        <a href="https://t.me/IDonRumata" class="hover:opacity-80">💬 Telegram: @IDonRumata</a>
+        <a href="mailto:andrei.maroz.eu@gmail.com" class="hover:opacity-80">✉️ andrei.maroz.eu@gmail.com</a>
+        <a href="https://github.com/IDonRumata" class="hover:opacity-80">💻 github.com/IDonRumata</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="py-24 panel-soft" style="border-top:1px solid var(--border-soft);">
+  <div class="max-w-3xl mx-auto px-5">
+    <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3">FAQ</div>
+    <h2 class="text-3xl md:text-4xl font-bold mb-8" data-i18n="faq.title">Частые вопросы</h2>
+    <div class="space-y-3">
+      <details class="card rounded-xl p-5"><summary class="flex justify-between cursor-pointer font-semibold" data-i18n="faq.q1">Сколько реально займёт проект?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a1">Простая автоматизация - 3-5 дней. Telegram-бот с AI - 1-2 недели. Сложный MVP - 3-6 недель. Точный срок фиксируем после аудита.</p></details>
+      <details class="card rounded-xl p-5"><summary class="flex justify-between cursor-pointer font-semibold" data-i18n="faq.q2">Что, если я не разбираюсь в технологиях?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a2">Это норма. На аудите говорю на вашем языке - в деньгах и часах. Технические решения принимаю сам.</p></details>
+      <details class="card rounded-xl p-5"><summary class="flex justify-between cursor-pointer font-semibold" data-i18n="faq.q3">Где будут жить мои данные?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a3">На вашем сервере или вашем аккаунте у провайдера (OpenAI, Anthropic). Ключи - ваши. Без привязки ко мне.</p></details>
+      <details class="card rounded-xl p-5"><summary class="flex justify-between cursor-pointer font-semibold" data-i18n="faq.q4">Даёте ли гарантию?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a4">30 дней бесплатной поддержки на все баги. Если не работает как договорились - возврат 100%. В договоре.</p></details>
+      <details class="card rounded-xl p-5"><summary class="flex justify-between cursor-pointer font-semibold" data-i18n="faq.q5">Работаете с клиентами из ЕС / СНГ?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a5">Да. Оплата USD / EUR / PLN / BYN / RUB / USDT. Документы корректно под юрисдикцию.</p></details>
+      <details class="card rounded-xl p-5"><summary class="flex justify-between cursor-pointer font-semibold" data-i18n="faq.q6">А если GPT / n8n «отвалится»?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a6">Архитектура модульная: LLM-провайдер меняется через конфиг, n8n-ноды - на Python. Vendor lock мой враг.</p></details>
+      <details class="card rounded-xl p-5"><summary class="flex justify-between cursor-pointer font-semibold" data-i18n="faq.q7">Можно ли без предоплаты?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a7">Стандарт: 50% до старта, 50% после сдачи. На малых задачах (до $300) - по факту. Аудит всегда бесплатный.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-10" style="border-top:1px solid var(--border-soft);">
+  <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row justify-between gap-4 text-sm text-dim">
+    <div>© <span id="year"></span> Andrei · <span data-i18n="foot.legal">Самозанятый, Республика Беларусь · УНП по запросу</span></div>
+    <div class="flex gap-4">
+      <a href="#top" class="hover:opacity-80" data-i18n="foot.top">Наверх</a>
+      <a href="#contact" class="hover:opacity-80" data-i18n="foot.contact">Связаться</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#contact" class="md:hidden fixed bottom-4 left-4 right-4 btn-primary text-center py-3 rounded-xl shadow-xl z-40" data-i18n="nav.cta">Аудит</a>
+
+<script>
+/* ====== i18n ====== */
+const I18N = {
+  ru: {
+    "nav.services":"Услуги","nav.cases":"Кейсы","nav.process":"Процесс","nav.pricing":"Тарифы","nav.cta":"Аудит",
+    "hero.slots":"Беру 2 проекта в работу в этом месяце",
+    "hero.title1":"Автоматизирую ваш бизнес",
+    "hero.title2":"за 3-7 дней до рабочего прототипа",
+    "hero.sub":"Строю AI-агентов, интеграции и автоматизации, которые убирают ручную работу и экономят десятки часов в неделю. Python, n8n, Claude, GPT, Voice API.",
+    "hero.cta1":"Получить бесплатный аудит","hero.cta2":"Смотреть кейсы",
+    "hero.m1":"production-ботов в работе","hero.m2":"экономия токенов LLM через pre-filter","hero.m3":"автономная работа на VPS","hero.m4":"от идеи до MVP на n8n","hero.m4v":"1 день",
+    "serv.pill":"Что я делаю","serv.title":"Полный цикл автоматизации - от идеи до продакшена","serv.sub":"Проектирую архитектуру, пишу код, деплою на ваш сервер, передаю с документацией.",
+    "serv.c1.t":"AI-агенты и чат-боты","serv.c1.d":"Telegram, WhatsApp, Web. Claude/GPT + память, Function Calling, интеграция с CRM.",
+    "serv.c2.t":"Telegram Mini App","serv.c2.d":"Полноценные веб-приложения внутри Telegram: каталоги, записи, оплаты, личный кабинет.",
+    "serv.c3.t":"Интеграции любых API","serv.c3.d":"CRM, платёжки, почта, таблицы, 1С, маркетплейсы. Связываю в единый поток.",
+    "serv.c4.t":"n8n / Make / Zapier","serv.c4.d":"Быстрый MVP за 1-3 дня. Если no-code упёрся - переписываю критичное на Python.",
+    "serv.c5.t":"Voice-роботы и IVR","serv.c5.d":"Голосовые ассистенты: Voice API + Whisper + LLM. Входящие, опросы, квалификация.",
+    "serv.c6.t":"Prompt Engineering","serv.c6.d":"Промпты, пайплайны, XML-структуры, prompt caching. До 80% экономии на токенах.",
+    "serv.c7.t":"Дашборды и отчёты","serv.c7.d":"Отчёты в Telegram/Email, BI на NocoDB / Metabase, live-метрики.",
+    "serv.c8.t":"Генерация документов","serv.c8.d":"Договоры, акты, КП. Авто-заполнение из CRM, подпись, отправка клиенту.",
+    "serv.c9.t":"MVP за 5-10 дней","serv.c9.d":"VibeCoding: AI-ускоренная разработка. Проверка гипотез быстро и дёшево.",
+    "tasks.pill":"Какие задачи закрываю","tasks.title":"Переводим рутину на автопилот",
+    "tasks.1":"<b>Автоматизация продаж.</b> Лид → CRM → квалификация AI → распределение менеджеру → напоминания → отчёт.",
+    "tasks.2":"<b>Обработка заявок 24/7.</b> Бот принимает, классифицирует, отвечает на 80% типовых вопросов.",
+    "tasks.3":"<b>Логистика.</b> Авто-распределение заказов, уведомления клиентам, трекинг, сводки водителям.",
+    "tasks.4":"<b>Голосовые роботы.</b> Опросы, подтверждения записи, холодный обзвон с AI-диалогом.",
+    "tasks.5":"<b>Аналитика.</b> Ежедневные сводки продаж, P&L, KPI - сразу в Telegram руководителю.",
+    "tasks.6":"<b>AI-ассистенты для сотрудников.</b> Бот по базе знаний: регламенты, скрипты, ответы.",
+    "tasks.7":"<b>Контент-фабрика.</b> Авто-генерация постов, картинок, озвучки, публикация в TG / IG / YT.",
+    "tasks.8":"<b>RPA-рутина.</b> Парсинг, выгрузки, сверки, перенос данных без «ручной копипасты».",
+    "cases.pill":"Production-кейсы","cases.title":"Реальные продукты, которые работают прямо сейчас","cases.sub":"Не «выдуманные скриншоты», а действующие системы на серверах. Код на GitHub, демо по запросу.","cases.live":"В продакшене","cases.result":"Результат:","cases.next":"Следующий кейс",
+    "cases.c1.t":"ГраФин - образовательный бот","cases.c1.d":"5-дневный курс в Telegram с приёмом платежей, FSM, напоминаниями. + AI-ассистент для чата курса.","cases.c1.l1":"→ aiogram 3, PostgreSQL, Redis, bePaid","cases.c1.l2":"→ grafin-assistant: AI-бот поддержки в чате","cases.c1.l3":"→ могу собрать Telegram Mini App (каталог, оплаты, ЛК)","cases.c1.r":"продаёт 24/7 без участия владельца",
+    "cases.c2.t":"S&P 500 Analyzer","cases.c2.d":"Автоматический анализ 500 акций, scoring 0-100, сигналы каждые 15 минут.","cases.c2.l1":"→ Python + yfinance + Finnhub + GPT-4o","cases.c2.l2":"→ SQLite WAL, systemd, бэктест 365 дней","cases.c2.l3":"→ 11 команд, авто-отчёты Пн/Ср/Пт","cases.c2.r":"Win rate 56%, profit factor 1.12",
+    "cases.c3.t":"Travel Sentinel","cases.c3.d":"AI-агент мониторит туры, билеты и круизы, проверяет визы, алертит на падение цен.","cases.c3.l1":"→ n8n + Claude 3.5 Sonnet (оркестрация)","cases.c3.l2":"→ FastAPI + PostgreSQL + Aviasales/Travelata","cases.c3.l3":"→ Brave Search для визовой разведки","cases.c3.r":"экономия 20-40% на турах, кеш виз",
+    "cases.c4.t":"MedAI - личный мед-ассистент","cases.c4.d":"Приватный Telegram-бот: анализы (PDF/фото), голосовые жалобы, тренд-графики, экспорт для врача.","cases.c4.l1":"→ aiogram 3, PostgreSQL, Alembic","cases.c4.l2":"→ GPT-4o + Whisper + Vision","cases.c4.l3":"→ Fernet-шифрование, анонимизация перед LLM","cases.c4.r":"безопасное хранение мед-данных",
+    "cases.c5.d":"AI-бот поддержки в чате образовательного курса: отвечает на вопросы по базе знаний 24/7.","cases.c5.l1":"→ Claude + RAG по материалам курса","cases.c5.l2":"→ Разгружает автора от рутины","cases.c5.l3":"→ Эскалирует сложные вопросы человеку","cases.c5.r":"-70% нагрузки на саппорт",
+    "cases.your.t":"Ваш проект","cases.your.d":"Бесплатный аудит, архитектура за 2 дня, прототип за неделю. Разберу задачу честно.","cases.your.cta":"Обсудить задачу",
+    "proc.pill":"Как я работаю","proc.title":"6 шагов. Без сюрпризов и «ещё месяц-другой»",
+    "proc.s1.n":"Шаг 01 · 0","proc.s1.t":"Бесплатный аудит","proc.s1.d":"30-минутный созвон. Разбираю процессы, показываю, где деньги текут мимо кассы.",
+    "proc.s2.n":"Шаг 02 · 1-2 дня","proc.s2.t":"Архитектура","proc.s2.d":"Схема решения, стек, сроки, бюджет. Письменно.",
+    "proc.s3.n":"Шаг 03 · 3-14 дней","proc.s3.t":"Разработка","proc.s3.d":"Код, интеграции, промпты. Прогресс каждые 2-3 дня.",
+    "proc.s4.n":"Шаг 04","proc.s4.t":"Тестирование","proc.s4.d":"Прогон на ваших кейсах. Ловлю edge-cases до прода.",
+    "proc.s5.n":"Шаг 05","proc.s5.t":"Запуск","proc.s5.d":"Деплой на ваш VPS, документация, видео-инструкция.",
+    "proc.s6.n":"Шаг 06","proc.s6.t":"Поддержка","proc.s6.d":"30 дней гарантии. Дальше - абонемент или по часам.",
+    "why.pill":"Почему я","why.title":"Инженер-прикладник, а не «кнопочник в n8n»","why.sub":"Большинство автоматизаторов останавливаются там, где no-code упирается в лимиты. Я дохожу до Python, async, retry-логики и prompt caching.",
+    "why.b1.t":"Быстро","why.b1.d":"Прототип за дни","why.b2.t":"Чётко","why.b2.d":"Фикс-цена и фикс-срок","why.b3.t":"Прозрачно","why.b3.d":"Код на GitHub, доступ у вас","why.b4.t":"Надёжно","why.b4.d":"Retry, логи, бэкапы","why.b5.t":"Без вендор-лока","why.b5.d":"Свой сервер, свои ключи","why.b6.t":"Экономно","why.b6.d":"Prompt caching режет LLM-бюджет",
+    "calc.pill":"Калькулятор","calc.title":"Сколько вы теряете на ручной работе","calc.sub":"Прикиньте за 10 секунд. Цифры остаются у вас в браузере.","calc.currency":"Валюта:","calc.hours":"Часов в день на рутину","calc.rate":"Стоимость часа","calc.people":"Сотрудников на этой рутине","calc.monthly":"Потери в месяц","calc.yearly":"Потери в год","calc.payback":"Окупаемость автоматизации","calc.note":"Расчёт: часы × ставка × 22 рабочих дня × сотрудников. Окупаемость против пакета «Стандарт».",
+    "price.pill":"Тарифы","price.title":"Прозрачные пакеты. Без «обсудим по факту»","price.sub":"Фикс-цена согласуем на аудите. Ниже - ориентир, чтобы вы понимали порядок бюджета.","price.popular":"Популярный","price.choose":"Выбрать","price.discuss":"Обсудить","price.from":"от",
+    "price.p1.n":"Мини","price.p1.d":"Точечная автоматизация 1 процесса","price.p1.l1":"✓ 1 сценарий в n8n / Make","price.p1.l2":"✓ До 3 интеграций (CRM, почта, TG)","price.p1.l3":"✓ Срок 3-5 дней","price.p1.l4":"✓ Инструкция + 14 дней поддержки",
+    "price.p2.n":"Стандарт","price.p2.d":"AI-бот или многошаговая автоматизация","price.p2.l1":"✓ Telegram / WhatsApp / Web-бот","price.p2.l2":"✓ LLM-агент с памятью","price.p2.l3":"✓ База данных + админка","price.p2.l4":"✓ Деплой на VPS, логи, бэкапы","price.p2.l5":"✓ Срок 7-14 дней, 30 дней поддержки",
+    "price.p3.n":"Премиум","price.p3.d":"Полноценный AI-продукт или MVP","price.p3.l1":"✓ Кастомный backend (FastAPI)","price.p3.l2":"✓ Voice API, голосовой робот","price.p3.l3":"✓ Мульти-агентная архитектура","price.p3.l4":"✓ Дашборды, роли, права","price.p3.l5":"✓ Срок 3-6 недель, SLA",
+    "price.legal":"Оплата в USD / EUR / PLN / BYN / RUB / USDT. Самозанятый (Беларусь), закрывающие документы предоставляю.",
+    "form.pill":"Заявка","form.title":"Оставьте заявку - пришлю 3 варианта автоматизации под вашу задачу","form.sub":"Отвечу в течение 4 часов в рабочее время. Без спама.","form.name":"Ваше имя","form.contact":"Telegram @username или email","form.task":"В 1-2 предложениях: что болит, что хочется автоматизировать","form.submit":"Получить бесплатный аудит","form.privacy":"Нажимая кнопку, вы соглашаетесь на обработку данных.","form.ok":"Заявка отправлена. Напишу в течение нескольких часов.",
+    "faq.title":"Частые вопросы",
+    "faq.q1":"Сколько реально займёт проект?","faq.a1":"Простая автоматизация - 3-5 дней. Бот с AI - 1-2 недели. Сложный MVP - 3-6 недель.",
+    "faq.q2":"Что, если я не разбираюсь в технологиях?","faq.a2":"Норма. На аудите говорю на вашем языке - в деньгах и часах.",
+    "faq.q3":"Где будут жить мои данные?","faq.a3":"На вашем сервере или вашем аккаунте у провайдера. Ключи ваши.",
+    "faq.q4":"Даёте ли гарантию?","faq.a4":"30 дней поддержки бесплатно. Если не работает - возврат 100%.",
+    "faq.q5":"Работаете с клиентами из ЕС / СНГ?","faq.a5":"Да. USD / EUR / PLN / BYN / RUB / USDT.",
+    "faq.q6":"А если GPT / n8n отвалится?","faq.a6":"Архитектура модульная. LLM меняется в конфиге, n8n - на Python.",
+    "faq.q7":"Можно без предоплаты?","faq.a7":"Стандарт: 50/50. Малые задачи - по факту. Аудит бесплатный.",
+    "foot.legal":"Самозанятый, Республика Беларусь · УНП по запросу","foot.top":"Наверх","foot.contact":"Связаться",
+  },
+  en: {
+    "nav.services":"Services","nav.cases":"Cases","nav.process":"Process","nav.pricing":"Pricing","nav.cta":"Audit",
+    "hero.slots":"Taking 2 projects this month",
+    "hero.title1":"I automate your business",
+    "hero.title2":"working prototype in 3-7 days",
+    "hero.sub":"I build AI agents, integrations and automations that kill manual work and save dozens of hours a week. Python, n8n, Claude, GPT, Voice API.",
+    "hero.cta1":"Get a free audit","hero.cta2":"See cases",
+    "hero.m1":"bots in production","hero.m2":"LLM token savings via pre-filter","hero.m3":"autonomous VPS operation","hero.m4":"from idea to n8n MVP","hero.m4v":"1 day",
+    "serv.pill":"What I do","serv.title":"Full automation cycle - from idea to production","serv.sub":"I design the architecture, write the code, deploy to your server, hand off with docs.",
+    "serv.c1.t":"AI agents & chatbots","serv.c1.d":"Telegram, WhatsApp, Web. Claude/GPT + memory, Function Calling, CRM integration.",
+    "serv.c2.t":"Telegram Mini App","serv.c2.d":"Full web apps inside Telegram: catalogs, bookings, payments, user account.",
+    "serv.c3.t":"Any API integrations","serv.c3.d":"CRM, payments, email, sheets, marketplaces - connected into one flow.",
+    "serv.c4.t":"n8n / Make / Zapier","serv.c4.d":"Fast MVP in 1-3 days. If no-code hits limits - I rewrite critical nodes in Python.",
+    "serv.c5.t":"Voice bots & IVR","serv.c5.d":"Voice assistants: Voice API + Whisper + LLM. Inbound, surveys, lead qualification.",
+    "serv.c6.t":"Prompt Engineering","serv.c6.d":"Prompts, pipelines, XML structures, prompt caching. Up to 80% token savings.",
+    "serv.c7.t":"Dashboards & reports","serv.c7.d":"Reports in Telegram/Email, BI on NocoDB / Metabase, live metrics.",
+    "serv.c8.t":"Document generation","serv.c8.d":"Contracts, invoices, proposals. Auto-filled from CRM, signed, sent.",
+    "serv.c9.t":"MVP in 5-10 days","serv.c9.d":"VibeCoding: AI-accelerated development. Validate hypotheses fast and cheap.",
+    "tasks.pill":"Problems I solve","tasks.title":"Move routine to autopilot",
+    "tasks.1":"<b>Sales automation.</b> Lead → CRM → AI qualification → routing → reminders → report.",
+    "tasks.2":"<b>24/7 request handling.</b> Bot receives, classifies, answers 80% of typical questions.",
+    "tasks.3":"<b>Logistics.</b> Auto-dispatching, client notifications, tracking, driver briefings.",
+    "tasks.4":"<b>Voice bots.</b> Surveys, booking confirmations, cold calling with AI dialogue.",
+    "tasks.5":"<b>Analytics.</b> Daily sales digests, P&L, team KPI - right in Telegram.",
+    "tasks.6":"<b>AI assistants for staff.</b> A bot over the knowledge base: SOPs, scripts, answers.",
+    "tasks.7":"<b>Content factory.</b> Auto-generated posts, images, voice-overs, publishing to TG/IG/YT.",
+    "tasks.8":"<b>RPA chores.</b> Scraping, exports, reconciliations, data moves between systems.",
+    "cases.pill":"Production cases","cases.title":"Real products running right now","cases.sub":"Not invented screenshots - live systems on servers. Code on GitHub, demo on request.","cases.live":"Live","cases.result":"Result:","cases.next":"Next case",
+    "cases.c1.t":"GraFin - educational bot","cases.c1.d":"5-day course in Telegram with payments, FSM, reminders. + AI assistant for the course chat.","cases.c1.l1":"→ aiogram 3, PostgreSQL, Redis, bePaid","cases.c1.l2":"→ grafin-assistant: support AI in chat","cases.c1.l3":"→ can build a Telegram Mini App (catalog, pay, account)","cases.c1.r":"sells 24/7 hands-off",
+    "cases.c2.t":"S&P 500 Analyzer","cases.c2.d":"Auto-analysis of 500 stocks, 0-100 scoring, signals every 15 min.","cases.c2.l1":"→ Python + yfinance + Finnhub + GPT-4o","cases.c2.l2":"→ SQLite WAL, systemd, 365-day backtest","cases.c2.l3":"→ 11 commands, Mon/Wed/Fri reports","cases.c2.r":"Win rate 56%, profit factor 1.12",
+    "cases.c3.t":"Travel Sentinel","cases.c3.d":"AI agent monitors tours, flights and cruises, checks visa requirements, alerts on price drops.","cases.c3.l1":"→ n8n + Claude 3.5 Sonnet (orchestration)","cases.c3.l2":"→ FastAPI + PostgreSQL + Aviasales/Travelata","cases.c3.l3":"→ Brave Search for visa intelligence","cases.c3.r":"20-40% savings on trips",
+    "cases.c4.t":"MedAI - personal health assistant","cases.c4.d":"Private Telegram bot: lab uploads (PDF/photo), voice complaints, trend charts, export for doctor.","cases.c4.l1":"→ aiogram 3, PostgreSQL, Alembic","cases.c4.l2":"→ GPT-4o + Whisper + Vision","cases.c4.l3":"→ Fernet encryption, anonymization before LLM","cases.c4.r":"secure medical-data storage",
+    "cases.c5.d":"AI support bot in the course chat: answers student questions from the knowledge base 24/7.","cases.c5.l1":"→ Claude + RAG over course materials","cases.c5.l2":"→ Takes routine off the author","cases.c5.l3":"→ Escalates complex questions to a human","cases.c5.r":"-70% support load",
+    "cases.your.t":"Your project","cases.your.d":"Free audit, architecture in 2 days, prototype in a week. Honest breakdown, no fluff.","cases.your.cta":"Discuss your task",
+    "proc.pill":"How I work","proc.title":"6 steps. No surprises, no `one more month`",
+    "proc.s1.n":"Step 01 · 0","proc.s1.t":"Free audit","proc.s1.d":"30-min call. I map your processes and find where money leaks.",
+    "proc.s2.n":"Step 02 · 1-2 days","proc.s2.t":"Architecture","proc.s2.d":"Solution map, stack, timeline, budget. In writing.",
+    "proc.s3.n":"Step 03 · 3-14 days","proc.s3.t":"Development","proc.s3.d":"Code, integrations, prompts. Progress every 2-3 days.",
+    "proc.s4.n":"Step 04","proc.s4.t":"Testing","proc.s4.d":"Run on your real cases. Catch edge cases before prod.",
+    "proc.s5.n":"Step 05","proc.s5.t":"Launch","proc.s5.d":"Deploy to your VPS, docs, video walkthrough.",
+    "proc.s6.n":"Step 06","proc.s6.t":"Support","proc.s6.d":"30-day warranty. Then monthly or hourly.",
+    "why.pill":"Why me","why.title":"An engineer, not a `n8n button-pusher`","why.sub":"Most `automators` stop where no-code hits limits. I go into Python, async, retries and prompt caching - that`s what wins in prod.",
+    "why.b1.t":"Fast","why.b1.d":"Prototype in days","why.b2.t":"Clear","why.b2.d":"Fixed price, fixed deadline","why.b3.t":"Transparent","why.b3.d":"Code on GitHub, you own access","why.b4.t":"Reliable","why.b4.d":"Retries, logs, backups","why.b5.t":"No vendor lock","why.b5.d":"Your server, your keys","why.b6.t":"Efficient","why.b6.d":"Prompt caching cuts LLM bill",
+    "calc.pill":"Calculator","calc.title":"How much manual work costs you","calc.sub":"Estimate in 10 seconds. Numbers stay in your browser.","calc.currency":"Currency:","calc.hours":"Hours a day on routine","calc.rate":"Hour rate","calc.people":"People doing this","calc.monthly":"Monthly loss","calc.yearly":"Yearly loss","calc.payback":"Automation payback","calc.note":"Formula: hours × rate × 22 workdays × people. Payback against the Standard package.",
+    "price.pill":"Pricing","price.title":"Clear packages. No `we will discuss later`","price.sub":"Fixed price at the audit. Below is a ballpark.","price.popular":"Popular","price.choose":"Choose","price.discuss":"Discuss","price.from":"from",
+    "price.p1.n":"Mini","price.p1.d":"One-shot automation of a single process","price.p1.l1":"✓ 1 scenario in n8n / Make","price.p1.l2":"✓ Up to 3 integrations","price.p1.l3":"✓ 3-5 days","price.p1.l4":"✓ Docs + 14-day support",
+    "price.p2.n":"Standard","price.p2.d":"AI bot or multi-step automation","price.p2.l1":"✓ Telegram / WhatsApp / Web bot","price.p2.l2":"✓ LLM agent with memory","price.p2.l3":"✓ Database + admin","price.p2.l4":"✓ VPS deploy, logs, backups","price.p2.l5":"✓ 7-14 days, 30-day support",
+    "price.p3.n":"Premium","price.p3.d":"Full AI product or MVP","price.p3.l1":"✓ Custom FastAPI backend","price.p3.l2":"✓ Voice API, voice bot","price.p3.l3":"✓ Multi-agent architecture","price.p3.l4":"✓ Dashboards, roles, permissions","price.p3.l5":"✓ 3-6 weeks, SLA",
+    "price.legal":"Paid in USD / EUR / PLN / BYN / RUB / USDT. Self-employed (Belarus), invoices provided.",
+    "form.pill":"Contact","form.title":"Leave a request - I will send 3 automation options for your task","form.sub":"Reply within 4 business hours. No spam.","form.name":"Your name","form.contact":"Telegram @username or email","form.task":"In 1-2 sentences: what hurts, what to automate","form.submit":"Get a free audit","form.privacy":"By submitting you agree to data processing.","form.ok":"Request sent. I will reply within a few hours.",
+    "faq.title":"FAQ",
+    "faq.q1":"How long will the project really take?","faq.a1":"Simple automation - 3-5 days. AI bot - 1-2 weeks. Complex MVP - 3-6 weeks.",
+    "faq.q2":"What if I don`t understand tech?","faq.a2":"Normal. In the audit I speak your language - money and hours.",
+    "faq.q3":"Where will my data live?","faq.a3":"On your server or your provider account. Your keys.",
+    "faq.q4":"Warranty?","faq.a4":"30 days of free support. If it doesn`t work as agreed - 100% refund.",
+    "faq.q5":"EU / CIS clients?","faq.a5":"Yes. USD / EUR / PLN / BYN / RUB / USDT.",
+    "faq.q6":"What if GPT / n8n goes down?","faq.a6":"Modular architecture. LLM swaps via config, n8n moves to Python.",
+    "faq.q7":"Can I pay without prepayment?","faq.a7":"Standard: 50/50. Small tasks - on delivery. Audit is always free.",
+    "foot.legal":"Self-employed, Republic of Belarus","foot.top":"Top","foot.contact":"Contact",
+  },
+  pl: {
+    "nav.services":"Usługi","nav.cases":"Projekty","nav.process":"Proces","nav.pricing":"Cennik","nav.cta":"Audyt",
+    "hero.slots":"Przyjmuję 2 projekty w tym miesiącu",
+    "hero.title1":"Zautomatyzuję Twój biznes",
+    "hero.title2":"działający prototyp w 3-7 dni",
+    "hero.sub":"Buduję agentów AI, integracje i automatyzacje, które eliminują ręczną pracę i oszczędzają dziesiątki godzin w tygodniu. Python, n8n, Claude, GPT, Voice API.",
+    "hero.cta1":"Bezpłatny audyt","hero.cta2":"Zobacz projekty",
+    "hero.m1":"botów na produkcji","hero.m2":"oszczędność tokenów LLM","hero.m3":"autonomiczna praca na VPS","hero.m4":"od pomysłu do MVP w n8n","hero.m4v":"1 dzień",
+    "serv.pill":"Co robię","serv.title":"Pełny cykl automatyzacji - od pomysłu do produkcji","serv.sub":"Projektuję architekturę, piszę kod, wdrażam na Twój serwer, przekazuję z dokumentacją.",
+    "serv.c1.t":"Agenci AI i chatboty","serv.c1.d":"Telegram, WhatsApp, Web. Claude/GPT + pamięć, Function Calling, integracja z CRM.",
+    "serv.c2.t":"Telegram Mini App","serv.c2.d":"Pełne aplikacje wewnątrz Telegrama: katalogi, rezerwacje, płatności, konto.",
+    "serv.c3.t":"Integracje API","serv.c3.d":"CRM, płatności, poczta, arkusze, marketplace - połączone w jeden przepływ.",
+    "serv.c4.t":"n8n / Make / Zapier","serv.c4.d":"Szybkie MVP w 1-3 dni. Jeśli no-code nie starcza - przepisuję w Pythonie.",
+    "serv.c5.t":"Voice-boty i IVR","serv.c5.d":"Asystenci głosowi: Voice API + Whisper + LLM. Połączenia, ankiety, kwalifikacja.",
+    "serv.c6.t":"Prompt Engineering","serv.c6.d":"Prompty, pipeline, XML, prompt caching. Do 80% oszczędności na tokenach.",
+    "serv.c7.t":"Dashboardy i raporty","serv.c7.d":"Raporty do Telegrama/maila, BI na NocoDB / Metabase, metryki live.",
+    "serv.c8.t":"Generacja dokumentów","serv.c8.d":"Umowy, faktury, oferty. Auto-uzupełnianie z CRM, podpis, wysyłka.",
+    "serv.c9.t":"MVP w 5-10 dni","serv.c9.d":"VibeCoding: rozwój przyspieszony AI. Walidacja hipotez szybko i tanio.",
+    "tasks.pill":"Jakie zadania zamykam","tasks.title":"Przenosimy rutynę na autopilot",
+    "tasks.1":"<b>Automatyzacja sprzedaży.</b> Lead → CRM → kwalifikacja AI → przypisanie → przypomnienia → raport.",
+    "tasks.2":"<b>Obsługa zgłoszeń 24/7.</b> Bot przyjmuje, klasyfikuje, odpowiada na 80% typowych pytań.",
+    "tasks.3":"<b>Logistyka.</b> Auto-dyspozytornia, powiadomienia klientów, tracking, podsumowania dla kierowców.",
+    "tasks.4":"<b>Voice-boty.</b> Ankiety, potwierdzenia wizyt, cold-calling z dialogiem AI.",
+    "tasks.5":"<b>Analityka.</b> Codzienne podsumowania sprzedaży, P&L, KPI zespołu - prosto do Telegrama.",
+    "tasks.6":"<b>Asystenci AI dla pracowników.</b> Bot po bazie wiedzy: procedury, skrypty, odpowiedzi.",
+    "tasks.7":"<b>Fabryka treści.</b> Auto-generacja postów, grafik, lektora, publikacja w TG / IG / YT.",
+    "tasks.8":"<b>RPA.</b> Parsowanie, eksporty, uzgodnienia, przenoszenie danych między systemami.",
+    "cases.pill":"Projekty produkcyjne","cases.title":"Prawdziwe produkty działające teraz","cases.sub":"Nie wymyślone screeny - żywe systemy na serwerach. Kod na GitHub, demo na życzenie.","cases.live":"Live","cases.result":"Wynik:","cases.next":"Kolejny projekt",
+    "cases.c1.t":"GraFin - bot edukacyjny","cases.c1.d":"5-dniowy kurs na Telegramie z płatnościami, FSM, przypomnieniami. + asystent AI do czatu.","cases.c1.l1":"→ aiogram 3, PostgreSQL, Redis, bePaid","cases.c1.l2":"→ grafin-assistant: AI w czacie","cases.c1.l3":"→ mogę zbudować Telegram Mini App","cases.c1.r":"sprzedaje 24/7 bez udziału właściciela",
+    "cases.c2.t":"S&P 500 Analyzer","cases.c2.d":"Auto-analiza 500 akcji, scoring 0-100, sygnały co 15 min.","cases.c2.l1":"→ Python + yfinance + Finnhub + GPT-4o","cases.c2.l2":"→ SQLite WAL, systemd, backtest 365 dni","cases.c2.l3":"→ 11 komend, auto-raporty","cases.c2.r":"Win rate 56%, profit factor 1.12",
+    "cases.c3.t":"Travel Sentinel","cases.c3.d":"Agent AI monitoruje wycieczki, loty, rejsy, sprawdza wizy, alertuje o spadkach cen.","cases.c3.l1":"→ n8n + Claude 3.5 Sonnet","cases.c3.l2":"→ FastAPI + PostgreSQL + Aviasales/Travelata","cases.c3.l3":"→ Brave Search - wywiad wizowy","cases.c3.r":"oszczędność 20-40% na wycieczkach",
+    "cases.c4.t":"MedAI - osobisty asystent zdrowia","cases.c4.d":"Prywatny bot: wyniki badań (PDF/foto), objawy głosowe, wykresy trendów, eksport dla lekarza.","cases.c4.l1":"→ aiogram 3, PostgreSQL, Alembic","cases.c4.l2":"→ GPT-4o + Whisper + Vision","cases.c4.l3":"→ Szyfrowanie Fernet, anonimizacja","cases.c4.r":"bezpieczne dane medyczne",
+    "cases.c5.d":"Bot wsparcia AI w czacie kursu: odpowiada na pytania z bazy wiedzy 24/7.","cases.c5.l1":"→ Claude + RAG po materiałach kursu","cases.c5.l2":"→ Odciąża autora od rutyny","cases.c5.l3":"→ Eskaluje trudne pytania","cases.c5.r":"-70% obciążenia supportu",
+    "cases.your.t":"Twój projekt","cases.your.d":"Bezpłatny audyt, architektura w 2 dni, prototyp w tydzień. Uczciwa analiza.","cases.your.cta":"Porozmawiajmy",
+    "proc.pill":"Jak pracuję","proc.title":"6 kroków. Bez niespodzianek i `jeszcze miesiąc`",
+    "proc.s1.n":"Krok 01 · 0","proc.s1.t":"Bezpłatny audyt","proc.s1.d":"30-min rozmowa. Mapuję procesy, pokazuję gdzie uciekają pieniądze.",
+    "proc.s2.n":"Krok 02 · 1-2 dni","proc.s2.t":"Architektura","proc.s2.d":"Schemat, stack, terminy, budżet. Na piśmie.",
+    "proc.s3.n":"Krok 03 · 3-14 dni","proc.s3.t":"Development","proc.s3.d":"Kod, integracje, prompty. Postęp co 2-3 dni.",
+    "proc.s4.n":"Krok 04","proc.s4.t":"Testy","proc.s4.d":"Uruchomienie na Twoich danych. Edge-case przed prodem.",
+    "proc.s5.n":"Krok 05","proc.s5.t":"Wdrożenie","proc.s5.d":"Deploy na Twój VPS, dokumentacja, wideo-instrukcja.",
+    "proc.s6.n":"Krok 06","proc.s6.t":"Wsparcie","proc.s6.d":"30 dni gwarancji. Dalej abonament lub godziny.",
+    "why.pill":"Dlaczego ja","why.title":"Inżynier, nie `klikacz w n8n`","why.sub":"Większość `automatyzatorów` zatrzymuje się tam, gdzie no-code trafia na limity. Ja idę w Python, async, retry i prompt caching.",
+    "why.b1.t":"Szybko","why.b1.d":"Prototyp w dni","why.b2.t":"Jasno","why.b2.d":"Stała cena, stały termin","why.b3.t":"Transparentnie","why.b3.d":"Kod na GitHub","why.b4.t":"Niezawodnie","why.b4.d":"Retry, logi, backup","why.b5.t":"Bez vendor-locka","why.b5.d":"Twój serwer, Twoje klucze","why.b6.t":"Ekonomicznie","why.b6.d":"Prompt caching tnie rachunek",
+    "calc.pill":"Kalkulator","calc.title":"Ile kosztuje Cię praca ręczna","calc.sub":"Oszacuj w 10 sekund. Dane zostają w Twojej przeglądarce.","calc.currency":"Waluta:","calc.hours":"Godzin dziennie na rutynę","calc.rate":"Stawka godzinowa","calc.people":"Liczba osób","calc.monthly":"Strata miesięczna","calc.yearly":"Strata roczna","calc.payback":"Zwrot z automatyzacji","calc.note":"Wzór: godziny × stawka × 22 dni × osoby. Zwrot wobec pakietu Standard.",
+    "price.pill":"Cennik","price.title":"Przejrzyste pakiety. Bez `omówimy później`","price.sub":"Stałą cenę ustalamy na audycie. Poniżej orientacja.","price.popular":"Popularny","price.choose":"Wybierz","price.discuss":"Omów","price.from":"od",
+    "price.p1.n":"Mini","price.p1.d":"Punktowa automatyzacja 1 procesu","price.p1.l1":"✓ 1 scenariusz w n8n / Make","price.p1.l2":"✓ Do 3 integracji","price.p1.l3":"✓ 3-5 dni","price.p1.l4":"✓ Dokumentacja + 14 dni wsparcia",
+    "price.p2.n":"Standard","price.p2.d":"Bot AI lub wieloetapowa automatyzacja","price.p2.l1":"✓ Telegram / WhatsApp / Web-bot","price.p2.l2":"✓ Agent LLM z pamięcią","price.p2.l3":"✓ Baza danych + panel","price.p2.l4":"✓ Deploy na VPS","price.p2.l5":"✓ 7-14 dni, 30 dni wsparcia",
+    "price.p3.n":"Premium","price.p3.d":"Pełny produkt AI lub MVP","price.p3.l1":"✓ Custom backend (FastAPI)","price.p3.l2":"✓ Voice API, voice bot","price.p3.l3":"✓ Architektura multi-agent","price.p3.l4":"✓ Dashboardy, role","price.p3.l5":"✓ 3-6 tyg., SLA",
+    "price.legal":"Płatności: USD / EUR / PLN / BYN / RUB / USDT. Samozatrudnienie (Białoruś), faktury wystawiam.",
+    "form.pill":"Kontakt","form.title":"Zostaw zgłoszenie - przyślę 3 warianty automatyzacji pod Twoje zadanie","form.sub":"Odpowiem w 4h w godzinach pracy.","form.name":"Imię","form.contact":"Telegram @username lub email","form.task":"W 1-2 zdaniach: co boli, co zautomatyzować","form.submit":"Bezpłatny audyt","form.privacy":"Wysyłając wyrażasz zgodę na przetwarzanie danych.","form.ok":"Zgłoszenie wysłane. Odezwę się w ciągu kilku godzin.",
+    "faq.title":"FAQ",
+    "faq.q1":"Ile naprawdę zajmie projekt?","faq.a1":"Prosta automatyzacja - 3-5 dni. Bot AI - 1-2 tyg. Złożone MVP - 3-6 tyg.",
+    "faq.q2":"Co, jeśli nie znam się na technologii?","faq.a2":"Normalne. Na audycie mówię Twoim językiem - w pieniądzach i godzinach.",
+    "faq.q3":"Gdzie będą moje dane?","faq.a3":"Na Twoim serwerze lub Twoim koncie dostawcy. Klucze Twoje.",
+    "faq.q4":"Gwarancja?","faq.a4":"30 dni wsparcia gratis. Jeśli nie działa jak umówiliśmy - 100% zwrotu.",
+    "faq.q5":"Klienci z UE / WNP?","faq.a5":"Tak. USD / EUR / PLN / BYN / RUB / USDT.",
+    "faq.q6":"A jeśli GPT / n8n padnie?","faq.a6":"Modułowa architektura. LLM przez config, n8n - na Python.",
+    "faq.q7":"Bez przedpłaty?","faq.a7":"Standard: 50/50. Małe zadania - po fakcie. Audyt gratis.",
+    "foot.legal":"Samozatrudniony, Republika Białorusi","foot.top":"Do góry","foot.contact":"Kontakt",
+  }
+};
+
+/* ====== Currency ====== */
+const RATES = { USD:1, EUR:0.92, PLN:3.95, BYN:3.25, RUB:92 };
+const SYMBOL = { USD:'$', EUR:'€', PLN:'zł', BYN:'Br', RUB:'₽' };
+const POSITION = { USD:'prefix', EUR:'suffix', PLN:'suffix', BYN:'suffix', RUB:'suffix' };
+let currentCurrency = localStorage.getItem('cur') || 'USD';
+
+function formatCurrency(usdAmount, cur) {
+  const rate = RATES[cur];
+  let n = Math.round(usdAmount * rate);
+  if (cur === 'RUB') n = Math.round(n / 10) * 10;
+  const formatted = n.toLocaleString('en-US').replace(/,/g, ' ');
+  return POSITION[cur] === 'prefix' ? SYMBOL[cur] + formatted : formatted + ' ' + SYMBOL[cur];
+}
+
+function applyCurrency(cur) {
+  currentCurrency = cur;
+  localStorage.setItem('cur', cur);
+  document.querySelectorAll('.currency-chip').forEach(el => el.classList.toggle('active', el.dataset.cur === cur));
+  document.querySelectorAll('.cur-label').forEach(el => el.textContent = SYMBOL[cur]);
+  const rate = document.getElementById('rate');
+  const defaults = { USD:15, EUR:14, PLN:60, BYN:50, RUB:1500 };
+  if (rate.dataset.userTouched !== '1') rate.value = defaults[cur];
+  document.querySelectorAll('.price').forEach(el => {
+    const min = +el.dataset.min, max = +el.dataset.max;
+    const sMin = formatCurrency(min, cur);
+    el.textContent = max ? sMin + ' - ' + formatCurrency(max, cur) : sMin;
+  });
+  recalc();
+}
+
+/* ====== Calculator ====== */
+function recalc() {
+  const h = Math.max(0, +document.getElementById('hours').value || 0);
+  const r = Math.max(0, +document.getElementById('rate').value || 0);
+  const p = Math.max(1, +document.getElementById('people').value || 1);
+  const monthlyLocal = h * r * 22 * p;
+  const yearlyLocal  = monthlyLocal * 12;
+  const cur = currentCurrency;
+  const fmt = (n) => {
+    if (cur === 'RUB') n = Math.round(n / 10) * 10;
+    else n = Math.round(n);
+    const s = n.toLocaleString('en-US').replace(/,/g, ' ');
+    return POSITION[cur] === 'prefix' ? SYMBOL[cur] + s : s + ' ' + SYMBOL[cur];
+  };
+  document.getElementById('monthly').textContent = fmt(monthlyLocal);
+  document.getElementById('yearly').textContent  = fmt(yearlyLocal);
+  const standardPriceUSD = 1200;
+  const priceLocal = standardPriceUSD * RATES[cur];
+  const months = monthlyLocal > 0 ? Math.max(1, Math.round(priceLocal / monthlyLocal)) : '-';
+  const unit = document.documentElement.lang === 'en' ? ' mo' : (document.documentElement.lang === 'pl' ? ' mies.' : ' мес.');
+  document.getElementById('payback').textContent = '~' + months + unit;
+}
+['hours','rate','people'].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener('input', () => { if (id === 'rate') el.dataset.userTouched = '1'; recalc(); });
+});
+document.querySelectorAll('.currency-chip').forEach(el => el.addEventListener('click', () => applyCurrency(el.dataset.cur)));
+
+/* ====== i18n apply ====== */
+function applyLang(lang) {
+  if (!I18N[lang]) lang = 'ru';
+  document.documentElement.lang = lang;
+  localStorage.setItem('lang', lang);
+  const dict = I18N[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (dict[k]) el.innerHTML = dict[k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const k = el.getAttribute('data-i18n-ph');
+    if (dict[k]) el.placeholder = dict[k];
+  });
+  recalc();
+}
+document.getElementById('langSelect').addEventListener('change', e => applyLang(e.target.value));
+
+/* ====== Theme ====== */
+function applyTheme(theme) {
+  const html = document.documentElement;
+  html.classList.remove('dark','light');
+  html.classList.add(theme);
+  localStorage.setItem('theme', theme);
+  document.getElementById('themeIcon').textContent = theme === 'dark' ? '🌙' : '☀️';
+}
+document.getElementById('themeToggle').addEventListener('click', () => {
+  const next = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+  applyTheme(next);
+});
+
+/* ====== Form ====== */
+function submitLead(e) {
+  e.preventDefault();
+  const form = e.target;
+  const msg = `Новая заявка\nИмя: ${form.name.value.trim()}\nКонтакт: ${form.contact.value.trim()}\nЗадача: ${form.task.value.trim() || '-'}`;
+  window.open('https://t.me/IDonRumata?text=' + encodeURIComponent(msg), '_blank');
+  document.getElementById('formOk').classList.remove('hidden');
+  form.reset();
+  return false;
+}
+
+/* ====== Init ====== */
+document.getElementById('year').textContent = new Date().getFullYear();
+const savedTheme = localStorage.getItem('theme') || 'dark';
+applyTheme(savedTheme);
+const savedLang = localStorage.getItem('lang') || 'ru';
+document.getElementById('langSelect').value = savedLang;
+applyLang(savedLang);
+applyCurrency(currentCurrency);
+</script>
+</body>
+</html>
