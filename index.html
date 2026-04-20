@@ -99,6 +99,30 @@
     color: #7C3AED;
     text-shadow: none;
   }
+  /* ROI Calculator & Checklist */
+  input[type="number"] {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+    background: var(--panel-2);
+    color: var(--text);
+    font-size: 1rem;
+  }
+  input[type="number"]:focus {
+    outline: none;
+    border-color: #7C5CFF;
+    box-shadow: 0 0 0 3px rgba(124,92,255,0.2);
+  }
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #7C5CFF;
+    flex-shrink: 0;
+  }
+  .checklist-item:checked ~ div {
+    opacity: 0.6;
+  }
 </style>
 </head>
 <body class="antialiased">
@@ -448,6 +472,141 @@
   </div>
 </section>
 
+<!-- ROI CALCULATOR -->
+<section id="roi-calc" class="py-24 panel-soft" style="border-top:1px solid var(--border-soft);">
+  <div class="max-w-3xl mx-auto px-5">
+    <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="calc.pill">Калькулятор экономии</div>
+    <h2 class="text-3xl md:text-4xl font-bold mb-3" data-i18n="calc.title">Сколько вы теряете каждый месяц?</h2>
+    <p class="text-muted mb-8" data-i18n="calc.sub">Введите данные своего бизнеса - расскажу, сколько часов и денег вы экономите с автоматизацией</p>
+
+    <div class="card rounded-2xl p-8">
+      <div class="space-y-6">
+        <!-- Hourly Rate -->
+        <div>
+          <label class="text-sm text-muted block mb-2" data-i18n="calc.rate">Средняя ставка за час (USD)</label>
+          <div class="flex gap-2 items-center">
+            <input id="hourlyRate" type="number" min="1" value="50" class="flex-1 rounded-lg px-4 py-2" />
+            <span class="text-sm text-dim px-3 py-2 rounded-lg" style="background:var(--panel-2);">USD</span>
+          </div>
+        </div>
+
+        <!-- Team Size -->
+        <div>
+          <label class="text-sm text-muted block mb-2" data-i18n="calc.team">Количество человек в процессе</label>
+          <input id="teamSize" type="number" min="1" value="1" class="w-full rounded-lg px-4 py-2" />
+        </div>
+
+        <!-- Hours Per Week -->
+        <div>
+          <label class="text-sm text-muted block mb-2" data-i18n="calc.hours">Часов в неделю на этот процесс</label>
+          <input id="hoursPerWeek" type="number" min="0" value="10" class="w-full rounded-lg px-4 py-2" />
+        </div>
+
+        <!-- Results -->
+        <div class="mt-8 pt-6 border-t border-soft space-y-4">
+          <div class="flex justify-between items-center">
+            <span class="text-muted" data-i18n="calc.monthly">Потери в месяц</span>
+            <span class="text-2xl font-bold text-right"><span id="monthlyLoss" class="gradient-text">$0</span></span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-muted" data-i18n="calc.yearly">Потери в год</span>
+            <span class="text-2xl font-bold text-right"><span id="yearlyLoss" class="gradient-text">$0</span></span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-muted" data-i18n="calc.payback">Окупится за 3 дня автоматизации примерно через</span>
+            <span class="text-xl font-bold" id="paybackMonths">-</span>
+          </div>
+        </div>
+
+        <p class="text-xs text-dim mt-4" data-i18n="calc.note">* Расчёт: часов в неделю × ставка × 4.3 недели × количество человек</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTOMATION CHECKLIST -->
+<section id="checklist" class="py-24">
+  <div class="max-w-3xl mx-auto px-5">
+    <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="check.pill">Интерактивный чек-лист</div>
+    <h2 class="text-3xl md:text-4xl font-bold mb-3" data-i18n="check.title">Что вы можете автоматизировать?</h2>
+    <p class="text-muted mb-8" data-i18n="check.sub">Отметьте, с чем вы сталкиваетесь. Покажу, где экономия будет максимальной.</p>
+
+    <div class="space-y-3">
+      <label class="card rounded-xl p-5 cursor-pointer transition-all hover:border-color-[#7C5CFF] flex items-start gap-4">
+        <input type="checkbox" class="checklist-item mt-1" data-item="data-entry" />
+        <div class="flex-1">
+          <div class="font-semibold text-sm" data-i18n="check.i1">Ручной ввод данных в CRM / документы</div>
+          <div class="text-xs text-muted mt-1" data-i18n="check.i1d">Перенесённые вручную контакты, заказы, информация из писем</div>
+        </div>
+      </label>
+
+      <label class="card rounded-xl p-5 cursor-pointer transition-all hover:border-color-[#7C5CFF] flex items-start gap-4">
+        <input type="checkbox" class="checklist-item mt-1" data-item="reports" />
+        <div class="flex-1">
+          <div class="font-semibold text-sm" data-i18n="check.i2">Ежедневные / еженедельные отчёты</div>
+          <div class="text-xs text-muted mt-1" data-i18n="check.i2d">Ручная сборка данных, Excel, Google Sheets, отправка руководству</div>
+        </div>
+      </label>
+
+      <label class="card rounded-xl p-5 cursor-pointer transition-all hover:border-color-[#7C5CFF] flex items-start gap-4">
+        <input type="checkbox" class="checklist-item mt-1" data-item="emails" />
+        <div class="flex-1">
+          <div class="font-semibold text-sm" data-i18n="check.i3">Email-маркетинг и рассылки</div>
+          <div class="text-xs text-muted mt-1" data-i18n="check.i3d">Отправка по спискам, проверка подписок, сегментация вручную</div>
+        </div>
+      </label>
+
+      <label class="card rounded-xl p-5 cursor-pointer transition-all hover:border-color-[#7C5CFF] flex items-start gap-4">
+        <input type="checkbox" class="checklist-item mt-1" data-item="customer" />
+        <div class="flex-1">
+          <div class="font-semibold text-sm" data-i18n="check.i4">Обслуживание клиентов (FAQ, первый контакт)</div>
+          <div class="text-xs text-muted mt-1" data-i18n="check.i4d">Ответы на повторяющиеся вопросы, квалификация лидов</div>
+        </div>
+      </label>
+
+      <label class="card rounded-xl p-5 cursor-pointer transition-all hover:border-color-[#7C5CFF] flex items-start gap-4">
+        <input type="checkbox" class="checklist-item mt-1" data-item="scheduling" />
+        <div class="flex-1">
+          <div class="font-semibold text-sm" data-i18n="check.i5">Координация встреч / расписания</div>
+          <div class="text-xs text-muted mt-1" data-i18n="check.i5d">Согласование времени, отправка напоминаний, синхронизация календарей</div>
+        </div>
+      </label>
+
+      <label class="card rounded-xl p-5 cursor-pointer transition-all hover:border-color-[#7C5CFF] flex items-start gap-4">
+        <input type="checkbox" class="checklist-item mt-1" data-item="payments" />
+        <div class="flex-1">
+          <div class="font-semibold text-sm" data-i18n="check.i6">Платежи и биллинг</div>
+          <div class="text-xs text-muted mt-1" data-i18n="check.i6d">Счета, напоминания об оплате, синхронизация платёжных систем</div>
+        </div>
+      </label>
+
+      <label class="card rounded-xl p-5 cursor-pointer transition-all hover:border-color-[#7C5CFF] flex items-start gap-4">
+        <input type="checkbox" class="checklist-item mt-1" data-item="integration" />
+        <div class="flex-1">
+          <div class="font-semibold text-sm" data-i18n="check.i7">Интеграция систем (копирование данных)</div>
+          <div class="text-xs text-muted mt-1" data-i18n="check.i7d">Данные между CRM, бухгалтерией, маркетинг-платформами</div>
+        </div>
+      </label>
+
+      <label class="card rounded-xl p-5 cursor-pointer transition-all hover:border-color-[#7C5CFF] flex items-start gap-4">
+        <input type="checkbox" class="checklist-item mt-1" data-item="quality" />
+        <div class="flex-1">
+          <div class="font-semibold text-sm" data-i18n="check.i8">Контроль качества и проверки</div>
+          <div class="text-xs text-muted mt-1" data-i18n="check.i8d">Проверка данных, выявление дубликатов, форматирование</div>
+        </div>
+      </label>
+    </div>
+
+    <div id="checklistSummary" class="mt-8 pt-6 border-t border-soft hidden">
+      <div class="bg-opacity-10 p-5 rounded-lg" style="background:rgba(124,92,255,0.1); border:1px solid rgba(124,92,255,0.2);">
+        <p class="text-sm text-muted mb-3" data-i18n="check.summary">Вы выбрали:</p>
+        <ul id="checklistItems" class="text-sm space-y-2 mb-4"></ul>
+        <a href="#contact" class="inline-block btn-primary rounded-lg px-5 py-2 text-sm" data-i18n="check.cta">Обсудить план автоматизации</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA FORM -->
 <section id="contact" class="py-24">
   <div class="max-w-3xl mx-auto px-5">
@@ -555,7 +714,7 @@ const I18N = {
     "price.p1.n":"Мини","price.p1.d":"Точечная автоматизация 1 процесса","price.p1.l1":"✓ 1 сценарий в n8n / Make","price.p1.l2":"✓ До 3 интеграций (CRM, почта, TG)","price.p1.l3":"✓ Срок 3-5 дней","price.p1.l4":"✓ Инструкция + 14 дней поддержки",
     "price.p2.n":"Стандарт","price.p2.d":"AI-бот или многошаговая автоматизация","price.p2.l1":"✓ Telegram / WhatsApp / Web-бот","price.p2.l2":"✓ LLM-агент с памятью","price.p2.l3":"✓ База данных + админка","price.p2.l4":"✓ Деплой на VPS, логи, бэкапы","price.p2.l5":"✓ Срок 7-14 дней, 30 дней поддержки",
     "price.p3.n":"Премиум","price.p3.d":"Полноценный AI-продукт или MVP","price.p3.l1":"✓ Кастомный backend (FastAPI)","price.p3.l2":"✓ Voice API, голосовой робот","price.p3.l3":"✓ Мульти-агентная архитектура","price.p3.l4":"✓ Дашборды, роли, права","price.p3.l5":"✓ Срок 3-6 недель, SLA",
-    "price.legal":"Оплата в USD / EUR / PLN / BYN / RUB / USDT. Самозанятый (Беларусь), закрывающие документы предоставляю.",
+    "price.legal":"Оплата в USD / EUR / PLN / BYN / RUB / USDT. Работаю со всеми странами.",
     "form.pill":"Заявка","form.title":"Оставьте заявку - пришлю 3 варианта автоматизации под вашу задачу","form.sub":"Отвечу в течение 4 часов в рабочее время. Без спама.","form.name":"Ваше имя","form.contact":"Telegram @username или email","form.task":"В 1-2 предложениях: что болит, что хочется автоматизировать","form.submit":"Получить бесплатный аудит","form.privacy":"Нажимая кнопку, вы соглашаетесь на обработку данных.","form.ok":"Заявка отправлена. Напишу в течение нескольких часов.",
     "faq.title":"Частые вопросы",
     "faq.q1":"Сколько реально займёт проект?","faq.a1":"Простая автоматизация - 3-5 дней. Бот с AI - 1-2 недели. Сложный MVP - 3-6 недель.",
@@ -565,7 +724,9 @@ const I18N = {
     "faq.q5":"Работаете с клиентами из ЕС / СНГ?","faq.a5":"Да. USD / EUR / PLN / BYN / RUB / USDT.",
     "faq.q6":"А если GPT / n8n отвалится?","faq.a6":"Архитектура модульная. LLM меняется в конфиге, n8n - на Python.",
     "faq.q7":"Можно без предоплаты?","faq.a7":"Стандарт: 50/50. Малые задачи - по факту. Аудит бесплатный.",
-    "foot.legal":"Самозанятый, Республика Беларусь · УНП по запросу","foot.top":"Наверх","foot.contact":"Связаться",
+    "calc.pill":"Калькулятор экономии","calc.title":"Сколько вы теряете каждый месяц?","calc.sub":"Введите данные - расскажу, сколько часов и денег экономите с автоматизацией","calc.rate":"Средняя ставка за час (USD)","calc.team":"Количество человек в процессе","calc.hours":"Часов в неделю на этот процесс","calc.monthly":"Потери в месяц","calc.yearly":"Потери в год","calc.payback":"Окупится за 3 дня автоматизации примерно через","calc.note":"* Расчёт: часов в неделю × ставка × 4.3 недели × количество человек",
+    "check.pill":"Интерактивный чек-лист","check.title":"Что вы можете автоматизировать?","check.sub":"Отметьте процессы - покажу, где экономия максимальна","check.i1":"Ручной ввод данных в CRM / документы","check.i1d":"Перенесённые вручную контакты, заказы, информация из писем","check.i2":"Ежедневные / еженедельные отчёты","check.i2d":"Ручная сборка данных, Excel, Google Sheets, отправка руководству","check.i3":"Email-маркетинг и рассылки","check.i3d":"Отправка по спискам, проверка подписок, сегментация вручную","check.i4":"Обслуживание клиентов (FAQ, первый контакт)","check.i4d":"Ответы на повторяющиеся вопросы, квалификация лидов","check.i5":"Координация встреч / расписания","check.i5d":"Согласование времени, отправка напоминаний, синхронизация календарей","check.i6":"Платежи и биллинг","check.i6d":"Счета, напоминания об оплате, синхронизация платёжных систем","check.i7":"Интеграция систем (копирование данных)","check.i7d":"Данные между CRM, бухгалтерией, маркетинг-платформами","check.i8":"Контроль качества и проверки","check.i8d":"Проверка данных, выявление дубликатов, форматирование","check.summary":"Вы выбрали:","check.cta":"Обсудить план автоматизации",
+    "foot.legal":"© MorozAi. Все права защищены.","foot.top":"Наверх","foot.contact":"Связаться",
   },
   en: {
     "nav.services":"Services","nav.cases":"Cases","nav.process":"Process","nav.pricing":"Pricing","nav.cta":"Audit",
@@ -615,7 +776,7 @@ const I18N = {
     "price.p1.n":"Mini","price.p1.d":"One-shot automation of a single process","price.p1.l1":"✓ 1 scenario in n8n / Make","price.p1.l2":"✓ Up to 3 integrations","price.p1.l3":"✓ 3-5 days","price.p1.l4":"✓ Docs + 14-day support",
     "price.p2.n":"Standard","price.p2.d":"AI bot or multi-step automation","price.p2.l1":"✓ Telegram / WhatsApp / Web bot","price.p2.l2":"✓ LLM agent with memory","price.p2.l3":"✓ Database + admin","price.p2.l4":"✓ VPS deploy, logs, backups","price.p2.l5":"✓ 7-14 days, 30-day support",
     "price.p3.n":"Premium","price.p3.d":"Full AI product or MVP","price.p3.l1":"✓ Custom FastAPI backend","price.p3.l2":"✓ Voice API, voice bot","price.p3.l3":"✓ Multi-agent architecture","price.p3.l4":"✓ Dashboards, roles, permissions","price.p3.l5":"✓ 3-6 weeks, SLA",
-    "price.legal":"Paid in USD / EUR / PLN / BYN / RUB / USDT. Self-employed (Belarus), invoices provided.",
+    "price.legal":"Paid in USD / EUR / PLN / BYN / RUB / USDT. Working with all countries.",
     "form.pill":"Contact","form.title":"Leave a request - I will send 3 automation options for your task","form.sub":"Reply within 4 business hours. No spam.","form.name":"Your name","form.contact":"Telegram @username or email","form.task":"In 1-2 sentences: what hurts, what to automate","form.submit":"Get a free audit","form.privacy":"By submitting you agree to data processing.","form.ok":"Request sent. I will reply within a few hours.",
     "faq.title":"FAQ",
     "faq.q1":"How long will the project really take?","faq.a1":"Simple automation - 3-5 days. AI bot - 1-2 weeks. Complex MVP - 3-6 weeks.",
@@ -625,7 +786,9 @@ const I18N = {
     "faq.q5":"EU / CIS clients?","faq.a5":"Yes. USD / EUR / PLN / BYN / RUB / USDT.",
     "faq.q6":"What if GPT / n8n goes down?","faq.a6":"Modular architecture. LLM swaps via config, n8n moves to Python.",
     "faq.q7":"Can I pay without prepayment?","faq.a7":"Standard: 50/50. Small tasks - on delivery. Audit is always free.",
-    "foot.legal":"Self-employed, Republic of Belarus","foot.top":"Top","foot.contact":"Contact",
+    "calc.pill":"Savings Calculator","calc.title":"How much are you losing each month?","calc.sub":"Enter your data - I'll show you how many hours and dollars you save with automation","calc.rate":"Average hourly rate (USD)","calc.team":"Number of people on this process","calc.hours":"Hours per week on this process","calc.monthly":"Monthly loss","calc.yearly":"Yearly loss","calc.payback":"3-day automation pays back in approximately","calc.note":"* Calculation: hours/week × rate × 4.3 weeks × number of people",
+    "check.pill":"Automation Checklist","check.title":"What can you automate?","check.sub":"Check the processes - I'll show where the savings are biggest","check.i1":"Manual data entry into CRM / documents","check.i1d":"Manually transferred contacts, orders, email information","check.i2":"Daily / weekly reports","check.i2d":"Manual data collection, Excel, Google Sheets, sending to management","check.i3":"Email marketing and campaigns","check.i3d":"Sending from lists, subscription checks, manual segmentation","check.i4":"Customer service (FAQ, first contact)","check.i4d":"Answers to repetitive questions, lead qualification","check.i5":"Meeting coordination / scheduling","check.i5d":"Time agreement, reminder sending, calendar sync","check.i6":"Payments and billing","check.i6d":"Invoices, payment reminders, payment system sync","check.i7":"System integration (data copying)","check.i7d":"Data between CRM, accounting, marketing platforms","check.i8":"Quality control and verification","check.i8d":"Data checks, duplicate detection, formatting","check.summary":"You selected:","check.cta":"Discuss automation plan",
+    "foot.legal":"© MorozAi. All rights reserved.","foot.top":"Top","foot.contact":"Contact",
   },
   pl: {
     "nav.services":"Usługi","nav.cases":"Projekty","nav.process":"Proces","nav.pricing":"Cennik","nav.cta":"Audyt",
@@ -675,7 +838,7 @@ const I18N = {
     "price.p1.n":"Mini","price.p1.d":"Punktowa automatyzacja 1 procesu","price.p1.l1":"✓ 1 scenariusz w n8n / Make","price.p1.l2":"✓ Do 3 integracji","price.p1.l3":"✓ 3-5 dni","price.p1.l4":"✓ Dokumentacja + 14 dni wsparcia",
     "price.p2.n":"Standard","price.p2.d":"Bot AI lub wieloetapowa automatyzacja","price.p2.l1":"✓ Telegram / WhatsApp / Web-bot","price.p2.l2":"✓ Agent LLM z pamięcią","price.p2.l3":"✓ Baza danych + panel","price.p2.l4":"✓ Deploy na VPS","price.p2.l5":"✓ 7-14 dni, 30 dni wsparcia",
     "price.p3.n":"Premium","price.p3.d":"Pełny produkt AI lub MVP","price.p3.l1":"✓ Custom backend (FastAPI)","price.p3.l2":"✓ Voice API, voice bot","price.p3.l3":"✓ Architektura multi-agent","price.p3.l4":"✓ Dashboardy, role","price.p3.l5":"✓ 3-6 tyg., SLA",
-    "price.legal":"Płatności: USD / EUR / PLN / BYN / RUB / USDT. Samozatrudnienie (Białoruś), faktury wystawiam.",
+    "price.legal":"Płatności: USD / EUR / PLN / BYN / RUB / USDT. Pracuję ze wszystkimi krajami.",
     "form.pill":"Kontakt","form.title":"Zostaw zgłoszenie - przyślę 3 warianty automatyzacji pod Twoje zadanie","form.sub":"Odpowiem w 4h w godzinach pracy.","form.name":"Imię","form.contact":"Telegram @username lub email","form.task":"W 1-2 zdaniach: co boli, co zautomatyzować","form.submit":"Bezpłatny audyt","form.privacy":"Wysyłając wyrażasz zgodę na przetwarzanie danych.","form.ok":"Zgłoszenie wysłane. Odezwę się w ciągu kilku godzin.",
     "faq.title":"FAQ",
     "faq.q1":"Ile naprawdę zajmie projekt?","faq.a1":"Prosta automatyzacja - 3-5 dni. Bot AI - 1-2 tyg. Złożone MVP - 3-6 tyg.",
@@ -685,7 +848,9 @@ const I18N = {
     "faq.q5":"Klienci z UE / WNP?","faq.a5":"Tak. USD / EUR / PLN / BYN / RUB / USDT.",
     "faq.q6":"A jeśli GPT / n8n padnie?","faq.a6":"Modułowa architektura. LLM przez config, n8n - na Python.",
     "faq.q7":"Bez przedpłaty?","faq.a7":"Standard: 50/50. Małe zadania - po fakcie. Audyt gratis.",
-    "foot.legal":"Samozatrudniony, Republika Białorusi","foot.top":"Do góry","foot.contact":"Kontakt",
+    "calc.pill":"Kalkulator oszczędności","calc.title":"Ile tracisz każdego miesiąca?","calc.sub":"Wpisz dane - pokażę, ile godzin i pieniędzy oszczędzisz dzięki automatyzacji","calc.rate":"Średnia stawka godzinowa (USD)","calc.team":"Liczba osób zaangażowanych w ten proces","calc.hours":"Godzin na tydzień na ten proces","calc.monthly":"Strata miesięczna","calc.yearly":"Strata roczna","calc.payback":"3-dniowa automatyzacja spłaci się w ciągu około","calc.note":"* Kalkulacja: godziny/tydzień × stawka × 4,3 tygodnia × liczba osób",
+    "check.pill":"Interaktywna lista kontrolna","check.title":"Co możesz zautomatyzować?","check.sub":"Zaznacz procesy - pokażę gdzie oszczędności są największe","check.i1":"Ręczne wprowadzanie danych do CRM / dokumenty","check.i1d":"Ręcznie przeniesione kontakty, zamówienia, informacje z maili","check.i2":"Raporty dzienne / tygodniowe","check.i2d":"Ręczne zbieranie danych, Excel, Google Sheets, wysyłanie kierownictwu","check.i3":"Email marketing i kampanie","check.i3d":"Wysyłanie z list, kontrola subskrypcji, segmentacja ręczna","check.i4":"Obsługa klienta (FAQ, pierwszy kontakt)","check.i4d":"Odpowiedzi na powtarzające się pytania, kwalifikacja leadów","check.i5":"Koordynacja spotkań / harmonogram","check.i5d":"Uzgadnianie czasu, wysyłanie przypomnień, synchronizacja kalendarzy","check.i6":"Płatności i rozliczenia","check.i6d":"Faktury, przypomnienia o płatności, synchronizacja systemów płatniczych","check.i7":"Integracja systemów (kopiowanie danych)","check.i7d":"Dane między CRM, buchalterią, platformami marketingowymi","check.i8":"Kontrola jakości i weryfikacja","check.i8d":"Kontrola danych, wykrywanie duplikatów, formatowanie","check.summary":"Wybrałeś:","check.cta":"Omówić plan automatyzacji",
+    "foot.legal":"© MorozAi. Wszystkie prawa zastrzeżone.","foot.top":"Do góry","foot.contact":"Kontakt",
   },
   de: {
     "nav.services":"Leistungen","nav.cases":"Projekte","nav.process":"Prozess","nav.pricing":"Preise","nav.cta":"Audit",
@@ -735,7 +900,7 @@ const I18N = {
     "price.p1.n":"Mini","price.p1.d":"Einmalige Automatisierung eines einzelnen Prozesses","price.p1.l1":"✓ 1 Szenario in n8n / Make","price.p1.l2":"✓ Bis zu 3 Integrationen","price.p1.l3":"✓ 3-5 Tage","price.p1.l4":"✓ Doku + 14 Tage Support",
     "price.p2.n":"Standard","price.p2.d":"KI-Bot oder mehrstufige Automatisierung","price.p2.l1":"✓ Telegram / WhatsApp / Web-Bot","price.p2.l2":"✓ LLM-Agent mit Gedächtnis","price.p2.l3":"✓ Datenbank + Admin","price.p2.l4":"✓ VPS-Deploy, Logs, Backups","price.p2.l5":"✓ 7-14 Tage, 30 Tage Support",
     "price.p3.n":"Premium","price.p3.d":"Vollständiges KI-Produkt oder MVP","price.p3.l1":"✓ Custom FastAPI Backend","price.p3.l2":"✓ Voice API, Voice-Bot","price.p3.l3":"✓ Multi-Agent-Architektur","price.p3.l4":"✓ Dashboards, Rollen","price.p3.l5":"✓ 3-6 Wochen, SLA",
-    "price.legal":"Zahlung in USD / EUR / PLN / BYN / RUB / USDT. Selbstständig (Belarus), Rechnungen werden ausgestellt.",
+    "price.legal":"Zahlung in USD / EUR / PLN / BYN / RUB / USDT. Arbeite mit allen Ländern.",
     "form.pill":"Kontakt","form.title":"Anfrage hinterlassen - ich sende 3 Automatisierungsoptionen für Ihre Aufgabe","form.sub":"Antwort innerhalb von 4 Geschäftsstunden. Kein Spam.","form.name":"Ihr Name","form.contact":"Telegram Benutzername oder E-Mail","form.task":"In 1-2 Sätzen: was schmerzt, was automatisieren","form.submit":"Kostenloses Audit erhalten","form.privacy":"Mit dem Absenden stimmen Sie der Datenverarbeitung zu.","form.ok":"Anfrage gesendet. Ich melde mich innerhalb weniger Stunden.",
     "faq.title":"FAQ",
     "faq.q1":"Wie lange dauert das Projekt wirklich?","faq.a1":"Einfache Automatisierung - 3-5 Tage. KI-Bot - 1-2 Wochen. Komplexes MVP - 3-6 Wochen.",
@@ -745,7 +910,9 @@ const I18N = {
     "faq.q5":"EU / GUS Kunden?","faq.a5":"Ja. USD / EUR / PLN / BYN / RUB / USDT.",
     "faq.q6":"Was wenn GPT / n8n ausfällt?","faq.a6":"Modulare Architektur. LLM über Konfiguration tauschbar, n8n zu Python.",
     "faq.q7":"Ohne Vorauszahlung?","faq.a7":"Standard: 50/50. Kleine Aufgaben - bei Lieferung. Audit immer kostenlos.",
-    "foot.legal":"Selbstständig, Republik Belarus","foot.top":"Nach oben","foot.contact":"Kontakt",
+    "calc.pill":"Einsparungsrechner","calc.title":"Wie viel verlieren Sie pro Monat?","calc.sub":"Geben Sie Ihre Daten ein - ich zeige Ihnen, wie viele Stunden und Dollars Sie mit Automation sparen","calc.rate":"Durchschnittlicher Stundensatz (USD)","calc.team":"Anzahl der Personen in diesem Prozess","calc.hours":"Stunden pro Woche für diesen Prozess","calc.monthly":"Monatliche Verluste","calc.yearly":"Jährliche Verluste","calc.payback":"3-Tage-Automatisierung amortisiert sich in etwa","calc.note":"* Berechnung: Stunden/Woche × Satz × 4,3 Wochen × Anzahl der Personen",
+    "check.pill":"Automatisierungs-Checkliste","check.title":"Was können Sie automatisieren?","check.sub":"Kreuzen Sie Prozesse an - ich zeige Ihnen, wo die Ersparnisse am größten sind","check.i1":"Manuelle Dateneingabe in CRM / Dokumente","check.i1d":"Manuell übertragene Kontakte, Bestellungen, E-Mail-Informationen","check.i2":"Tägliche / wöchentliche Berichte","check.i2d":"Manuelle Datenerfassung, Excel, Google Sheets, Versand an Management","check.i3":"E-Mail-Marketing und Kampagnen","check.i3d":"Versand aus Listen, Abonnement-Checks, manuelle Segmentierung","check.i4":"Kundenservice (FAQ, Erstkontakt)","check.i4d":"Antworten auf wiederkehrende Fragen, Lead-Qualifikation","check.i5":"Terminkoordination / Zeitplanung","check.i5d":"Zeitabstimmung, Erinnerungsversand, Kalendersynchronisierung","check.i6":"Zahlungen und Abrechnung","check.i6d":"Rechnungen, Zahlungserinnerungen, Zahlungssystem-Synchronisierung","check.i7":"Systemintegration (Datenkopien)","check.i7d":"Daten zwischen CRM, Buchhaltung, Marketing-Plattformen","check.i8":"Qualitätskontrolle und Überprüfung","check.i8d":"Datenprüfungen, Duplikaterkennung, Formatierung","check.summary":"Sie haben ausgewählt:","check.cta":"Automatisierungsplan besprechen",
+    "foot.legal":"© MorozAi. Alle Rechte vorbehalten.","foot.top":"Nach oben","foot.contact":"Kontakt",
   },
   fr: {
     "nav.services":"Services","nav.cases":"Projets","nav.process":"Processus","nav.pricing":"Tarifs","nav.cta":"Audit",
@@ -795,7 +962,7 @@ const I18N = {
     "price.p1.n":"Mini","price.p1.d":"Automatisation ponctuelle d'un seul processus","price.p1.l1":"✓ 1 scénario n8n / Make","price.p1.l2":"✓ Jusqu'à 3 intégrations","price.p1.l3":"✓ 3-5 jours","price.p1.l4":"✓ Docs + 14 jours support",
     "price.p2.n":"Standard","price.p2.d":"Bot IA ou automatisation multi-étapes","price.p2.l1":"✓ Telegram / WhatsApp / Web bot","price.p2.l2":"✓ Agent LLM avec mémoire","price.p2.l3":"✓ Base de données + admin","price.p2.l4":"✓ Deploy VPS, logs, backups","price.p2.l5":"✓ 7-14 jours, 30 jours support",
     "price.p3.n":"Premium","price.p3.d":"Produit IA complet ou MVP","price.p3.l1":"✓ Backend FastAPI custom","price.p3.l2":"✓ Voice API, voice bot","price.p3.l3":"✓ Architecture multi-agent","price.p3.l4":"✓ Dashboards, rôles","price.p3.l5":"✓ 3-6 semaines, SLA",
-    "price.legal":"Paiement en USD / EUR / PLN / BYN / RUB / USDT. Auto-entrepreneur (Biélorussie), factures fournies.",
+    "price.legal":"Paiement en USD / EUR / PLN / BYN / RUB / USDT. Travail avec tous les pays.",
     "form.pill":"Contact","form.title":"Laissez une demande - j'enverrai 3 options d'automatisation pour votre tâche","form.sub":"Réponse sous 4h ouvrées. Pas de spam.","form.name":"Votre nom","form.contact":"Telegram ou email","form.task":"En 1-2 phrases: ce qui vous pose problème, ce à automatiser","form.submit":"Audit gratuit","form.privacy":"En soumettant vous acceptez le traitement des données.","form.ok":"Demande envoyée. Je répondrai dans quelques heures.",
     "faq.title":"FAQ",
     "faq.q1":"Combien de temps prendra vraiment le projet?","faq.a1":"Automatisation simple - 3-5 jours. Bot IA - 1-2 semaines. MVP complexe - 3-6 semaines.",
@@ -805,7 +972,9 @@ const I18N = {
     "faq.q5":"Clients UE / CEI?","faq.a5":"Oui. USD / EUR / PLN / BYN / RUB / USDT.",
     "faq.q6":"Si GPT / n8n tombe?","faq.a6":"Architecture modulaire. LLM échangeable par config, n8n vers Python.",
     "faq.q7":"Sans acompte?","faq.a7":"Standard: 50/50. Petites tâches - à la livraison. Audit toujours gratuit.",
-    "foot.legal":"Auto-entrepreneur, République du Bélarus","foot.top":"Haut","foot.contact":"Contact",
+    "calc.pill":"Calculatrice d'économies","calc.title":"Combien perdez-vous chaque mois?","calc.sub":"Entrez vos données - je vous montrerai combien d'heures et de dollars vous économisez avec l'automatisation","calc.rate":"Taux horaire moyen (USD)","calc.team":"Nombre de personnes dans ce processus","calc.hours":"Heures par semaine sur ce processus","calc.monthly":"Perte mensuelle","calc.yearly":"Perte annuelle","calc.payback":"L'automatisation de 3 jours se rentabilise en environ","calc.note":"* Calcul: heures/semaine × taux × 4,3 semaines × nombre de personnes",
+    "check.pill":"Liste de contrôle d'automatisation","check.title":"Qu'est-ce que vous pouvez automatiser?","check.sub":"Cochez les processus - je vous montrerai où les économies sont les plus importantes","check.i1":"Saisie manuelle des données dans CRM / documents","check.i1d":"Contacts, commandes, informations d'e-mails transférés manuellement","check.i2":"Rapports quotidiens / hebdomadaires","check.i2d":"Collecte manuelle de données, Excel, Google Sheets, envoi à la direction","check.i3":"Email marketing et campagnes","check.i3d":"Envoi de listes, vérification des abonnements, segmentation manuelle","check.i4":"Service client (FAQ, premier contact)","check.i4d":"Réponses aux questions répétitives, qualification des prospects","check.i5":"Coordination des réunions / planification","check.i5d":"Accord sur les horaires, envoi de rappels, synchronisation des calendriers","check.i6":"Paiements et facturation","check.i6d":"Factures, rappels de paiement, synchronisation des systèmes de paiement","check.i7":"Intégration de systèmes (copie de données)","check.i7d":"Données entre CRM, comptabilité, plateformes marketing","check.i8":"Contrôle de qualité et vérification","check.i8d":"Vérification des données, détection des doublons, formatage","check.summary":"Vous avez sélectionné:","check.cta":"Discuter du plan d'automatisation",
+    "foot.legal":"© MorozAi. Tous droits réservés.","foot.top":"Haut","foot.contact":"Contact",
   },
   es: {
     "nav.services":"Servicios","nav.cases":"Proyectos","nav.process":"Proceso","nav.pricing":"Precios","nav.cta":"Auditoría",
@@ -855,7 +1024,7 @@ const I18N = {
     "price.p1.n":"Mini","price.p1.d":"Automatización puntual de un solo proceso","price.p1.l1":"✓ 1 escenario en n8n / Make","price.p1.l2":"✓ Hasta 3 integraciones","price.p1.l3":"✓ 3-5 días","price.p1.l4":"✓ Docs + 14 días soporte",
     "price.p2.n":"Estándar","price.p2.d":"Bot IA o automatización multinivel","price.p2.l1":"✓ Telegram / WhatsApp / Web bot","price.p2.l2":"✓ Agente LLM con memoria","price.p2.l3":"✓ Base de datos + admin","price.p2.l4":"✓ Deploy VPS, logs, backups","price.p2.l5":"✓ 7-14 días, 30 días soporte",
     "price.p3.n":"Premium","price.p3.d":"Producto IA completo o MVP","price.p3.l1":"✓ Backend FastAPI personalizado","price.p3.l2":"✓ Voice API, voice bot","price.p3.l3":"✓ Arquitectura multi-agente","price.p3.l4":"✓ Dashboards, roles","price.p3.l5":"✓ 3-6 semanas, SLA",
-    "price.legal":"Pago en USD / EUR / PLN / BYN / RUB / USDT. Autónomo (Bielorrusia), facturas proporcionadas.",
+    "price.legal":"Pago en USD / EUR / PLN / BYN / RUB / USDT. Trabajo con todos los países.",
     "form.pill":"Contacto","form.title":"Deja una solicitud - enviaré 3 opciones de automatización para tu tarea","form.sub":"Respuesta en 4h hábiles. Sin spam.","form.name":"Tu nombre","form.contact":"Telegram o email","form.task":"En 1-2 frases: qué duele, qué automatizar","form.submit":"Auditoría gratuita","form.privacy":"Al enviar aceptas el procesamiento de datos.","form.ok":"Solicitud enviada. Responderé en pocas horas.",
     "faq.title":"FAQ",
     "faq.q1":"¿Cuánto tardará realmente el proyecto?","faq.a1":"Automatización simple - 3-5 días. Bot IA - 1-2 semanas. MVP complejo - 3-6 semanas.",
@@ -865,7 +1034,9 @@ const I18N = {
     "faq.q5":"¿Clientes UE / CEI?","faq.a5":"Sí. USD / EUR / PLN / BYN / RUB / USDT.",
     "faq.q6":"¿Si GPT / n8n cae?","faq.a6":"Arquitectura modular. LLM intercambiable por config, n8n a Python.",
     "faq.q7":"¿Sin pago anticipado?","faq.a7":"Estándar: 50/50. Tareas pequeñas - al entregar. Auditoría siempre gratis.",
-    "foot.legal":"Autónomo, República de Bielorrusia","foot.top":"Arriba","foot.contact":"Contacto",
+    "calc.pill":"Calculadora de ahorros","calc.title":"¿Cuánto pierdes cada mes?","calc.sub":"Ingresa tus datos - te mostraré cuántas horas y dólares ahorras con la automatización","calc.rate":"Tarifa por hora promedio (USD)","calc.team":"Número de personas en este proceso","calc.hours":"Horas por semana en este proceso","calc.monthly":"Pérdida mensual","calc.yearly":"Pérdida anual","calc.payback":"La automatización de 3 días se amortiza en aproximadamente","calc.note":"* Cálculo: horas/semana × tarifa × 4.3 semanas × número de personas",
+    "check.pill":"Lista de verificación de automatización","check.title":"¿Qué puedes automatizar?","check.sub":"Marca los procesos - te mostraré dónde el ahorro es mayor","check.i1":"Entrada manual de datos en CRM / documentos","check.i1d":"Contactos, pedidos, información de correos transferidos manualmente","check.i2":"Reportes diarios / semanales","check.i2d":"Recopilación manual de datos, Excel, Google Sheets, envío a gerencia","check.i3":"Email marketing y campañas","check.i3d":"Envío desde listas, verificación de suscripciones, segmentación manual","check.i4":"Atención al cliente (FAQ, primer contacto)","check.i4d":"Respuestas a preguntas repetidas, calificación de prospectos","check.i5":"Coordinación de reuniones / programación","check.i5d":"Acuerdo de horarios, envío de recordatorios, sincronización de calendario","check.i6":"Pagos y facturación","check.i6d":"Facturas, recordatorios de pago, sincronización de sistemas de pago","check.i7":"Integración de sistemas (copia de datos)","check.i7d":"Datos entre CRM, contabilidad, plataformas de marketing","check.i8":"Control de calidad y verificación","check.i8d":"Verificación de datos, detección de duplicados, formato","check.summary":"Has seleccionado:","check.cta":"Discutir plan de automatización",
+    "foot.legal":"© MorozAi. Todos los derechos reservados.","foot.top":"Arriba","foot.contact":"Contacto",
   },
   pt: {
     "nav.services":"Serviços","nav.cases":"Projetos","nav.process":"Processo","nav.pricing":"Preços","nav.cta":"Auditoria",
@@ -915,7 +1086,7 @@ const I18N = {
     "price.p1.n":"Mini","price.p1.d":"Automação pontual de um único processo","price.p1.l1":"✓ 1 cenário em n8n / Make","price.p1.l2":"✓ Até 3 integrações","price.p1.l3":"✓ 3-5 dias","price.p1.l4":"✓ Docs + 14 dias suporte",
     "price.p2.n":"Standard","price.p2.d":"Bot IA ou automação multi-etapas","price.p2.l1":"✓ Telegram / WhatsApp / Web bot","price.p2.l2":"✓ Agente LLM com memória","price.p2.l3":"✓ Base de dados + admin","price.p2.l4":"✓ Deploy VPS, logs, backups","price.p2.l5":"✓ 7-14 dias, 30 dias suporte",
     "price.p3.n":"Premium","price.p3.d":"Produto IA completo ou MVP","price.p3.l1":"✓ Backend FastAPI personalizado","price.p3.l2":"✓ Voice API, voice bot","price.p3.l3":"✓ Arquitetura multi-agente","price.p3.l4":"✓ Dashboards, funções","price.p3.l5":"✓ 3-6 semanas, SLA",
-    "price.legal":"Pagamento em USD / EUR / PLN / BYN / RUB / USDT. Trabalhador independente (Bielorrússia), faturas fornecidas.",
+    "price.legal":"Pagamento em USD / EUR / PLN / BYN / RUB / USDT. Trabalho com todos os países.",
     "form.pill":"Contacto","form.title":"Deixe um pedido - enviarei 3 opções de automação para a sua tarefa","form.sub":"Resposta em 4h úteis. Sem spam.","form.name":"O seu nome","form.contact":"Telegram ou email","form.task":"Em 1-2 frases: o que dói, o que automatizar","form.submit":"Auditoria gratuita","form.privacy":"Ao submeter aceita o processamento de dados.","form.ok":"Pedido enviado. Responderei em poucas horas.",
     "faq.title":"FAQ",
     "faq.q1":"Quanto vai demorar realmente o projeto?","faq.a1":"Automação simples - 3-5 dias. Bot IA - 1-2 semanas. MVP complexo - 3-6 semanas.",
@@ -925,7 +1096,9 @@ const I18N = {
     "faq.q5":"Clientes UE / CEI?","faq.a5":"Sim. USD / EUR / PLN / BYN / RUB / USDT.",
     "faq.q6":"Se GPT / n8n cair?","faq.a6":"Arquitetura modular. LLM intercambiável por config, n8n para Python.",
     "faq.q7":"Sem pagamento antecipado?","faq.a7":"Standard: 50/50. Tarefas pequenas - na entrega. Auditoria sempre gratuita.",
-    "foot.legal":"Trabalhador independente, República da Bielorrússia","foot.top":"Topo","foot.contact":"Contacto",
+    "calc.pill":"Calculadora de poupança","calc.title":"Quanto você perde por mês?","calc.sub":"Digite seus dados - vou mostrar quantas horas e dólares você economiza com a automação","calc.rate":"Taxa horária média (USD)","calc.team":"Número de pessoas neste processo","calc.hours":"Horas por semana neste processo","calc.monthly":"Perda mensal","calc.yearly":"Perda anual","calc.payback":"A automação de 3 dias se amortiza em aproximadamente","calc.note":"* Cálculo: horas/semana × taxa × 4,3 semanas × número de pessoas",
+    "check.pill":"Lista de verificação de automação","check.title":"O que você pode automatizar?","check.sub":"Marque os processos - vou mostrar onde a poupança é maior","check.i1":"Entrada manual de dados em CRM / documentos","check.i1d":"Contatos, pedidos, informações de email transferidas manualmente","check.i2":"Relatórios diários / semanais","check.i2d":"Coleta manual de dados, Excel, Google Sheets, envio para gerência","check.i3":"Email marketing e campanhas","check.i3d":"Envio de listas, verificação de inscrição, segmentação manual","check.i4":"Atendimento ao cliente (FAQ, primeiro contato)","check.i4d":"Respostas a perguntas repetidas, qualificação de prospectos","check.i5":"Coordenação de reuniões / agendamento","check.i5d":"Acordo sobre horários, envio de lembretes, sincronização de calendário","check.i6":"Pagamentos e faturamento","check.i6d":"Faturas, lembretes de pagamento, sincronização de sistemas de pagamento","check.i7":"Integração de sistemas (cópia de dados)","check.i7d":"Dados entre CRM, contabilidade, plataformas de marketing","check.i8":"Controle de qualidade e verificação","check.i8d":"Verificação de dados, detecção de duplicatas, formatação","check.summary":"Você selecionou:","check.cta":"Discutir plano de automação",
+    "foot.legal":"© MorozAi. Todos os direitos reservados.","foot.top":"Topo","foot.contact":"Contacto",
   },
   it: {
     "nav.services":"Servizi","nav.cases":"Progetti","nav.process":"Processo","nav.pricing":"Prezzi","nav.cta":"Audit",
@@ -975,7 +1148,7 @@ const I18N = {
     "price.p1.n":"Mini","price.p1.d":"Automazione puntuale di un singolo processo","price.p1.l1":"✓ 1 scenario in n8n / Make","price.p1.l2":"✓ Fino a 3 integrazioni","price.p1.l3":"✓ 3-5 giorni","price.p1.l4":"✓ Docs + 14 giorni supporto",
     "price.p2.n":"Standard","price.p2.d":"Bot IA o automazione multi-step","price.p2.l1":"✓ Telegram / WhatsApp / Web bot","price.p2.l2":"✓ Agente LLM con memoria","price.p2.l3":"✓ Database + admin","price.p2.l4":"✓ Deploy VPS, log, backup","price.p2.l5":"✓ 7-14 giorni, 30 giorni supporto",
     "price.p3.n":"Premium","price.p3.d":"Prodotto IA completo o MVP","price.p3.l1":"✓ Backend FastAPI personalizzato","price.p3.l2":"✓ Voice API, voice bot","price.p3.l3":"✓ Architettura multi-agente","price.p3.l4":"✓ Dashboard, ruoli","price.p3.l5":"✓ 3-6 settimane, SLA",
-    "price.legal":"Pagamento in USD / EUR / PLN / BYN / RUB / USDT. Lavoratore autonomo (Bielorussia), fatture fornite.",
+    "price.legal":"Pagamento in USD / EUR / PLN / BYN / RUB / USDT. Lavoro con tutti i paesi.",
     "form.pill":"Contatto","form.title":"Lascia una richiesta - invierò 3 opzioni di automazione per il tuo progetto","form.sub":"Risposta entro 4h lavorative. Niente spam.","form.name":"Il tuo nome","form.contact":"Telegram o email","form.task":"In 1-2 frasi: cosa fa male, cosa automatizzare","form.submit":"Audit gratuito","form.privacy":"Inviando accetti il trattamento dei dati.","form.ok":"Richiesta inviata. Risponderò entro poche ore.",
     "faq.title":"FAQ",
     "faq.q1":"Quanto durerà davvero il progetto?","faq.a1":"Automazione semplice - 3-5 giorni. Bot IA - 1-2 settimane. MVP complesso - 3-6 settimane.",
@@ -985,7 +1158,9 @@ const I18N = {
     "faq.q5":"Clienti UE / CSI?","faq.a5":"Sì. USD / EUR / PLN / BYN / RUB / USDT.",
     "faq.q6":"Se GPT / n8n cade?","faq.a6":"Architettura modulare. LLM sostituibile via config, n8n verso Python.",
     "faq.q7":"Senza anticipo?","faq.a7":"Standard: 50/50. Piccoli lavori - alla consegna. Audit sempre gratuito.",
-    "foot.legal":"Lavoratore autonomo, Repubblica di Bielorussia","foot.top":"Su","foot.contact":"Contatto",
+    "calc.pill":"Calcolatrice di risparmio","calc.title":"Quanto perdi ogni mese?","calc.sub":"Inserisci i tuoi dati - ti mostrerò quante ore e dollari risparmierai con l'automazione","calc.rate":"Tariffa oraria media (USD)","calc.team":"Numero di persone in questo processo","calc.hours":"Ore per settimana su questo processo","calc.monthly":"Perdita mensile","calc.yearly":"Perdita annuale","calc.payback":"L'automazione di 3 giorni si ammortizza in circa","calc.note":"* Calcolo: ore/settimana × tariffa × 4,3 settimane × numero di persone",
+    "check.pill":"Checklist di automazione","check.title":"Cosa puoi automatizzare?","check.sub":"Controlla i processi - ti mostrerò dove il risparmio è maggiore","check.i1":"Inserimento manuale dati in CRM / documenti","check.i1d":"Contatti, ordini, informazioni email trasferiti manualmente","check.i2":"Rapporti giornalieri / settimanali","check.i2d":"Raccolta manuale dati, Excel, Google Sheets, invio a gestione","check.i3":"Email marketing e campagne","check.i3d":"Invio da liste, controllo abbonamenti, segmentazione manuale","check.i4":"Servizio clienti (FAQ, primo contatto)","check.i4d":"Risposte a domande ricorrenti, qualificazione lead","check.i5":"Coordinamento riunioni / programmazione","check.i5d":"Accordo orari, invio promemoria, sincronizzazione calendario","check.i6":"Pagamenti e fatturazione","check.i6d":"Fatture, promemoria pagamento, sincronizzazione sistemi pagamento","check.i7":"Integrazione sistemi (copia dati)","check.i7d":"Dati tra CRM, contabilità, piattaforme marketing","check.i8":"Controllo qualità e verifica","check.i8d":"Verifica dati, rilevamento duplicati, formattazione","check.summary":"Hai selezionato:","check.cta":"Discuti piano di automazione",
+    "foot.legal":"© MorozAi. Tutti i diritti riservati.","foot.top":"Su","foot.contact":"Contatto",
   },
   el: {
     "nav.services":"Υπηρεσίες","nav.cases":"Έργα","nav.process":"Διαδικασία","nav.pricing":"Τιμές","nav.cta":"Έλεγχος",
@@ -1035,7 +1210,7 @@ const I18N = {
     "price.p1.n":"Mini","price.p1.d":"Εφάπαξ αυτοματισμός μιας διαδικασίας","price.p1.l1":"✓ 1 σενάριο n8n / Make","price.p1.l2":"✓ Έως 3 ενσωματώσεις","price.p1.l3":"✓ 3-5 μέρες","price.p1.l4":"✓ Τεκμηρίωση + 14 μέρες υποστήριξη",
     "price.p2.n":"Standard","price.p2.d":"AI bot ή πολυβήματος αυτοματισμός","price.p2.l1":"✓ Telegram / WhatsApp / Web bot","price.p2.l2":"✓ LLM agent με μνήμη","price.p2.l3":"✓ Βάση δεδομένων + admin","price.p2.l4":"✓ Deploy VPS, logs, backups","price.p2.l5":"✓ 7-14 μέρες, 30 μέρες υποστήριξη",
     "price.p3.n":"Premium","price.p3.d":"Πλήρες AI προϊόν ή MVP","price.p3.l1":"✓ Custom FastAPI backend","price.p3.l2":"✓ Voice API, voice bot","price.p3.l3":"✓ Αρχιτεκτονική multi-agent","price.p3.l4":"✓ Dashboards, ρόλοι","price.p3.l5":"✓ 3-6 εβδομάδες, SLA",
-    "price.legal":"Πληρωμή σε USD / EUR / PLN / BYN / RUB / USDT. Ελεύθερος επαγγελματίας (Λευκορωσία).",
+    "price.legal":"Πληρωμή σε USD / EUR / PLN / BYN / RUB / USDT. Δουλεύω με όλες τις χώρες.",
     "form.pill":"Επικοινωνία","form.title":"Αφήστε αίτηση - θα στείλω 3 επιλογές αυτοματισμού","form.sub":"Απάντηση εντός 4 ωρών. Χωρίς spam.","form.name":"Το όνομά σας","form.contact":"Telegram ή email","form.task":"Σε 1-2 προτάσεις: τι πονάει, τι να αυτοματοποιηθεί","form.submit":"Δωρεάν έλεγχος","form.privacy":"Με την υποβολή αποδέχεστε την επεξεργασία δεδομένων.","form.ok":"Αίτηση στάλθηκε. Θα απαντήσω σε λίγες ώρες.",
     "faq.title":"FAQ",
     "faq.q1":"Πόσο θα διαρκέσει το έργο;","faq.a1":"Απλός αυτοματισμός - 3-5 μέρες. AI bot - 1-2 εβδομάδες. Σύνθετο MVP - 3-6 εβδομάδες.",
@@ -1045,7 +1220,9 @@ const I18N = {
     "faq.q5":"Πελάτες ΕΕ / ΚΑΚ;","faq.a5":"Ναι. USD / EUR / PLN / BYN / RUB / USDT.",
     "faq.q6":"Αν πέσει GPT / n8n;","faq.a6":"Αρθρωτή αρχιτεκτονική. LLM αλλάζει μέσω config.",
     "faq.q7":"Χωρίς προκαταβολή;","faq.a7":"Standard: 50/50. Μικρές εργασίες - στην παράδοση. Έλεγχος πάντα δωρεάν.",
-    "foot.legal":"Ελεύθερος επαγγελματίας, Δημοκρατία της Λευκορωσίας","foot.top":"Πάνω","foot.contact":"Επικοινωνία",
+    "calc.pill":"Αριθμομachine αποταμίευσης","calc.title":"Πόσα χάνετε κάθε μήνα;","calc.sub":"Εισάγετε τα δεδομένα σας - θα σας δείξω πόσες ώρες και δολάρια εξοικονομείτε με την αυτοματοποίηση","calc.rate":"Μέσο ωριαίο κόστος (USD)","calc.team":"Αριθμός ατόμων σε αυτή τη διαδικασία","calc.hours":"Ώρες ανά εβδομάδα σε αυτή τη διαδικασία","calc.monthly":"Μηνιαία απώλεια","calc.yearly":"Ετήσια απώλεια","calc.payback":"Η αυτοματοποίηση 3 ημερών αποσβένεται σε περίπου","calc.note":"* Υπολογισμός: ώρες/εβδομάδα × ημερομίσθιο × 4,3 εβδομάδες × αριθμός ατόμων",
+    "check.pill":"Λίστα ελέγχου αυτοματοποίησης","check.title":"Τι μπορείς να αυτοματοποιήσεις;","check.sub":"Σημειώστε τις διαδικασίες - θα σας δείξω πού είναι τα μεγαλύτερα οφέλη","check.i1":"Χειροκίνητη εισαγωγή δεδομένων σε CRM / έγγραφα","check.i1d":"Επαφές, παραγγελίες, πληροφορίες email που μεταφέρθηκαν χειροκίνητα","check.i2":"Ημερήσιες / εβδομαδιαίες αναφορές","check.i2d":"Χειροκίνητη συλλογή δεδομένων, Excel, Google Sheets, αποστολή στη διοίκηση","check.i3":"Email marketing και εκστρατείες","check.i3d":"Αποστολή από λίστες, έλεγχος συνδρομών, χειροκίνητη κατάτμηση","check.i4":"Εξυπηρέτηση πελατών (FAQ, πρώτη επαφή)","check.i4d":"Απαντήσεις σε επαναλαμβανόμενες ερωτήσεις, προσδιορισμός δυνητικών πελατών","check.i5":"Συντονισμός συναντήσεων / χρονοδιάγραμμα","check.i5d":"Συμφωνία χρόνου, αποστολή υπενθυμίσεων, συγχρονισμός ημερολογίου","check.i6":"Πληρωμές και τιμολόγηση","check.i6d":"Τιμολόγια, υπενθυμίσεις πληρωμής, συγχρονισμός συστημάτων πληρωμής","check.i7":"Ενσωμάτωση συστημάτων (αντιγραφή δεδομένων)","check.i7d":"Δεδομένα μεταξύ CRM, λογιστικής, πλατφορμών μάρκετινγκ","check.i8":"Έλεγχος ποιότητας και επαλήθευση","check.i8d":"Επαλήθευση δεδομένων, ανίχνευση διπλοτύπων, μορφοποίηση","check.summary":"Επιλέξατε:","check.cta":"Συζητήστε σχέδιο αυτοματοποίησης",
+    "foot.legal":"© MorozAi. Όλα τα δικαιώματα διατηρούνται.","foot.top":"Πάνω","foot.contact":"Επικοινωνία",
   },
   nl: {
     "nav.services":"Diensten","nav.cases":"Projecten","nav.process":"Proces","nav.pricing":"Prijzen","nav.cta":"Audit",
@@ -1095,7 +1272,7 @@ const I18N = {
     "price.p1.n":"Mini","price.p1.d":"Eenmalige automatisering van één proces","price.p1.l1":"✓ 1 scenario in n8n / Make","price.p1.l2":"✓ Tot 3 integraties","price.p1.l3":"✓ 3-5 dagen","price.p1.l4":"✓ Docs + 14 dagen ondersteuning",
     "price.p2.n":"Standaard","price.p2.d":"AI-bot of meerstaps automatisering","price.p2.l1":"✓ Telegram / WhatsApp / Web bot","price.p2.l2":"✓ LLM-agent met geheugen","price.p2.l3":"✓ Database + admin","price.p2.l4":"✓ VPS deploy, logs, backups","price.p2.l5":"✓ 7-14 dagen, 30 dagen ondersteuning",
     "price.p3.n":"Premium","price.p3.d":"Volledig AI-product of MVP","price.p3.l1":"✓ Aangepaste FastAPI backend","price.p3.l2":"✓ Voice API, voice bot","price.p3.l3":"✓ Multi-agent architectuur","price.p3.l4":"✓ Dashboards, rollen","price.p3.l5":"✓ 3-6 weken, SLA",
-    "price.legal":"Betaling in USD / EUR / PLN / BYN / RUB / USDT. Zelfstandige (Belarus), facturen verstrekt.",
+    "price.legal":"Betaling in USD / EUR / PLN / BYN / RUB / USDT. Werk met alle landen.",
     "form.pill":"Contact","form.title":"Laat een aanvraag achter - ik stuur 3 automatiseringsopties","form.sub":"Antwoord binnen 4 werkuren. Geen spam.","form.name":"Uw naam","form.contact":"Telegram of e-mail","form.task":"In 1-2 zinnen: wat pijnigt, wat automatiseren","form.submit":"Gratis audit","form.privacy":"Door in te dienen stemt u in met gegevensverwerking.","form.ok":"Aanvraag verzonden. Ik reageer binnen enkele uren.",
     "faq.title":"FAQ",
     "faq.q1":"Hoe lang duurt het project echt?","faq.a1":"Eenvoudige automatisering - 3-5 dagen. AI-bot - 1-2 weken. Complex MVP - 3-6 weken.",
@@ -1105,7 +1282,9 @@ const I18N = {
     "faq.q5":"EU / GOS klanten?","faq.a5":"Ja. USD / EUR / PLN / BYN / RUB / USDT.",
     "faq.q6":"Als GPT / n8n uitvalt?","faq.a6":"Modulaire architectuur. LLM uitwisselbaar via config.",
     "faq.q7":"Zonder aanbetaling?","faq.a7":"Standaard: 50/50. Kleine taken - bij levering. Audit altijd gratis.",
-    "foot.legal":"Zelfstandige, Republiek Belarus","foot.top":"Omhoog","foot.contact":"Contact",
+    "calc.pill":"Besparingscalculator","calc.title":"Hoeveel verlies je elke maand?","calc.sub":"Voer je gegevens in - ik laat zien hoeveel uren en dollars je bespaard met automatisering","calc.rate":"Gemiddeld uurtarief (USD)","calc.team":"Aantal personen in dit proces","calc.hours":"Uren per week in dit proces","calc.monthly":"Maandelijks verlies","calc.yearly":"Jaarlijks verlies","calc.payback":"3-daagse automatisering betaalt zich terug in ongeveer","calc.note":"* Berekening: uren/week × tarief × 4,3 weken × aantal personen",
+    "check.pill":"Automatiseringscontrolelijst","check.title":"Wat kun je automatiseren?","check.sub":"Vink processen aan - ik laat zien waar de besparingen het grootste zijn","check.i1":"Handmatige gegevensinvoer in CRM / documenten","check.i1d":"Handmatig overgebrachte contacten, bestellingen, e-mailinformatie","check.i2":"Dagelijkse / wekelijkse rapporten","check.i2d":"Handmatige gegevensverzameling, Excel, Google Sheets, verzending naar management","check.i3":"E-mailmarketing en campagnes","check.i3d":"Verzending van lijsten, abonnementcontrole, handmatige segmentatie","check.i4":"Klantenservice (FAQ, eerste contact)","check.i4d":"Antwoorden op herhaalde vragen, kwalificatie van potentiële klanten","check.i5":"Vergaderingcoördinatie / planning","check.i5d":"Akkoord over tijd, herinneringsberichten versturen, agenda synchroniseren","check.i6":"Betalingen en facturering","check.i6d":"Facturen, betalingsherinneringen, synchronisatie betalingssystemen","check.i7":"Systeemintegratie (gegevens kopiëren)","check.i7d":"Gegevens tussen CRM, boekhouding, marketingplatformen","check.i8":"Kwaliteitscontrole en verificatie","check.i8d":"Gegevensveri ficatie, duplicaatdetectie, opmaak","check.summary":"Je hebt geselecteerd:","check.cta":"Automatiseringsplan bespreken",
+    "foot.legal":"© MorozAi. Alle rechten voorbehouden.","foot.top":"Omhoog","foot.contact":"Contact",
   },
   fi: {
     "nav.services":"Palvelut","nav.cases":"Projektit","nav.process":"Prosessi","nav.pricing":"Hinnat","nav.cta":"Auditointi",
@@ -1155,7 +1334,7 @@ const I18N = {
     "price.p1.n":"Mini","price.p1.d":"Kertaluonteinen yhden prosessin automaatio","price.p1.l1":"✓ 1 skenaario n8n:ssä / Makessa","price.p1.l2":"✓ Enintään 3 integraatiota","price.p1.l3":"✓ 3-5 päivää","price.p1.l4":"✓ Dokumentaatio + 14 päivää tuki",
     "price.p2.n":"Standard","price.p2.d":"Tekoälybotti tai monivaiheinen automaatio","price.p2.l1":"✓ Telegram / WhatsApp / Web-botti","price.p2.l2":"✓ LLM-agentti muistilla","price.p2.l3":"✓ Tietokanta + hallinta","price.p2.l4":"✓ VPS-käyttöönotto, lokit, varmuuskopiot","price.p2.l5":"✓ 7-14 päivää, 30 päivää tuki",
     "price.p3.n":"Premium","price.p3.d":"Täydellinen tekoälytuote tai MVP","price.p3.l1":"✓ Mukautettu FastAPI-tausta","price.p3.l2":"✓ Voice API, äänirobotti","price.p3.l3":"✓ Moniagenttiarkkitehtuuri","price.p3.l4":"✓ Kojetaulut, roolit","price.p3.l5":"✓ 3-6 viikkoa, SLA",
-    "price.legal":"Maksu USD / EUR / PLN / BYN / RUB / USDT. Itsenäinen ammatinharjoittaja (Valko-Venäjä), laskut toimitetaan.",
+    "price.legal":"Maksu USD / EUR / PLN / BYN / RUB / USDT. Työskentelen kaikkien maiden kanssa.",
     "form.pill":"Yhteydenotto","form.title":"Jätä pyyntö - lähetän 3 automaatiovaihtoehtoa tehtävääsi varten","form.sub":"Vastaus 4 tunnin kuluessa. Ei roskapostia.","form.name":"Nimesi","form.contact":"Telegram tai sähköposti","form.task":"1-2 lauseessa: mikä sattuu, mitä automatisoida","form.submit":"Ilmainen auditointi","form.privacy":"Lähettämällä hyväksyt tietojenkäsittelyn.","form.ok":"Pyyntö lähetetty. Vastaan muutaman tunnin kuluessa.",
     "faq.title":"UKK",
     "faq.q1":"Kuinka kauan projekti todella kestää?","faq.a1":"Yksinkertainen automaatio - 3-5 päivää. Tekoälybotti - 1-2 viikkoa. Monimutkainen MVP - 3-6 viikkoa.",
@@ -1165,7 +1344,9 @@ const I18N = {
     "faq.q5":"EU / IVY asiakkaat?","faq.a5":"Kyllä. USD / EUR / PLN / BYN / RUB / USDT.",
     "faq.q6":"Jos GPT / n8n kaatuu?","faq.a6":"Modulaarinen arkkitehtuuri. LLM vaihdettavissa konfigin kautta.",
     "faq.q7":"Ilman ennakkomaksua?","faq.a7":"Standard: 50/50. Pienet tehtävät - toimituksessa. Auditointi aina ilmainen.",
-    "foot.legal":"Itsenäinen ammatinharjoittaja, Valko-Venäjän tasavalta","foot.top":"Ylös","foot.contact":"Yhteystiedot",
+    "calc.pill":"Säästölaskin","calc.title":"Kuinka paljon menetät kuukaudessa?","calc.sub":"Kirjoita tietosi - näytän kuinka monta tuntia ja dollaria säästät automaatiolla","calc.rate":"Keskimääräinen tuntipalkkio (USD)","calc.team":"Henkilöiden määrä tässä prosessissa","calc.hours":"Tunteja viikossa tähän prosessiin","calc.monthly":"Kuukausittainen menetys","calc.yearly":"Vuotuinen menetys","calc.payback":"3 päivän automatisointi maksaa itsensä noin","calc.note":"* Laskenta: tunnit/viikko × korko × 4,3 viikkoa × henkilöiden määrä",
+    "check.pill":"Automaatiomuistilista","check.title":"Mitä voit automatisoida?","check.sub":"Merkitse prosessit - näytän missä säästöt ovat suurimmat","check.i1":"Tietojen manuaalinen syöttö CRM-järjestelmään / asiakirjoihin","check.i1d":"Manuaalisesti siirretyt yhteystiedot, tilaukset, sähköposti-tiedot","check.i2":"Päivittäiset / viikkottaiset raportit","check.i2d":"Manuaalinen tiedonkeruu, Excel, Google Sheets, lähettäminen johdolle","check.i3":"Sähköpostien markkinointi ja kampanjat","check.i3d":"Lähettäminen listoista, tilaustenhallinnan tarkistus, manuaalinen segmentointi","check.i4":"Asiakaspalvelu (FAQ, ensimmäinen yhteydenotto)","check.i4d":"Vastaukset toistuviin kysymyksiin, liidien pätevöinti","check.i5":"Kokousten koordinointi / aikataulu","check.i5d":"Aikapaikan sopiminen, muistutusviestit, kalenterin synkronointi","check.i6":"Maksut ja laskutus","check.i6d":"Laskut, maksumuistutukset, maksupalvelujärjestelmien synkronointi","check.i7":"Järjestelmien integrointi (tietojen kopiointi)","check.i7d":"Tiedot CRM-järjestelmän, kirjanpidon ja markkinointialustojen välillä","check.i8":"Laadun valvonta ja tarkistus","check.i8d":"Tietojen tarkistus, kaksoiskappaleiden havaitseminen, muotoilu","check.summary":"Valitsit:","check.cta":"Keskustele automaatiosuunnitelmasta",
+    "foot.legal":"© MorozAi. Kaikki oikeudet pidätetään.","foot.top":"Ylös","foot.contact":"Yhteystiedot",
   },
   uk: {
     "nav.services":"Послуги","nav.cases":"Кейси","nav.process":"Процес","nav.pricing":"Тарифи","nav.cta":"Аудит",
@@ -1215,7 +1396,7 @@ const I18N = {
     "price.p1.n":"Міні","price.p1.d":"Точкова автоматизація 1 процесу","price.p1.l1":"✓ 1 сценарій в n8n / Make","price.p1.l2":"✓ До 3 інтеграцій (CRM, пошта, TG)","price.p1.l3":"✓ Термін 3-5 днів","price.p1.l4":"✓ Інструкція + 14 днів підтримки",
     "price.p2.n":"Стандарт","price.p2.d":"AI-бот або багатокрокова автоматизація","price.p2.l1":"✓ Telegram / WhatsApp / Web-бот","price.p2.l2":"✓ LLM-агент з пам'яттю","price.p2.l3":"✓ База даних + адмінка","price.p2.l4":"✓ Деплой на VPS, логи, бекапи","price.p2.l5":"✓ Термін 7-14 днів, 30 днів підтримки",
     "price.p3.n":"Преміум","price.p3.d":"Повноцінний AI-продукт або MVP","price.p3.l1":"✓ Кастомний backend (FastAPI)","price.p3.l2":"✓ Voice API, голосовий робот","price.p3.l3":"✓ Мульти-агентна архітектура","price.p3.l4":"✓ Дашборди, ролі, права","price.p3.l5":"✓ Термін 3-6 тижнів, SLA",
-    "price.legal":"Оплата в USD / EUR / PLN / BYN / RUB / USDT. Самозайнятий (Білорусь), закривні документи надаю.",
+    "price.legal":"Оплата в USD / EUR / PLN / BYN / RUB / USDT. Працюю зі всіма країнами.",
     "form.pill":"Заявка","form.title":"Залиште заявку - надішлю 3 варіанти автоматизації під вашу задачу","form.sub":"Відповім протягом 4 годин у робочий час. Без спаму.","form.name":"Ваше ім'я","form.contact":"Telegram @username або email","form.task":"У 1-2 реченнях: що болить, що хочеться автоматизувати","form.submit":"Отримати безкоштовний аудит","form.privacy":"Натискаючи кнопку, ви погоджуєтесь на обробку даних.","form.ok":"Заявку отримано. Напишу протягом кількох годин.",
     "faq.title":"Часті запитання",
     "faq.q1":"Скільки реально займе проект?","faq.a1":"Проста автоматизація - 3-5 днів. Бот з AI - 1-2 тижні. Складний MVP - 3-6 тижнів.",
@@ -1225,7 +1406,9 @@ const I18N = {
     "faq.q5":"Працюєте з клієнтами з ЄС / СНД?","faq.a5":"Так. USD / EUR / PLN / BYN / RUB / USDT.",
     "faq.q6":"А якщо GPT / n8n відвалиться?","faq.a6":"Архітектура модульна. LLM міняється в конфізі, n8n - на Python.",
     "faq.q7":"Можна без передоплати?","faq.a7":"Стандарт: 50/50. Малі задачі - по факту. Аудит безкоштовний.",
-    "foot.legal":"Самозайнятий, Республіка Білорусь · УНП за запитом","foot.top":"Нагору","foot.contact":"Зв'язатися",
+    "calc.pill":"Калькулятор збереження","calc.title":"Скільки ви втрачаєте щомісяця?","calc.sub":"Введіть ваші дані - покажу скільки годин та доларів ви заощадите з автоматизацією","calc.rate":"Середня ставка за годину (USD)","calc.team":"Кількість людей у цьому процесі","calc.hours":"Годин на тиждень для цього процесу","calc.monthly":"Місячна втрата","calc.yearly":"Річна втрата","calc.payback":"3-денна автоматизація окупиться приблизно за","calc.note":"* Розрахунок: годин/тиждень × ставка × 4,3 тиждня × кількість людей",
+    "check.pill":"Інтерактивний чек-лист","check.title":"Що ви можете автоматизувати?","check.sub":"Позначте процеси - покажу де заощадження найбільші","check.i1":"Ручне введення даних в CRM / документи","check.i1d":"Вручну передані контакти, замовлення, інформація з листів","check.i2":"Щоденні / тижневі звіти","check.i2d":"Ручне збирання даних, Excel, Google Sheets, відправка керівництву","check.i3":"Email-маркетинг та кампанії","check.i3d":"Відправка зі списків, перевірка підписок, ручна сегментація","check.i4":"Обслуговування клієнтів (FAQ, перший контакт)","check.i4d":"Відповіді на повторювані питання, кваліфікація лідів","check.i5":"Координація зустрічей / розклад","check.i5d":"Узгодження часу, відправка нагадувань, синхронізація календарів","check.i6":"Платежи та рахунки","check.i6d":"Рахунки, нагадування про оплату, синхронізація платіжних систем","check.i7":"Інтеграція систем (копіювання даних)","check.i7d":"Дані між CRM, бухгалтерією, платформами маркетингу","check.i8":"Контроль якості та перевірка","check.i8d":"Перевірка даних, виявлення дублікатів, форматування","check.summary":"Ви вибрали:","check.cta":"Обговорити план автоматизації",
+    "foot.legal":"© MorozAi. Усі права захищені.","foot.top":"Нагору","foot.contact":"Зв'язатися",
   },
   kk: {
     "nav.services":"Қызметтер","nav.cases":"Кейстер","nav.process":"Процесс","nav.pricing":"Тарифтер","nav.cta":"Аудит",
@@ -1275,7 +1458,7 @@ const I18N = {
     "price.p1.n":"Мини","price.p1.d":"1 процесті нүктелік автоматтандыру","price.p1.l1":"✓ n8n / Make-те 1 сценарий","price.p1.l2":"✓ 3 интеграцияға дейін (CRM, пошта, TG)","price.p1.l3":"✓ Мерзім 3-5 күн","price.p1.l4":"✓ Нұсқаулық + 14 күн қолдау",
     "price.p2.n":"Стандарт","price.p2.d":"AI-бот немесе көп қадамды автоматтандыру","price.p2.l1":"✓ Telegram / WhatsApp / Web-бот","price.p2.l2":"✓ Жадымен LLM-агент","price.p2.l3":"✓ Деректер базасы + әкімшілік панель","price.p2.l4":"✓ VPS-қа деплой, логдар, бэкаптар","price.p2.l5":"✓ Мерзім 7-14 күн, 30 күн қолдау",
     "price.p3.n":"Премиум","price.p3.d":"Толыққанды AI-өнім немесе MVP","price.p3.l1":"✓ Кастомды backend (FastAPI)","price.p3.l2":"✓ Voice API, дауыстық робот","price.p3.l3":"✓ Мульти-агентті архитектура","price.p3.l4":"✓ Дашбордтар, рөлдер, құқықтар","price.p3.l5":"✓ Мерзім 3-6 апта, SLA",
-    "price.legal":"USD / EUR / PLN / BYN / RUB / USDT-пен төлем. Жеке кәсіпкер (Беларусь), жабушы құжаттар беремін.",
+    "price.legal":"USD / EUR / PLN / BYN / RUB / USDT-пен төлем. Барлық елдермен жұмыс істеймін.",
     "form.pill":"Өтінім","form.title":"Өтінім қалдырыңыз - тапсырмаңызға 3 автоматтандыру нұсқасын жібереміз","form.sub":"Жұмыс уақытында 4 сағат ішінде жауап беремін. Спамсыз.","form.name":"Есіміңіз","form.contact":"Telegram @username немесе email","form.task":"1-2 сөйлемде: не ауырады, нені автоматтандырғыңыз келеді","form.submit":"Тегін аудит алу","form.privacy":"Батырманы басу арқылы деректерді өңдеуге келісесіз.","form.ok":"Өтінім жіберілді. Бірнеше сағат ішінде жазамын.",
     "faq.title":"Жиі қойылатын сұрақтар",
     "faq.q1":"Жоба шынымен қанша уақыт алады?","faq.a1":"Қарапайым автоматтандыру - 3-5 күн. AI-бот - 1-2 апта. Күрделі MVP - 3-6 апта.",
@@ -1285,7 +1468,9 @@ const I18N = {
     "faq.q5":"ЕО / ТМД клиенттерімен жұмыс жасайсыз ба?","faq.a5":"Иә. USD / EUR / PLN / BYN / RUB / USDT.",
     "faq.q6":"GPT / n8n «жіктелсе» ше?","faq.a6":"Архитектура модульді. LLM конфигте ауысады, n8n - Python-да.",
     "faq.q7":"Алдын ала төлемсіз болады ма?","faq.a7":"Стандарт: 50/50. Кішігірім тапсырмалар - нәтижесінде. Аудит тегін.",
-    "foot.legal":"Жеке кәсіпкер, Беларусь Республикасы","foot.top":"Жоғары","foot.contact":"Байланысу",
+    "calc.pill":"Үнеңі сақтау калькуляторы","calc.title":"Сіз ай сайын қанша жоғалтасыз?","calc.sub":"Деректеріңізді енгізіңіз - автоматизацияның арқасында қанша сағат және доллар үнегін сақтайтыныңызды көрсетемін","calc.rate":"Орташа сағаттық тариф (USD)","calc.team":"Осы процесте адам саны","calc.hours":"Бұл процесс үшін аптасына сағат","calc.monthly":"Ай сайындағы шығын","calc.yearly":"Жылдық шығын","calc.payback":"3 күндік автоматизация шамамасына төлейді","calc.note":"* Есепте: сағат/апта × тариф × 4,3 апта × адам саны",
+    "check.pill":"Автоматизация тіркесімі","check.title":"Нені автоматизациялай аласыз?","check.sub":"Процестерді құмай қойыңыз - үнеңі ең үлкен болатын орындарды көрсетемін","check.i1":"CRM / құжаттарға деректерді қолмен енгізу","check.i1d":"Қолмен ауыстырылған контактілар, заказдар, хаттар ақпараты","check.i2":"Күнделік / аптасына есептемелер","check.i2d":"Қолмен деректер жинау, Excel, Google Sheets, басшылыққа жіберу","check.i3":"Email маркетинг және науылар","check.i3d":"Тізімдерден жіберу, абоненттерді тексеру, қолмен сегментация","check.i4":"Тұтынушы қызметі (FAQ, бірінші контакт)","check.i4d":"Қайталанатын сұрақтарға жауап, потенциалды тұтынушыларды сұрыптау","check.i5":"Кездесінді үйлесінді / кестесі","check.i5d":"Уақытқа келісу, еске салу хабарлары жіберу, күнтізбе синхрондеу","check.i6":"Төлемдер және есеп-шоттар","check.i6d":"Шоттар, төлем еске салуы, төлем жүйелерінің синхрондеуі","check.i7":"Жүйелерді біріктіру (деректерді көшіру)","check.i7d":"CRM, бухгалтерлік есеп және маркетинг платформалары арасындағы деректер","check.i8":"Сапа бақылау және тексеру","check.i8d":"Деректерді тексеру, қосмасын анықтау, пішіндеу","check.summary":"Сіз таңдадыңыз:","check.cta":"Автоматизация жоспарын талқылау",
+    "foot.legal":"© MorozAi. Барлық құқықтар сақталған.","foot.top":"Жоғары","foot.contact":"Байланысу",
   },
   be: {
     "nav.services":"Паслугі","nav.cases":"Кейсы","nav.process":"Працэс","nav.pricing":"Тарыфы","nav.cta":"Аўдыт",
@@ -1335,7 +1520,7 @@ const I18N = {
     "price.p1.n":"Міні","price.p1.d":"Кропкавая аўтаматызацыя 1 працэсу","price.p1.l1":"✓ 1 сцэнарый у n8n / Make","price.p1.l2":"✓ Да 3 інтэграцый (CRM, пошта, TG)","price.p1.l3":"✓ Тэрмін 3-5 дзён","price.p1.l4":"✓ Інструкцыя + 14 дзён падтрымкі",
     "price.p2.n":"Стандарт","price.p2.d":"AI-бот або шматкрокавая аўтаматызацыя","price.p2.l1":"✓ Telegram / WhatsApp / Web-бот","price.p2.l2":"✓ LLM-агент з памяццю","price.p2.l3":"✓ База дадзеных + адмінка","price.p2.l4":"✓ Дэплой на VPS, логі, бэкапы","price.p2.l5":"✓ Тэрмін 7-14 дзён, 30 дзён падтрымкі",
     "price.p3.n":"Прэміум","price.p3.d":"Паўнавартасны AI-прадукт або MVP","price.p3.l1":"✓ Кастамны backend (FastAPI)","price.p3.l2":"✓ Voice API, галасавы робат","price.p3.l3":"✓ Мульці-агентная архітэктура","price.p3.l4":"✓ Дашборды, ролі, правы","price.p3.l5":"✓ Тэрмін 3-6 тыдняў, SLA",
-    "price.legal":"Аплата ў USD / EUR / PLN / BYN / RUB / USDT. Самазанятны (Беларусь), закрывальныя дакументы прадастаўляю.",
+    "price.legal":"Аплата ў USD / EUR / PLN / BYN / RUB / USDT. Працую зі ўсімі краінамі.",
     "form.pill":"Заяўка","form.title":"Пакіньце заяўку - прышлю 3 варыянты аўтаматызацыі пад вашу задачу","form.sub":"Адкажу на працягу 4 гадзін у рабочы час. Без спаму.","form.name":"Ваша імя","form.contact":"Telegram @username або email","form.task":"У 1-2 сказах: што баліць, што хочацца аўтаматызаваць","form.submit":"Атрымаць бясплатны аўдыт","form.privacy":"Націскаючы кнопку, вы згаджаецеся на апрацоўку дадзеных.","form.ok":"Заяўка адпраўлена. Напішу на працягу некалькіх гадзін.",
     "faq.title":"Частыя пытанні",
     "faq.q1":"Колькі рэальна зойме праект?","faq.a1":"Простая аўтаматызацыя - 3-5 дзён. Бот з AI - 1-2 тыдні. Складаны MVP - 3-6 тыдняў.",
@@ -1345,7 +1530,9 @@ const I18N = {
     "faq.q5":"Працуеце з кліентамі з ЕС / СНД?","faq.a5":"Так. USD / EUR / PLN / BYN / RUB / USDT.",
     "faq.q6":"А калі GPT / n8n «адваліцца»?","faq.a6":"Архітэктура модульная. LLM мяняецца ў канфігу, n8n - на Python.",
     "faq.q7":"Можна без перадаплаты?","faq.a7":"Стандарт: 50/50. Малыя задачы - па факту. Аўдыт заўсёды бясплатны.",
-    "foot.legal":"Самазанятны, Рэспубліка Беларусь · УНП па запыту","foot.top":"Угору","foot.contact":"Звязацца",
+    "calc.pill":"Калькулятар эканоміі","calc.title":"Колькі вы траціце кожны месяц?","calc.sub":"Унесіце свае дадзеныя - покажу, колькі гадзін і долараў вы эканомяць дзякуючы аўтаматызацыі","calc.rate":"Средняя ставка за гадзіну (USD)","calc.team":"Колькасць людзей у гэтым працэсе","calc.hours":"Гадзін у тыдзень на гэты працэс","calc.monthly":"Месячныя страты","calc.yearly":"Гадавыя страты","calc.payback":"3-дзённая аўтаматызацыя окупіцца прыкладна за","calc.note":"* Разлік: гадзін/тыдзень × ставка × 4,3 тыдня × колькасць людзей",
+    "check.pill":"Інтэрактыўны чек-ліст","check.title":"Што вы можаце аўтаматызаваць?","check.sub":"Адзначце працэсы - покажу дзе эканомія будзе максімальнай","check.i1":"Ручны ўвод дадзеных у CRM / дакументы","check.i1d":"Ручна перадаўньні контакты, заказы, інфармацыя з лістоў","check.i2":"Штодзённыя / штатыгоднявыя справаздачы","check.i2d":"Ручная зборка дадзеных, Excel, Google Sheets, адпраўка кіраўніцтву","check.i3":"Email-маркетынг і рассылкі","check.i3d":"Адпраўка па спісам, праверка падпісак, сегментацыя ручная","check.i4":"Абслугоўванне кліентаў (FAQ, першы кантакт)","check.i4d":"Адказы на паўторальныя пытанні, кваліфікацыя лідаў","check.i5":"Каардынацыя сустрэч / расклад","check.i5d":"Узгаданне часу, адпраўка нагадванняў, сінхранізацыя календара","check.i6":"Плацяжы і рахунасцеўніцтва","check.i6d":"Рахункі, нагадванні пра плацяж, сінхранізацыя сістэм плацяжу","check.i7":"Інтэграцыя сістэм (копіяванне дадзеных)","check.i7d":"Дадзеныя паміж CRM, бухгалтерыяй, платформамі маркетынгу","check.i8":"Контроль якасці і праверкі","check.i8d":"Праверка дадзеных, выяўленне дублікатаў, фарматаванне","check.summary":"Вы выбралі:","check.cta":"Абмяркаваць план аўтаматызацыі",
+    "foot.legal":"© MorozAi. Усе правы абарончаны.","foot.top":"Угору","foot.contact":"Звязацца",
   },
   lt: {
     "nav.services":"Paslaugos","nav.cases":"Atvejai","nav.process":"Procesas","nav.pricing":"Kainos","nav.cta":"Auditas",
@@ -1395,7 +1582,7 @@ const I18N = {
     "price.p1.n":"Mini","price.p1.d":"Taiklus 1 proceso automatizavimas","price.p1.l1":"✓ 1 scenarijus n8n / Make","price.p1.l2":"✓ Iki 3 integracijų (CRM, el. paštas, TG)","price.p1.l3":"✓ Terminas 3-5 dienos","price.p1.l4":"✓ Instrukcija + 14 dienų palaikymas",
     "price.p2.n":"Standartas","price.p2.d":"AI botas arba daugiapakopis automatizavimas","price.p2.l1":"✓ Telegram / WhatsApp / Web botas","price.p2.l2":"✓ LLM agentas su atmintimi","price.p2.l3":"✓ Duomenų bazė + administravimas","price.p2.l4":"✓ Diegimas VPS, žurnalai, atsarginės kopijos","price.p2.l5":"✓ Terminas 7-14 dienų, 30 dienų palaikymas",
     "price.p3.n":"Premium","price.p3.d":"Pilnavertis AI produktas arba MVP","price.p3.l1":"✓ Pritaikytas backend (FastAPI)","price.p3.l2":"✓ Voice API, balso robotas","price.p3.l3":"✓ Daugiagentė architektūra","price.p3.l4":"✓ Prietaisų skydeliai, vaidmenys, teisės","price.p3.l5":"✓ Terminas 3-6 savaitės, SLA",
-    "price.legal":"Mokėjimas USD / EUR / PLN / BYN / RUB / USDT. Individualus darbuotojas (Baltarusija), uždarymo dokumentus teikiu.",
+    "price.legal":"Mokėjimas USD / EUR / PLN / BYN / RUB / USDT. Dirbu su visomis šalimis.",
     "form.pill":"Paraiška","form.title":"Palikite paraišką - atsiųsiu 3 automatizacijos variantus jūsų užduočiai","form.sub":"Atsakysiu per 4 valandas darbo metu. Be šlamšto.","form.name":"Jūsų vardas","form.contact":"Telegram @username arba el. paštas","form.task":"1-2 sakiniais: kas skaudžiausia, ką norėtumėte automatizuoti","form.submit":"Gauti nemokamą auditą","form.privacy":"Spausdami mygtuką sutinkate su duomenų tvarkymu.","form.ok":"Paraiška gauta. Parašysiu per kelias valandas.",
     "faq.title":"Dažniausiai užduodami klausimai",
     "faq.q1":"Kiek realiai užtruks projektas?","faq.a1":"Paprastas automatizavimas - 3-5 dienos. Botas su AI - 1-2 savaitės. Sudėtingas MVP - 3-6 savaitės.",
@@ -1405,7 +1592,9 @@ const I18N = {
     "faq.q5":"Dirbate su ES / NVS klientais?","faq.a5":"Taip. USD / EUR / PLN / BYN / RUB / USDT.",
     "faq.q6":"O jei GPT / n8n „suges»?","faq.a6":"Architektūra modulinė. LLM keičiama per konfigą, n8n - Python.",
     "faq.q7":"Ar galima be išankstinio apmokėjimo?","faq.a7":"Standartas: 50/50. Maži darbai - po pristatymo. Auditas visada nemokamas.",
-    "foot.legal":"Individualus darbuotojas, Baltarusijos Respublika","foot.top":"Į viršų","foot.contact":"Susisiekti",
+    "calc.pill":"Taupymo skaičiuoklė","calc.title":"Kiek jūs praradeete kiekvieną mėnesį?","calc.sub":"Įveskite savo duomenis - parodysiu, kiek valandų ir dolerių sutaupysite dėl automatizavimo","calc.rate":"Vidutinis valandinis tarifas (USD)","calc.team":"Žmonių skaičius šiame procese","calc.hours":"Valandų per savaitę šiam procesui","calc.monthly":"Mėnesinė prarada","calc.yearly":"Metinė prarada","calc.payback":"3 dienų automatizavimas grąžinasi maždaug per","calc.note":"* Skaičiavimas: valandos/savaitė × tarifas × 4,3 savaitės × žmonių skaičius",
+    "check.pill":"Automatizavimo kontrolinis sąrašas","check.title":"Ką galite automatizuoti?","check.sub":"Pažymėkite procesus - parodysiu kur taupymas didžiausias","check.i1":"Rankiniu būdu įvedami duomenys į CRM / dokumentus","check.i1d":"Rankiniu būdu perkelti kontaktai, užsakymai, el. pašto informacija","check.i2":"Kasdienės / savaitės ataskaitos","check.i2d":"Rankiniu būdu surinkti duomenys, Excel, Google Sheets, siuntimas vadovybei","check.i3":"El. pašto rinkodara ir kampanijos","check.i3d":"Siuntimas iš sąrašų, prenumeratos patikra, rankinė segmentacija","check.i4":"Klientų paslaugos (DUK, pirmasis kontaktas)","check.i4d":"Atsakymai į pasikartojančius klausimus, lygiui suforinti","check.i5":"Susitikimų koordinavimas / grafikas","check.i5d":"Laiko susitarimas, priminimų siuntimas, kalendoriaus sinchronizavimas","check.i6":"Mokėjimai ir sąskaitos","check.i6d":"Sąskaitos faktūros, mokėjimų priminimui, mokėjimo sistemų sinchronizavimas","check.i7":"Sistemų integracija (duomenų kopijosą)","check.i7d":"Duomenys tarp CRM, buhalterijos, rinkodaros platformų","check.i8":"Kokybės kontrolė ir patikra","check.i8d":"Duomenų patikra, dublikatų nustatymas, formatavimas","check.summary":"Jūs pasirinkote:","check.cta":"Aptarkite automatizavimo planą",
+    "foot.legal":"© MorozAi. Visos teisės saugomos.","foot.top":"Į viršų","foot.contact":"Susisiekti",
   },
   et: {
     "nav.services":"Teenused","nav.cases":"Juhtumid","nav.process":"Protsess","nav.pricing":"Hinnad","nav.cta":"Audit",
@@ -1455,7 +1644,7 @@ const I18N = {
     "price.p1.n":"Mini","price.p1.d":"1 protsessi täpne automatiseerimine","price.p1.l1":"✓ 1 stsenaarium n8n / Make-s","price.p1.l2":"✓ Kuni 3 integratsiooni (CRM, e-post, TG)","price.p1.l3":"✓ Tähtaeg 3-5 päeva","price.p1.l4":"✓ Juhend + 14 päeva tugi",
     "price.p2.n":"Standard","price.p2.d":"AI-bot või mitmeastmeline automatiseerimine","price.p2.l1":"✓ Telegram / WhatsApp / veebibot","price.p2.l2":"✓ LLM-agent mäluga","price.p2.l3":"✓ Andmebaas + administreerimine","price.p2.l4":"✓ Juurutamine VPS-ile, logid, varundused","price.p2.l5":"✓ Tähtaeg 7-14 päeva, 30 päeva tugi",
     "price.p3.n":"Premium","price.p3.d":"Täisväärtuslik AI-toode või MVP","price.p3.l1":"✓ Kohandatud backend (FastAPI)","price.p3.l2":"✓ Voice API, häälerobот","price.p3.l3":"✓ Mitmeagentne arhitektuur","price.p3.l4":"✓ Juhtpaneelid, rollid, õigused","price.p3.l5":"✓ Tähtaeg 3-6 nädalat, SLA",
-    "price.legal":"Makse USD / EUR / PLN / BYN / RUB / USDT. Füüsilisest isikust ettevõtja (Valgevene), sulgemisdokumendid esitan.",
+    "price.legal":"Makse USD / EUR / PLN / BYN / RUB / USDT. Töötan kõigi riikidega.",
     "form.pill":"Taotlus","form.title":"Jätke taotlus - saadan 3 automatiseerimisvalikut teie ülesandele","form.sub":"Vastan 4 tunni jooksul tööajal. Ilma rämpspostita.","form.name":"Teie nimi","form.contact":"Telegram @username või e-post","form.task":"1-2 lausega: mis valutab, mida sooviksite automatiseerida","form.submit":"Saa tasuta audit","form.privacy":"Nuppu vajutades nõustute andmete töötlemisega.","form.ok":"Taotlus saadetud. Kirjutan mõne tunni jooksul.",
     "faq.title":"Korduma kippuvad küsimused",
     "faq.q1":"Kui kaua projekt tegelikult võtab?","faq.a1":"Lihtne automatiseerimine - 3-5 päeva. Bot AI-ga - 1-2 nädalat. Keeruline MVP - 3-6 nädalat.",
@@ -1465,7 +1654,9 @@ const I18N = {
     "faq.q5":"Töötate EL / SRÜ klientidega?","faq.a5":"Jah. USD / EUR / PLN / BYN / RUB / USDT.",
     "faq.q6":"Mis siis, kui GPT / n8n «kukub»?","faq.a6":"Arhitektuur on modulaarne. LLM vahetatakse konfigis, n8n - Pythoniga.",
     "faq.q7":"Kas on võimalik ilma ettemaksuta?","faq.a7":"Standard: 50/50. Väikesed tööd - peale üleandmist. Audit alati tasuta.",
-    "foot.legal":"FIE, Valgevene Vabariik","foot.top":"Üles","foot.contact":"Võtke ühendust",
+    "calc.pill":"Säästu kalkulaator","calc.title":"Kui palju kaotate iga kuu?","calc.sub":"Sisestage oma andmed - näitan, kui palju tunde ja dollareid te automatiseerimisega säästetaksite","calc.rate":"Keskmine tunnitariif (USD)","calc.team":"Inimeste arv selles protsessis","calc.hours":"Tunde nädalas sellele protsessile","calc.monthly":"Kuu suurune kadu","calc.yearly":"Aastane kahju","calc.payback":"3-päevane automatiseerimine tasub end ära umbes","calc.note":"* Arvutus: tunnid/nädal × tariif × 4,3 nädalat × inimeste arv",
+    "check.pill":"Automatiseerimise kontroll-nimekiri","check.title":"Mida saate automatiseerida?","check.sub":"Märkige protsessid - näitan kus on suurim kokkuhoid","check.i1":"Käsitsi andmete sisestamine CRM-i / dokumentidesse","check.i1d":"Käsitsi ülekantud kontaktid, tellimused, e-posti teave","check.i2":"Päev-/nädalaaruanded","check.i2d":"Käsitsi andmekogumik, Excel, Google Sheets, saatmine juhtimisele","check.i3":"E-postiturundus ja kampaaniad","check.i3d":"Saatmine nimekirjadest, tellimuste kontroll, käsitsi segmenteerimine","check.i4":"Klienditugi (KKK, esimene kontakt)","check.i4d":"Vastused korduvate küsimuste peale, juhtide kvalifitseerimine","check.i5":"Koosolekute koordineerimine / ajakava","check.i5d":"Ajakokkulepe, meeldetuletuste saatmine, kalender sünkroonimine","check.i6":"Maksed ja arved","check.i6d":"Arvete väljastamine, maksemeeldetuletused, maksesüsteemide sünkroonimine","check.i7":"Süsteemide integreerimine (andmete kopieerimine)","check.i7d":"Andmed CRM-i, raamatupidamise ja turundusplatvormide vahel","check.i8":"Kvaliteedikontroll ja verifitseerimine","check.i8d":"Andmete kontrollimine, duplikaatide tuvastamine, vormindamine","check.summary":"Te valisite:","check.cta":"Arutage automatiseerimisplaani",
+    "foot.legal":"© MorozAi. Kõik õigused on kaitstud.","foot.top":"Üles","foot.contact":"Võtke ühendust",
   }
 };
 
@@ -1569,6 +1760,44 @@ function submitLead(e) {
   return false;
 }
 
+/* ====== Expanded ROI Calculator ====== */
+function recalcRoi() {
+  const rate = Math.max(1, +document.getElementById('hourlyRate').value || 50);
+  const team = Math.max(1, +document.getElementById('teamSize').value || 1);
+  const hours = Math.max(0, +document.getElementById('hoursPerWeek').value || 0);
+  const monthlyLoss = hours * 4.3 * rate * team;
+  const yearlyLoss = monthlyLoss * 12;
+  const standardPrice = 1200;
+  const paybackMonths = monthlyLoss > 0 ? Math.round(standardPrice / monthlyLoss * 10) / 10 : '-';
+  document.getElementById('monthlyLoss').textContent = '$' + Math.round(monthlyLoss).toLocaleString();
+  document.getElementById('yearlyLoss').textContent = '$' + Math.round(yearlyLoss).toLocaleString();
+  const paybackText = paybackMonths === '-' ? '-' : (document.documentElement.lang === 'en' ? 'about ' + paybackMonths + ' months' : 'около ' + paybackMonths + ' месяцев');
+  document.getElementById('paybackMonths').textContent = paybackText;
+}
+['hourlyRate', 'teamSize', 'hoursPerWeek'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', recalcRoi);
+});
+
+/* ====== Automation Checklist ====== */
+function updateChecklistSummary() {
+  const checked = Array.from(document.querySelectorAll('.checklist-item:checked')).map(el => {
+    const label = el.closest('label').querySelector('.font-semibold');
+    return label.getAttribute('data-i18n') ? I18N[document.documentElement.lang][label.getAttribute('data-i18n')] || label.textContent : label.textContent;
+  });
+  const summary = document.getElementById('checklistSummary');
+  if (checked.length > 0) {
+    summary.classList.remove('hidden');
+    const list = document.getElementById('checklistItems');
+    list.innerHTML = checked.map(item => '<li>✓ ' + item + '</li>').join('');
+  } else {
+    summary.classList.add('hidden');
+  }
+}
+document.querySelectorAll('.checklist-item').forEach(el => {
+  el.addEventListener('change', updateChecklistSummary);
+});
+
 /* ====== Init ====== */
 document.getElementById('year').textContent = new Date().getFullYear();
 const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -1577,6 +1806,7 @@ const savedLang = localStorage.getItem('lang') || 'ru';
 document.getElementById('langSelect').value = savedLang;
 applyLang(savedLang);
 applyCurrency(currentCurrency);
+recalcRoi();
 </script>
 </body>
 </html>
