@@ -386,13 +386,15 @@
     <p class="text-muted mb-8" data-i18n="calc.sub">Прикиньте за 10 секунд. Цифры остаются у вас в браузере.</p>
 
     <div class="card rounded-2xl p-6 md:p-8">
-      <div class="flex items-center gap-2 mb-5 flex-wrap">
-        <span class="text-sm text-muted mr-1" data-i18n="calc.currency">Валюта:</span>
-        <button class="chip currency-chip" data-cur="USD">$ USD</button>
-        <button class="chip currency-chip" data-cur="EUR">€ EUR</button>
-        <button class="chip currency-chip" data-cur="PLN">zł PLN</button>
-        <button class="chip currency-chip" data-cur="BYN">Br BYN</button>
-        <button class="chip currency-chip" data-cur="RUB">₽ RUB</button>
+      <div class="flex items-center gap-2 mb-5">
+        <label class="text-sm text-muted mr-1" data-i18n="calc.currency">Валюта:</label>
+        <select id="currencySelect" class="chip !py-1.5 rounded-lg px-3" style="min-width:120px;">
+          <option value="EUR">€ EUR</option>
+          <option value="USD">$ USD</option>
+          <option value="PLN">zł PLN</option>
+          <option value="BYN">Br BYN</option>
+          <option value="RUB">₽ RUB</option>
+        </select>
       </div>
       <div class="grid md:grid-cols-3 gap-5">
         <label class="block">
@@ -469,141 +471,6 @@
       </div>
     </div>
     <p class="text-xs text-dim mt-6" data-i18n="price.legal">Оплата в USD / EUR / PLN / BYN / RUB / USDT. Самозанятый (Беларусь), закрывающие документы предоставляю.</p>
-  </div>
-</section>
-
-<!-- ROI CALCULATOR -->
-<section id="roi-calc" class="py-24 panel-soft" style="border-top:1px solid var(--border-soft);">
-  <div class="max-w-3xl mx-auto px-5">
-    <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="calc.pill">Калькулятор экономии</div>
-    <h2 class="text-3xl md:text-4xl font-bold mb-3" data-i18n="calc.title">Сколько вы теряете каждый месяц?</h2>
-    <p class="text-muted mb-8" data-i18n="calc.sub">Введите данные своего бизнеса - расскажу, сколько часов и денег вы экономите с автоматизацией</p>
-
-    <div class="card rounded-2xl p-8">
-      <div class="space-y-6">
-        <!-- Hourly Rate -->
-        <div>
-          <label class="text-sm text-muted block mb-2" data-i18n="calc.rate">Средняя ставка за час (USD)</label>
-          <div class="flex gap-2 items-center">
-            <input id="hourlyRate" type="number" min="1" value="50" class="flex-1 rounded-lg px-4 py-2" />
-            <span class="text-sm text-dim px-3 py-2 rounded-lg" style="background:var(--panel-2);">USD</span>
-          </div>
-        </div>
-
-        <!-- Team Size -->
-        <div>
-          <label class="text-sm text-muted block mb-2" data-i18n="calc.team">Количество человек в процессе</label>
-          <input id="teamSize" type="number" min="1" value="1" class="w-full rounded-lg px-4 py-2" />
-        </div>
-
-        <!-- Hours Per Week -->
-        <div>
-          <label class="text-sm text-muted block mb-2" data-i18n="calc.hours">Часов в неделю на этот процесс</label>
-          <input id="hoursPerWeek" type="number" min="0" value="10" class="w-full rounded-lg px-4 py-2" />
-        </div>
-
-        <!-- Results -->
-        <div class="mt-8 pt-6 border-t border-soft space-y-4">
-          <div class="flex justify-between items-center">
-            <span class="text-muted" data-i18n="calc.monthly">Потери в месяц</span>
-            <span class="text-2xl font-bold text-right"><span id="monthlyLoss" class="gradient-text">$0</span></span>
-          </div>
-          <div class="flex justify-between items-center">
-            <span class="text-muted" data-i18n="calc.yearly">Потери в год</span>
-            <span class="text-2xl font-bold text-right"><span id="yearlyLoss" class="gradient-text">$0</span></span>
-          </div>
-          <div class="flex justify-between items-center">
-            <span class="text-muted" data-i18n="calc.payback">Окупится за 3 дня автоматизации примерно через</span>
-            <span class="text-xl font-bold" id="paybackMonths">-</span>
-          </div>
-        </div>
-
-        <p class="text-xs text-dim mt-4" data-i18n="calc.note">* Расчёт: часов в неделю × ставка × 4.3 недели × количество человек</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- AUTOMATION CHECKLIST -->
-<section id="checklist" class="py-24">
-  <div class="max-w-3xl mx-auto px-5">
-    <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="check.pill">Интерактивный чек-лист</div>
-    <h2 class="text-3xl md:text-4xl font-bold mb-3" data-i18n="check.title">Что вы можете автоматизировать?</h2>
-    <p class="text-muted mb-8" data-i18n="check.sub">Отметьте, с чем вы сталкиваетесь. Покажу, где экономия будет максимальной.</p>
-
-    <div class="space-y-3">
-      <label class="card rounded-xl p-5 cursor-pointer transition-all hover:border-color-[#7C5CFF] flex items-start gap-4">
-        <input type="checkbox" class="checklist-item mt-1" data-item="data-entry" />
-        <div class="flex-1">
-          <div class="font-semibold text-sm" data-i18n="check.i1">Ручной ввод данных в CRM / документы</div>
-          <div class="text-xs text-muted mt-1" data-i18n="check.i1d">Перенесённые вручную контакты, заказы, информация из писем</div>
-        </div>
-      </label>
-
-      <label class="card rounded-xl p-5 cursor-pointer transition-all hover:border-color-[#7C5CFF] flex items-start gap-4">
-        <input type="checkbox" class="checklist-item mt-1" data-item="reports" />
-        <div class="flex-1">
-          <div class="font-semibold text-sm" data-i18n="check.i2">Ежедневные / еженедельные отчёты</div>
-          <div class="text-xs text-muted mt-1" data-i18n="check.i2d">Ручная сборка данных, Excel, Google Sheets, отправка руководству</div>
-        </div>
-      </label>
-
-      <label class="card rounded-xl p-5 cursor-pointer transition-all hover:border-color-[#7C5CFF] flex items-start gap-4">
-        <input type="checkbox" class="checklist-item mt-1" data-item="emails" />
-        <div class="flex-1">
-          <div class="font-semibold text-sm" data-i18n="check.i3">Email-маркетинг и рассылки</div>
-          <div class="text-xs text-muted mt-1" data-i18n="check.i3d">Отправка по спискам, проверка подписок, сегментация вручную</div>
-        </div>
-      </label>
-
-      <label class="card rounded-xl p-5 cursor-pointer transition-all hover:border-color-[#7C5CFF] flex items-start gap-4">
-        <input type="checkbox" class="checklist-item mt-1" data-item="customer" />
-        <div class="flex-1">
-          <div class="font-semibold text-sm" data-i18n="check.i4">Обслуживание клиентов (FAQ, первый контакт)</div>
-          <div class="text-xs text-muted mt-1" data-i18n="check.i4d">Ответы на повторяющиеся вопросы, квалификация лидов</div>
-        </div>
-      </label>
-
-      <label class="card rounded-xl p-5 cursor-pointer transition-all hover:border-color-[#7C5CFF] flex items-start gap-4">
-        <input type="checkbox" class="checklist-item mt-1" data-item="scheduling" />
-        <div class="flex-1">
-          <div class="font-semibold text-sm" data-i18n="check.i5">Координация встреч / расписания</div>
-          <div class="text-xs text-muted mt-1" data-i18n="check.i5d">Согласование времени, отправка напоминаний, синхронизация календарей</div>
-        </div>
-      </label>
-
-      <label class="card rounded-xl p-5 cursor-pointer transition-all hover:border-color-[#7C5CFF] flex items-start gap-4">
-        <input type="checkbox" class="checklist-item mt-1" data-item="payments" />
-        <div class="flex-1">
-          <div class="font-semibold text-sm" data-i18n="check.i6">Платежи и биллинг</div>
-          <div class="text-xs text-muted mt-1" data-i18n="check.i6d">Счета, напоминания об оплате, синхронизация платёжных систем</div>
-        </div>
-      </label>
-
-      <label class="card rounded-xl p-5 cursor-pointer transition-all hover:border-color-[#7C5CFF] flex items-start gap-4">
-        <input type="checkbox" class="checklist-item mt-1" data-item="integration" />
-        <div class="flex-1">
-          <div class="font-semibold text-sm" data-i18n="check.i7">Интеграция систем (копирование данных)</div>
-          <div class="text-xs text-muted mt-1" data-i18n="check.i7d">Данные между CRM, бухгалтерией, маркетинг-платформами</div>
-        </div>
-      </label>
-
-      <label class="card rounded-xl p-5 cursor-pointer transition-all hover:border-color-[#7C5CFF] flex items-start gap-4">
-        <input type="checkbox" class="checklist-item mt-1" data-item="quality" />
-        <div class="flex-1">
-          <div class="font-semibold text-sm" data-i18n="check.i8">Контроль качества и проверки</div>
-          <div class="text-xs text-muted mt-1" data-i18n="check.i8d">Проверка данных, выявление дубликатов, форматирование</div>
-        </div>
-      </label>
-    </div>
-
-    <div id="checklistSummary" class="mt-8 pt-6 border-t border-soft hidden">
-      <div class="bg-opacity-10 p-5 rounded-lg" style="background:rgba(124,92,255,0.1); border:1px solid rgba(124,92,255,0.2);">
-        <p class="text-sm text-muted mb-3" data-i18n="check.summary">Вы выбрали:</p>
-        <ul id="checklistItems" class="text-sm space-y-2 mb-4"></ul>
-        <a href="#contact" class="inline-block btn-primary rounded-lg px-5 py-2 text-sm" data-i18n="check.cta">Обсудить план автоматизации</a>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1677,7 +1544,6 @@ function formatCurrency(usdAmount, cur) {
 function applyCurrency(cur) {
   currentCurrency = cur;
   localStorage.setItem('cur', cur);
-  document.querySelectorAll('.currency-chip').forEach(el => el.classList.toggle('active', el.dataset.cur === cur));
   document.querySelectorAll('.cur-label').forEach(el => el.textContent = SYMBOL[cur]);
   const rate = document.getElementById('rate');
   const defaults = { USD:15, EUR:14, PLN:60, BYN:50, RUB:1500 };
@@ -1716,7 +1582,10 @@ function recalc() {
   const el = document.getElementById(id);
   el.addEventListener('input', () => { if (id === 'rate') el.dataset.userTouched = '1'; recalc(); });
 });
-document.querySelectorAll('.currency-chip').forEach(el => el.addEventListener('click', () => applyCurrency(el.dataset.cur)));
+const currencySelect = document.getElementById('currencySelect');
+if (currencySelect) {
+  currencySelect.addEventListener('change', (e) => applyCurrency(e.target.value));
+}
 
 /* ====== i18n apply ====== */
 function applyLang(lang) {
@@ -1760,44 +1629,6 @@ function submitLead(e) {
   return false;
 }
 
-/* ====== Expanded ROI Calculator ====== */
-function recalcRoi() {
-  const rate = Math.max(1, +document.getElementById('hourlyRate').value || 50);
-  const team = Math.max(1, +document.getElementById('teamSize').value || 1);
-  const hours = Math.max(0, +document.getElementById('hoursPerWeek').value || 0);
-  const monthlyLoss = hours * 4.3 * rate * team;
-  const yearlyLoss = monthlyLoss * 12;
-  const standardPrice = 1200;
-  const paybackMonths = monthlyLoss > 0 ? Math.round(standardPrice / monthlyLoss * 10) / 10 : '-';
-  document.getElementById('monthlyLoss').textContent = '$' + Math.round(monthlyLoss).toLocaleString();
-  document.getElementById('yearlyLoss').textContent = '$' + Math.round(yearlyLoss).toLocaleString();
-  const paybackText = paybackMonths === '-' ? '-' : (document.documentElement.lang === 'en' ? 'about ' + paybackMonths + ' months' : 'около ' + paybackMonths + ' месяцев');
-  document.getElementById('paybackMonths').textContent = paybackText;
-}
-['hourlyRate', 'teamSize', 'hoursPerWeek'].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.addEventListener('input', recalcRoi);
-});
-
-/* ====== Automation Checklist ====== */
-function updateChecklistSummary() {
-  const checked = Array.from(document.querySelectorAll('.checklist-item:checked')).map(el => {
-    const label = el.closest('label').querySelector('.font-semibold');
-    return label.getAttribute('data-i18n') ? I18N[document.documentElement.lang][label.getAttribute('data-i18n')] || label.textContent : label.textContent;
-  });
-  const summary = document.getElementById('checklistSummary');
-  if (checked.length > 0) {
-    summary.classList.remove('hidden');
-    const list = document.getElementById('checklistItems');
-    list.innerHTML = checked.map(item => '<li>✓ ' + item + '</li>').join('');
-  } else {
-    summary.classList.add('hidden');
-  }
-}
-document.querySelectorAll('.checklist-item').forEach(el => {
-  el.addEventListener('change', updateChecklistSummary);
-});
-
 /* ====== Init ====== */
 document.getElementById('year').textContent = new Date().getFullYear();
 const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -1806,7 +1637,6 @@ const savedLang = localStorage.getItem('lang') || 'ru';
 document.getElementById('langSelect').value = savedLang;
 applyLang(savedLang);
 applyCurrency(currentCurrency);
-recalcRoi();
 </script>
 </body>
 </html>
