@@ -35,5 +35,12 @@
     }
   ],
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/cookies",
+      "destination": "/cookies.html",
+      "permanent": true
+    }
+  ]
 }

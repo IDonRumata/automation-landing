@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>404 — Страница не найдена | MorozAi</title>
+<meta name="description" content="Страница не найдена. Вернитесь на главную страницу MorozAi." />
+<meta name="robots" content="noindex, follow" />
+<link rel="icon" type="image/png" href="avatar.png" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] } } } }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Unbounded:wght@700&display=swap" rel="stylesheet" />
+<style>
+  :root { --bg:#08090B; --panel:#0F1115; --card:#0F1115; --border:#1F2128; --border-soft:rgba(255,255,255,0.06); --text:#E5E7EB; --text-muted:#9CA3AF; --text-dim:#6B7280; --glass:rgba(15,17,21,0.7); --glass-border:rgba(255,255,255,0.08); }
+  html.light { --bg:#FAFAFB; --panel:#F5F5F7; --card:#FFFFFF; --border:#E5E7EB; --border-soft:rgba(0,0,0,0.08); --text:#0F172A; --text-muted:#475569; --text-dim:#64748B; --glass:rgba(255,255,255,0.75); --glass-border:rgba(0,0,0,0.06); }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; }
+  .glass { background:var(--glass); backdrop-filter:blur(12px); border-bottom:1px solid var(--glass-border); }
+  .btn-primary { background:linear-gradient(90deg,#7C5CFF,#22D3EE); color:#0B0B10; font-weight:700; transition:all .2s ease; }
+  .btn-primary:hover { filter:brightness(1.1); transform:translateY(-1px); }
+  .gradient-text { background:linear-gradient(90deg,#a78bfa 0%,#22d3ee 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .brand-logo { font-family:'Unbounded',sans-serif; font-weight:700; font-size:1.15rem; letter-spacing:-0.5px; }
+  .brand-moroz { color:#22D3EE; text-shadow:0 0 8px rgba(34,211,238,0.65), 0 0 20px rgba(34,211,238,0.3); }
+  .brand-ai { color:#A78BFA; text-shadow:0 0 8px rgba(167,139,250,0.65), 0 0 20px rgba(167,139,250,0.3); }
+  html.light .brand-moroz { color:#0891B2; text-shadow:none; }
+  html.light .brand-ai { color:#7C3AED; text-shadow:none; }
+  .text-muted { color:var(--text-muted); }
+  .text-dim { color:var(--text-dim); }
+  .border-soft { border-color:var(--border-soft); }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="sticky top-0 z-50 glass">
+  <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2 font-bold">
+      <img src="avatar.png" alt="MorozAi logo" class="w-9 h-9 rounded-lg" style="background:#1B1E3A;object-fit:cover;" />
+      <span class="brand-logo"><span class="brand-moroz">Moroz</span><span class="brand-ai">Ai</span></span>
+    </a>
+    <a href="/" class="text-sm text-muted hover:opacity-80">← На главную</a>
+  </div>
+</header>
+
+<main class="flex-1 flex items-center justify-center px-5">
+  <div class="text-center max-w-lg">
+    <div class="text-8xl md:text-9xl font-extrabold gradient-text mb-4">404</div>
+    <h1 class="text-2xl md:text-3xl font-bold mb-3">Страница не найдена</h1>
+    <p class="text-muted mb-8">Возможно, страница была перемещена или удалена. Давайте вернём вас на главную.</p>
+    <a href="/" class="btn-primary inline-block px-8 py-3 rounded-xl text-base">Вернуться на главную</a>
+  </div>
+</main>
+
+<footer class="py-10" style="border-top:1px solid var(--border-soft);">
+  <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row justify-between gap-3 text-sm text-dim">
+    <div>© <span id="year"></span> MorozAi · Самозанятый, Республика Беларусь</div>
+    <div class="flex gap-4 flex-wrap">
+      <a href="/" class="hover:opacity-80">Главная</a>
+      <a href="/privacy" class="hover:opacity-80">Конфиденциальность</a>
+      <a href="/terms" class="hover:opacity-80">Условия</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  document.documentElement.classList.remove('dark','light');
+  document.documentElement.classList.add(savedTheme);
+</script>
+</body>
+</html>

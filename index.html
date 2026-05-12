@@ -123,6 +123,42 @@
   .checklist-item:checked ~ div {
     opacity: 0.6;
   }
+  /* Section label - not a button */
+  .section-label { display:inline-flex; align-items:center; gap:6px; font-size:.75rem; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:#8B5CF6; margin-bottom:.75rem; }
+  html.light .section-label { color:#6D28D9; }
+  .section-label::before { content:''; width:6px; height:6px; border-radius:50%; background:#8B5CF6; flex-shrink:0; }
+  html.light .section-label::before { background:#6D28D9; }
+  /* Secondary button - solid background */
+  .btn-secondary { background:var(--panel-2); border:1px solid var(--border); color:var(--text-muted); font-weight:600; transition:all .2s ease; }
+  .btn-secondary:hover { background:var(--card); color:var(--text); border-color:#7C5CFF; transform:translateY(-1px); }
+  /* Stats block - larger numbers */
+  .stat-card { background:var(--card); border:1px solid var(--border); border-radius:1rem; padding:1.25rem; transition:all .2s ease; text-align:center; }
+  .stat-card:hover { transform:translateY(-2px); border-color:#2A2D36; }
+  html.light .stat-card:hover { border-color:#CBD5E1; box-shadow:0 6px 20px rgba(15,23,42,0.06); }
+  .stat-number { font-size:2.5rem; font-weight:800; line-height:1.1; }
+  @media (min-width:768px) { .stat-number { font-size:3rem; } }
+  .stat-label { font-size:.875rem; color:var(--text-muted); margin-top:.25rem; }
+  /* FAQ click affordance */
+  details.faq-card { cursor:pointer; transition:all .2s ease; }
+  details.faq-card:hover { border-color:#7C5CFF; }
+  details.faq-card summary { cursor:pointer; user-select:none; }
+  details.faq-card summary::-webkit-details-marker { display:none; }
+  details.faq-card summary::marker { display:none; content:''; }
+  details.faq-card .chev { transition:transform .3s cubic-bezier(.4,0,.2,1); display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:6px; background:rgba(124,92,255,0.1); color:#8B5CF6; font-size:.75rem; flex-shrink:0; }
+  details.faq-card[open] .chev { transform:rotate(180deg); background:#7C5CFF; color:#0B0B10; }
+  /* Cookie consent banner */
+  #cookieBanner { position:fixed; bottom:0; left:0; right:0; z-index:999; background:var(--card); border-top:1px solid var(--border); padding:1rem 1.25rem; transform:translateY(100%); transition:transform .4s cubic-bezier(.4,0,.2,1); }
+  #cookieBanner.show { transform:translateY(0); }
+  #cookieBanner .inner { max-width:64rem; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:.75rem; }
+  #cookieBanner p { font-size:.875rem; color:var(--text-muted); flex:1; min-width:240px; }
+  #cookieBanner .actions { display:flex; gap:.5rem; flex-shrink:0; }
+  #cookieBanner .btn-cookie { padding:.5rem 1.25rem; border-radius:.5rem; font-size:.875rem; font-weight:600; cursor:pointer; transition:all .15s ease; border:none; }
+  #cookieBanner .btn-cookie.accept { background:linear-gradient(90deg,#7C5CFF,#22D3EE); color:#0B0B10; }
+  #cookieBanner .btn-cookie.accept:hover { filter:brightness(1.1); }
+  #cookieBanner .btn-cookie.decline { background:var(--panel-2); border:1px solid var(--border); color:var(--text-muted); }
+  #cookieBanner .btn-cookie.decline:hover { color:var(--text); }
+  /* Icon wrapper for services */
+  .serv-icon { width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:12px; background:linear-gradient(135deg,rgba(124,92,255,0.15),rgba(34,211,238,0.08)); font-size:1.25rem; margin-bottom:.75rem; }
 </style>
 </head>
 <body class="antialiased">
@@ -171,27 +207,29 @@
 <!-- HERO -->
 <section id="top" class="grid-bg">
   <div class="max-w-6xl mx-auto px-5 pt-20 pb-24">
-    <div class="flex items-center gap-2 mb-6">
-      <span class="dot"></span>
-      <span class="text-sm text-muted" data-i18n="hero.slots">Не более 2 проектов одновременно - так гарантирую запуск за 3-7 дней</span>
-    </div>
+    <div class="section-label" data-i18n="hero.slots">Не более 2 проектов одновременно — гарантирую запуск за 3-7 дней</div>
     <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
       <span data-i18n="hero.title1">Убираю до 80% рутины вашего бизнеса</span><br />
-      <span class="gradient-text" data-i18n="hero.title2">за 3-7 дней - до запуска в продакшен</span>
+      <span class="gradient-text" data-i18n="hero.title2">за 3-7 дней — до запуска в продакшен</span>
     </h1>
     <p class="mt-6 text-lg md:text-xl text-muted max-w-2xl" data-i18n="hero.sub">
       Строю AI-агентов, интеграции и автоматизации, которые убирают ручную работу и экономят десятки часов в неделю. Python, n8n, Claude, GPT, Voice API.
     </p>
     <div class="mt-8 flex flex-col sm:flex-row gap-3">
       <a href="#contact" class="btn-primary px-6 py-3 rounded-xl text-base" data-i18n="hero.cta1">Получить бесплатный аудит</a>
-      <a href="#cases" class="px-6 py-3 rounded-xl border border-soft hover:opacity-80 text-center" data-i18n="hero.cta2">Смотреть кейсы</a>
+      <a href="#cases" class="btn-secondary px-6 py-3 rounded-xl text-base text-center" data-i18n="hero.cta2">Смотреть кейсы</a>
     </div>
+  </div>
 
-    <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-3">
-      <div class="card rounded-2xl p-5"><div class="text-3xl font-bold gradient-text">8+</div><div class="text-sm text-muted mt-1" data-i18n="hero.m1">production-ботов в работе</div></div>
-      <div class="card rounded-2xl p-5"><div class="text-3xl font-bold gradient-text">80%</div><div class="text-sm text-muted mt-1" data-i18n="hero.m2">экономия токенов LLM через pre-filter</div></div>
-      <div class="card rounded-2xl p-5"><div class="text-3xl font-bold gradient-text">24/7</div><div class="text-sm text-muted mt-1" data-i18n="hero.m3">автономная работа на VPS</div></div>
-      <div class="card rounded-2xl p-5"><div class="text-3xl font-bold gradient-text" data-i18n="hero.m4v">3 дня</div><div class="text-sm text-muted mt-1" data-i18n="hero.m4">от идеи до MVP на n8n</div></div>
+  <!-- STATS -->
+  <div class="panel-soft py-16">
+    <div class="max-w-6xl mx-auto px-5">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="stat-card"><div class="stat-number gradient-text">8+</div><div class="stat-label" data-i18n="hero.m1">production-ботов в работе</div></div>
+        <div class="stat-card"><div class="stat-number gradient-text">80%</div><div class="stat-label" data-i18n="hero.m2">экономия токенов LLM через pre-filter</div></div>
+        <div class="stat-card"><div class="stat-number gradient-text">24/7</div><div class="stat-label" data-i18n="hero.m3">автономная работа на VPS</div></div>
+        <div class="stat-card"><div class="stat-number gradient-text" data-i18n="hero.m4v">3 дня</div><div class="stat-label" data-i18n="hero.m4">от идеи до MVP на n8n</div></div>
+      </div>
     </div>
   </div>
 
@@ -208,21 +246,21 @@
   <div class="max-w-6xl mx-auto px-5">
     <div class="flex items-end justify-between flex-wrap gap-4 mb-10">
       <div>
-        <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="serv.pill">Что я делаю</div>
+        <div class="section-label" data-i18n="serv.pill">Что я делаю</div>
         <h2 class="text-3xl md:text-4xl font-bold" data-i18n="serv.title">Полный цикл автоматизации - от идеи до продакшена</h2>
       </div>
       <p class="text-muted max-w-md" data-i18n="serv.sub">Не просто «собираю сценарии». Проектирую архитектуру, пишу код, деплою на ваш сервер, передаю с документацией.</p>
     </div>
     <div class="grid md:grid-cols-3 gap-4">
-      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">🤖</div><h3 class="font-semibold text-lg" data-i18n="serv.c1.t">AI-агенты и чат-боты</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c1.d">Telegram, WhatsApp, Web. Claude/GPT + память, Function Calling, интеграция с CRM и базой знаний.</p></div>
-      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">📱</div><h3 class="font-semibold text-lg" data-i18n="serv.c2.t">Telegram Mini App</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c2.d">Полноценные веб-приложения внутри Telegram: каталоги, записи, оплаты, личный кабинет.</p></div>
-      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">🔗</div><h3 class="font-semibold text-lg" data-i18n="serv.c3.t">Интеграции любых API</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c3.d">CRM, платёжки, почта, гугл-таблицы, 1С, маркетплейсы. Связываю в единый поток.</p></div>
-      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">⚙️</div><h3 class="font-semibold text-lg" data-i18n="serv.c4.t">n8n / Make / Zapier</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c4.d">Быстрый MVP за 1-3 дня. Если no-code «не тянет» - переписываю критичное на Python.</p></div>
-      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">📞</div><h3 class="font-semibold text-lg" data-i18n="serv.c5.t">Voice-роботы и IVR</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c5.d">Голосовые ассистенты на Voice API + Whisper + LLM. Входящие, опросы, квалификация лидов.</p></div>
-      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">🧠</div><h3 class="font-semibold text-lg" data-i18n="serv.c6.t">Prompt Engineering</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c6.d">Системные промпты, пайплайны, XML-структуры, prompt caching. До 80% экономии на токенах.</p></div>
-      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">📊</div><h3 class="font-semibold text-lg" data-i18n="serv.c7.t">Дашборды и отчёты</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c7.d">Автоматические отчёты в Telegram/Email, BI-дашборды на NocoDB / Metabase, live-метрики.</p></div>
-      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">🧾</div><h3 class="font-semibold text-lg" data-i18n="serv.c8.t">Генерация документов</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c8.d">Договоры, акты, КП по шаблонам. Авто-заполнение из CRM, подпись, отправка клиенту.</p></div>
-      <div class="card rounded-2xl p-6"><div class="text-2xl mb-3">🚀</div><h3 class="font-semibold text-lg" data-i18n="serv.c9.t">MVP за 5-10 дней</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c9.d">VibeCoding: AI-ускоренная разработка. Проверяю гипотезу быстро и дёшево.</p></div>
+      <div class="card rounded-2xl p-6"><div class="serv-icon">🤖</div><h3 class="font-semibold text-lg" data-i18n="serv.c1.t">AI-агенты и чат-боты</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c1.d">Telegram, WhatsApp, Web. Claude/GPT + память, Function Calling, интеграция с CRM и базой знаний.</p></div>
+      <div class="card rounded-2xl p-6"><div class="serv-icon">📱</div><h3 class="font-semibold text-lg" data-i18n="serv.c2.t">Telegram Mini App</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c2.d">Полноценные веб-приложения внутри Telegram: каталоги, записи, оплаты, личный кабинет.</p></div>
+      <div class="card rounded-2xl p-6"><div class="serv-icon">🔗</div><h3 class="font-semibold text-lg" data-i18n="serv.c3.t">Интеграции любых API</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c3.d">CRM, платёжки, почта, гугл-таблицы, 1С, маркетплейсы. Связываю в единый поток.</p></div>
+      <div class="card rounded-2xl p-6"><div class="serv-icon">⚙️</div><h3 class="font-semibold text-lg" data-i18n="serv.c4.t">n8n / Make / Zapier</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c4.d">Быстрый MVP за 1-3 дня. Если no-code «не тянет» - переписываю критичное на Python.</p></div>
+      <div class="card rounded-2xl p-6"><div class="serv-icon">📞</div><h3 class="font-semibold text-lg" data-i18n="serv.c5.t">Voice-роботы и IVR</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c5.d">Голосовые ассистенты на Voice API + Whisper + LLM. Входящие, опросы, квалификация лидов.</p></div>
+      <div class="card rounded-2xl p-6"><div class="serv-icon">🧠</div><h3 class="font-semibold text-lg" data-i18n="serv.c6.t">Prompt Engineering</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c6.d">Системные промпты, пайплайны, XML-структуры, prompt caching. До 80% экономии на токенах.</p></div>
+      <div class="card rounded-2xl p-6"><div class="serv-icon">📊</div><h3 class="font-semibold text-lg" data-i18n="serv.c7.t">Дашборды и отчёты</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c7.d">Автоматические отчёты в Telegram/Email, BI-дашборды на NocoDB / Metabase, live-метрики.</p></div>
+      <div class="card rounded-2xl p-6"><div class="serv-icon">🧾</div><h3 class="font-semibold text-lg" data-i18n="serv.c8.t">Генерация документов</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c8.d">Договоры, акты, КП по шаблонам. Авто-заполнение из CRM, подпись, отправка клиенту.</p></div>
+      <div class="card rounded-2xl p-6"><div class="serv-icon">🚀</div><h3 class="font-semibold text-lg" data-i18n="serv.c9.t">MVP за 5-10 дней</h3><p class="text-muted text-sm mt-2" data-i18n="serv.c9.d">VibeCoding: AI-ускоренная разработка. Проверяю гипотезу быстро и дёшево.</p></div>
     </div>
   </div>
 </section>
@@ -230,7 +268,7 @@
 <!-- TASKS -->
 <section class="py-20 panel-soft divider-y">
   <div class="max-w-6xl mx-auto px-5">
-    <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="tasks.pill">Какие задачи закрываю</div>
+    <div class="section-label" data-i18n="tasks.pill">Какие задачи закрываю</div>
     <h2 class="text-3xl md:text-4xl font-bold mb-10" data-i18n="tasks.title">Переводим рутину на автопилот</h2>
     <div class="grid md:grid-cols-2 gap-3">
       <div class="flex items-start gap-3 p-4 rounded-xl border border-soft hover:opacity-90"><span style="color:#34D399">✓</span><div data-i18n="tasks.1"><b>Автоматизация продаж.</b> Лид → CRM → квалификация AI → распределение менеджеру → напоминания → отчёт руководителю.</div></div>
@@ -248,7 +286,7 @@
 <!-- CASES -->
 <section id="cases" class="py-24">
   <div class="max-w-6xl mx-auto px-5">
-    <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="cases.pill">Production-кейсы</div>
+    <div class="section-label" data-i18n="cases.pill">Production-кейсы</div>
     <h2 class="text-3xl md:text-4xl font-bold mb-3" data-i18n="cases.title">Реальные продукты, которые работают прямо сейчас</h2>
     <p class="text-muted mb-10 max-w-2xl" data-i18n="cases.sub">Не «выдуманные скриншоты», а действующие системы на серверах. Код на GitHub, демо по запросу.</p>
 
@@ -344,7 +382,7 @@
 <!-- PROCESS -->
 <section id="process" class="py-24 panel-soft divider-y">
   <div class="max-w-6xl mx-auto px-5">
-    <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="proc.pill">Как я работаю</div>
+    <div class="section-label" data-i18n="proc.pill">Как я работаю</div>
     <h2 class="text-3xl md:text-4xl font-bold mb-10" data-i18n="proc.title">6 шагов. Без сюрпризов и «ещё месяц-другой»</h2>
     <div class="grid md:grid-cols-3 gap-4">
       <div class="card rounded-2xl p-6"><div class="font-bold text-sm mb-2" style="color:#a78bfa" data-i18n="proc.s1.n">Шаг 01 · 0</div><h3 class="font-semibold" data-i18n="proc.s1.t">Бесплатный аудит</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s1.d">30-минутный созвон. Разбираю ваши процессы, показываю, где деньги текут мимо кассы.</p></div>
@@ -362,7 +400,7 @@
   <div class="max-w-6xl mx-auto px-5">
     <div class="grid md:grid-cols-2 gap-12 items-center">
       <div>
-        <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="why.pill">Почему я</div>
+        <div class="section-label" data-i18n="why.pill">Почему я</div>
         <h2 class="text-3xl md:text-4xl font-bold mb-6" data-i18n="why.title">Инженер-прикладник, а не «кнопочник в n8n»</h2>
         <p class="text-muted" data-i18n="why.sub">Большинство «автоматизаторов» останавливаются там, где no-code упирается в лимиты. Я дохожу до Python, async, retry-логики и prompt caching - в проде решают эти детали.</p>
       </div>
@@ -381,7 +419,7 @@
 <!-- ROI CALCULATOR -->
 <section class="py-20 panel-soft divider-y">
   <div class="max-w-4xl mx-auto px-5">
-    <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="calc.pill">Калькулятор</div>
+    <div class="section-label" data-i18n="calc.pill">Калькулятор</div>
     <h2 class="text-3xl md:text-4xl font-bold mb-2" data-i18n="calc.title">Сколько вы теряете на ручной работе</h2>
     <p class="text-muted mb-8" data-i18n="calc.sub">Прикиньте за 10 секунд. Цифры остаются у вас в браузере.</p>
 
@@ -423,7 +461,7 @@
 <!-- PRICING -->
 <section id="pricing" class="py-24">
   <div class="max-w-6xl mx-auto px-5">
-    <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="price.pill">Тарифы</div>
+    <div class="section-label" data-i18n="price.pill">Тарифы</div>
     <h2 class="text-3xl md:text-4xl font-bold mb-3" data-i18n="price.title">Прозрачные пакеты. Без «обсудим по факту»</h2>
     <p class="text-muted mb-10" data-i18n="price.sub">Фикс-цена согласуем на аудите. Ниже - ориентир, чтобы вы понимали порядок бюджета.</p>
 
@@ -438,7 +476,7 @@
           <li data-i18n="price.p1.l3">✓ Срок 3-5 дней</li>
           <li data-i18n="price.p1.l4">✓ Инструкция + 14 дней поддержки</li>
         </ul>
-        <a href="#contact" class="block text-center mt-6 px-4 py-2 rounded-lg border border-soft hover:opacity-80" data-i18n="price.choose">Выбрать</a>
+        <a href="#contact" class="block text-center mt-6 px-4 py-2 rounded-lg btn-secondary" data-i18n="price.choose">Выбрать</a>
       </div>
 
       <div class="card rounded-2xl p-6 relative" style="border-color:#7C5CFF;">
@@ -467,7 +505,7 @@
           <li data-i18n="price.p3.l4">✓ Дашборды, роли, права</li>
           <li data-i18n="price.p3.l5">✓ Срок 3-6 недель, SLA</li>
         </ul>
-        <a href="#contact" class="block text-center mt-6 px-4 py-2 rounded-lg border border-soft hover:opacity-80" data-i18n="price.discuss">Обсудить</a>
+        <a href="#contact" class="block text-center mt-6 px-4 py-2 rounded-lg btn-secondary" data-i18n="price.discuss">Обсудить</a>
       </div>
     </div>
     <p class="text-xs text-dim mt-6" data-i18n="price.legal">Оплата в USD / EUR / PLN / BYN / RUB / USDT. Самозанятый (Беларусь), закрывающие документы предоставляю.</p>
@@ -478,7 +516,7 @@
 <section id="contact" class="py-24">
   <div class="max-w-3xl mx-auto px-5">
     <div class="card rounded-3xl p-8 md:p-10" style="background:radial-gradient(circle at 0% 0%,rgba(124,92,255,0.15),transparent 50%),var(--card);">
-      <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3" data-i18n="form.pill">Заявка</div>
+      <div class="section-label" data-i18n="form.pill">Заявка</div>
       <h2 class="text-3xl md:text-4xl font-bold" data-i18n="form.title">Оставьте заявку - пришлю 3 варианта автоматизации под вашу задачу</h2>
       <p class="text-muted mt-3" data-i18n="form.sub">Отвечу в течение 4 часов в рабочее время. Без спама и автоворонок.</p>
 
@@ -503,27 +541,41 @@
 <!-- FAQ -->
 <section id="faq" class="py-24 panel-soft" style="border-top:1px solid var(--border-soft);">
   <div class="max-w-3xl mx-auto px-5">
-    <div class="pill inline-block text-xs px-3 py-1 rounded-full mb-3">FAQ</div>
+    <div class="section-label">FAQ</div>
     <h2 class="text-3xl md:text-4xl font-bold mb-8" data-i18n="faq.title">Частые вопросы</h2>
     <div class="space-y-3">
-      <details class="card rounded-xl p-5"><summary class="flex justify-between cursor-pointer font-semibold" data-i18n="faq.q1">Сколько реально займёт проект?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a1">Простая автоматизация - 3-5 дней. Telegram-бот с AI - 1-2 недели. Сложный MVP - 3-6 недель. Точный срок фиксируем после аудита.</p></details>
-      <details class="card rounded-xl p-5"><summary class="flex justify-between cursor-pointer font-semibold" data-i18n="faq.q2">Что, если я не разбираюсь в технологиях?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a2">Это норма. На аудите говорю на вашем языке - в деньгах и часах. Технические решения принимаю сам.</p></details>
-      <details class="card rounded-xl p-5"><summary class="flex justify-between cursor-pointer font-semibold" data-i18n="faq.q3">Где будут жить мои данные?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a3">На вашем сервере или вашем аккаунте у провайдера (OpenAI, Anthropic). Ключи - ваши. Без привязки ко мне.</p></details>
-      <details class="card rounded-xl p-5"><summary class="flex justify-between cursor-pointer font-semibold" data-i18n="faq.q4">Даёте ли гарантию?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a4">30 дней бесплатной поддержки на все баги. Если не работает как договорились - возврат 100%. В договоре.</p></details>
-      <details class="card rounded-xl p-5"><summary class="flex justify-between cursor-pointer font-semibold" data-i18n="faq.q5">Работаете с клиентами из ЕС / СНГ?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a5">Да. Оплата USD / EUR / PLN / BYN / RUB / USDT. Документы корректно под юрисдикцию.</p></details>
-      <details class="card rounded-xl p-5"><summary class="flex justify-between cursor-pointer font-semibold" data-i18n="faq.q6">А если GPT / n8n «отвалится»?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a6">Архитектура модульная: LLM-провайдер меняется через конфиг, n8n-ноды - на Python. Vendor lock мой враг.</p></details>
-      <details class="card rounded-xl p-5"><summary class="flex justify-between cursor-pointer font-semibold" data-i18n="faq.q7">Можно ли без предоплаты?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a7">Стандарт: 50% до старта, 50% после сдачи. На малых задачах (до $300) - по факту. Аудит всегда бесплатный.</p></details>
+      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q1">Сколько реально займёт проект?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a1">Простая автоматизация — 3-5 дней. Telegram-бот с AI — 1-2 недели. Сложный MVP — 3-6 недель. Точный срок фиксируем после аудита.</p></details>
+      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q2">Что, если я не разбираюсь в технологиях?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a2">Это норма. На аудите говорю на вашем языке — в деньгах и часах. Технические решения принимаю сам.</p></details>
+      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q3">Где будут жить мои данные?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a3">На вашем сервере или вашем аккаунте у провайдера (OpenAI, Anthropic). Ключи — ваши. Без привязки ко мне.</p></details>
+      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q4">Даёте ли гарантию?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a4">30 дней бесплатной поддержки на все баги. Если не работает как договорились — возврат 100%. В договоре.</p></details>
+      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q5">Работаете с клиентами из ЕС / СНГ?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a5">Да. Оплата USD / EUR / PLN / BYN / RUB / USDT. Документы корректно под юрисдикцию.</p></details>
+      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q6">А если GPT / n8n «отвалится»?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a6">Архитектура модульная: LLM-провайдер меняется через конфиг, n8n-ноды — на Python. Vendor lock — мой враг.</p></details>
+      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q7">Можно ли без предоплаты?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a7">Стандарт: 50% до старта, 50% после сдачи. На малых задачах (до $300) — по факту. Аудит всегда бесплатный.</p></details>
     </div>
   </div>
 </section>
+
+<!-- COOKIE CONSENT -->
+<div id="cookieBanner">
+  <div class="inner">
+    <p>Этот сайт использует localStorage для хранения ваших настроек (тема, язык, валюта). Никаких трекеров, рекламных cookies или передачи данных третьим лицам. <a href="/cookies" class="hover:opacity-80" style="color:#8B5CF6;text-decoration:underline;">Подробнее</a></p>
+    <div class="actions">
+      <button class="btn-cookie decline" onclick="declineCookies()" data-i18n="cookie.decline">Отклонить</button>
+      <button class="btn-cookie accept" onclick="acceptCookies()" data-i18n="cookie.accept">Принять</button>
+    </div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer class="py-10" style="border-top:1px solid var(--border-soft);">
   <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row justify-between gap-4 text-sm text-dim">
     <div>© <span id="year"></span> <span class="brand-logo" style="font-size:.85rem"><span class="brand-moroz">Moroz</span><span class="brand-ai">Ai</span></span> · <span data-i18n="foot.legal">Самозанятый, Республика Беларусь · УНП по запросу</span></div>
-    <div class="flex gap-4">
+    <div class="flex gap-4 flex-wrap">
       <a href="#top" class="hover:opacity-80" data-i18n="foot.top">Наверх</a>
       <a href="#contact" class="hover:opacity-80" data-i18n="foot.contact">Связаться</a>
+      <a href="/privacy" class="hover:opacity-80">Конфиденциальность</a>
+      <a href="/terms" class="hover:opacity-80">Условия</a>
+      <a href="/cookies" class="hover:opacity-80">Cookies</a>
     </div>
   </div>
 </footer>
@@ -593,6 +645,7 @@ const I18N = {
     "faq.q7":"Можно без предоплаты?","faq.a7":"Стандарт: 50/50. Малые задачи - по факту. Аудит бесплатный.",
     "calc.pill":"Калькулятор экономии","calc.title":"Сколько вы теряете каждый месяц?","calc.sub":"Введите данные - расскажу, сколько часов и денег экономите с автоматизацией","calc.rate":"Средняя ставка за час (USD)","calc.team":"Количество человек в процессе","calc.hours":"Часов в неделю на этот процесс","calc.monthly":"Потери в месяц","calc.yearly":"Потери в год","calc.payback":"Окупится за 3 дня автоматизации примерно через","calc.note":"* Расчёт: часов в неделю × ставка × 4.3 недели × количество человек",
     "check.pill":"Интерактивный чек-лист","check.title":"Что вы можете автоматизировать?","check.sub":"Отметьте процессы - покажу, где экономия максимальна","check.i1":"Ручной ввод данных в CRM / документы","check.i1d":"Перенесённые вручную контакты, заказы, информация из писем","check.i2":"Ежедневные / еженедельные отчёты","check.i2d":"Ручная сборка данных, Excel, Google Sheets, отправка руководству","check.i3":"Email-маркетинг и рассылки","check.i3d":"Отправка по спискам, проверка подписок, сегментация вручную","check.i4":"Обслуживание клиентов (FAQ, первый контакт)","check.i4d":"Ответы на повторяющиеся вопросы, квалификация лидов","check.i5":"Координация встреч / расписания","check.i5d":"Согласование времени, отправка напоминаний, синхронизация календарей","check.i6":"Платежи и биллинг","check.i6d":"Счета, напоминания об оплате, синхронизация платёжных систем","check.i7":"Интеграция систем (копирование данных)","check.i7d":"Данные между CRM, бухгалтерией, маркетинг-платформами","check.i8":"Контроль качества и проверки","check.i8d":"Проверка данных, выявление дубликатов, форматирование","check.summary":"Вы выбрали:","check.cta":"Обсудить план автоматизации",
+    "cookie.accept":"Принять","cookie.decline":"Отклонить",
     "foot.legal":"© MorozAi. Все права защищены.","foot.top":"Наверх","foot.contact":"Связаться",
   },
   en: {
@@ -655,6 +708,7 @@ const I18N = {
     "faq.q7":"Can I pay without prepayment?","faq.a7":"Standard: 50/50. Small tasks - on delivery. Audit is always free.",
     "calc.pill":"Savings Calculator","calc.title":"How much are you losing each month?","calc.sub":"Enter your data - I'll show you how many hours and dollars you save with automation","calc.rate":"Average hourly rate (USD)","calc.team":"Number of people on this process","calc.hours":"Hours per week on this process","calc.monthly":"Monthly loss","calc.yearly":"Yearly loss","calc.payback":"3-day automation pays back in approximately","calc.note":"* Calculation: hours/week × rate × 4.3 weeks × number of people",
     "check.pill":"Automation Checklist","check.title":"What can you automate?","check.sub":"Check the processes - I'll show where the savings are biggest","check.i1":"Manual data entry into CRM / documents","check.i1d":"Manually transferred contacts, orders, email information","check.i2":"Daily / weekly reports","check.i2d":"Manual data collection, Excel, Google Sheets, sending to management","check.i3":"Email marketing and campaigns","check.i3d":"Sending from lists, subscription checks, manual segmentation","check.i4":"Customer service (FAQ, first contact)","check.i4d":"Answers to repetitive questions, lead qualification","check.i5":"Meeting coordination / scheduling","check.i5d":"Time agreement, reminder sending, calendar sync","check.i6":"Payments and billing","check.i6d":"Invoices, payment reminders, payment system sync","check.i7":"System integration (data copying)","check.i7d":"Data between CRM, accounting, marketing platforms","check.i8":"Quality control and verification","check.i8d":"Data checks, duplicate detection, formatting","check.summary":"You selected:","check.cta":"Discuss automation plan",
+    "cookie.accept":"Accept","cookie.decline":"Decline",
     "foot.legal":"© MorozAi. All rights reserved.","foot.top":"Top","foot.contact":"Contact",
   },
   pl: {
@@ -717,6 +771,7 @@ const I18N = {
     "faq.q7":"Bez przedpłaty?","faq.a7":"Standard: 50/50. Małe zadania - po fakcie. Audyt gratis.",
     "calc.pill":"Kalkulator oszczędności","calc.title":"Ile tracisz każdego miesiąca?","calc.sub":"Wpisz dane - pokażę, ile godzin i pieniędzy oszczędzisz dzięki automatyzacji","calc.rate":"Średnia stawka godzinowa (USD)","calc.team":"Liczba osób zaangażowanych w ten proces","calc.hours":"Godzin na tydzień na ten proces","calc.monthly":"Strata miesięczna","calc.yearly":"Strata roczna","calc.payback":"3-dniowa automatyzacja spłaci się w ciągu około","calc.note":"* Kalkulacja: godziny/tydzień × stawka × 4,3 tygodnia × liczba osób",
     "check.pill":"Interaktywna lista kontrolna","check.title":"Co możesz zautomatyzować?","check.sub":"Zaznacz procesy - pokażę gdzie oszczędności są największe","check.i1":"Ręczne wprowadzanie danych do CRM / dokumenty","check.i1d":"Ręcznie przeniesione kontakty, zamówienia, informacje z maili","check.i2":"Raporty dzienne / tygodniowe","check.i2d":"Ręczne zbieranie danych, Excel, Google Sheets, wysyłanie kierownictwu","check.i3":"Email marketing i kampanie","check.i3d":"Wysyłanie z list, kontrola subskrypcji, segmentacja ręczna","check.i4":"Obsługa klienta (FAQ, pierwszy kontakt)","check.i4d":"Odpowiedzi na powtarzające się pytania, kwalifikacja leadów","check.i5":"Koordynacja spotkań / harmonogram","check.i5d":"Uzgadnianie czasu, wysyłanie przypomnień, synchronizacja kalendarzy","check.i6":"Płatności i rozliczenia","check.i6d":"Faktury, przypomnienia o płatności, synchronizacja systemów płatniczych","check.i7":"Integracja systemów (kopiowanie danych)","check.i7d":"Dane między CRM, buchalterią, platformami marketingowymi","check.i8":"Kontrola jakości i weryfikacja","check.i8d":"Kontrola danych, wykrywanie duplikatów, formatowanie","check.summary":"Wybrałeś:","check.cta":"Omówić plan automatyzacji",
+    "cookie.accept":"Akceptuj","cookie.decline":"Odrzuć",
     "foot.legal":"© MorozAi. Wszystkie prawa zastrzeżone.","foot.top":"Do góry","foot.contact":"Kontakt",
   },
   de: {
@@ -779,6 +834,7 @@ const I18N = {
     "faq.q7":"Ohne Vorauszahlung?","faq.a7":"Standard: 50/50. Kleine Aufgaben - bei Lieferung. Audit immer kostenlos.",
     "calc.pill":"Einsparungsrechner","calc.title":"Wie viel verlieren Sie pro Monat?","calc.sub":"Geben Sie Ihre Daten ein - ich zeige Ihnen, wie viele Stunden und Dollars Sie mit Automation sparen","calc.rate":"Durchschnittlicher Stundensatz (USD)","calc.team":"Anzahl der Personen in diesem Prozess","calc.hours":"Stunden pro Woche für diesen Prozess","calc.monthly":"Monatliche Verluste","calc.yearly":"Jährliche Verluste","calc.payback":"3-Tage-Automatisierung amortisiert sich in etwa","calc.note":"* Berechnung: Stunden/Woche × Satz × 4,3 Wochen × Anzahl der Personen",
     "check.pill":"Automatisierungs-Checkliste","check.title":"Was können Sie automatisieren?","check.sub":"Kreuzen Sie Prozesse an - ich zeige Ihnen, wo die Ersparnisse am größten sind","check.i1":"Manuelle Dateneingabe in CRM / Dokumente","check.i1d":"Manuell übertragene Kontakte, Bestellungen, E-Mail-Informationen","check.i2":"Tägliche / wöchentliche Berichte","check.i2d":"Manuelle Datenerfassung, Excel, Google Sheets, Versand an Management","check.i3":"E-Mail-Marketing und Kampagnen","check.i3d":"Versand aus Listen, Abonnement-Checks, manuelle Segmentierung","check.i4":"Kundenservice (FAQ, Erstkontakt)","check.i4d":"Antworten auf wiederkehrende Fragen, Lead-Qualifikation","check.i5":"Terminkoordination / Zeitplanung","check.i5d":"Zeitabstimmung, Erinnerungsversand, Kalendersynchronisierung","check.i6":"Zahlungen und Abrechnung","check.i6d":"Rechnungen, Zahlungserinnerungen, Zahlungssystem-Synchronisierung","check.i7":"Systemintegration (Datenkopien)","check.i7d":"Daten zwischen CRM, Buchhaltung, Marketing-Plattformen","check.i8":"Qualitätskontrolle und Überprüfung","check.i8d":"Datenprüfungen, Duplikaterkennung, Formatierung","check.summary":"Sie haben ausgewählt:","check.cta":"Automatisierungsplan besprechen",
+    "cookie.accept":"Akzeptieren","cookie.decline":"Ablehnen",
     "foot.legal":"© MorozAi. Alle Rechte vorbehalten.","foot.top":"Nach oben","foot.contact":"Kontakt",
   },
   fr: {
@@ -841,6 +897,7 @@ const I18N = {
     "faq.q7":"Sans acompte?","faq.a7":"Standard: 50/50. Petites tâches - à la livraison. Audit toujours gratuit.",
     "calc.pill":"Calculatrice d'économies","calc.title":"Combien perdez-vous chaque mois?","calc.sub":"Entrez vos données - je vous montrerai combien d'heures et de dollars vous économisez avec l'automatisation","calc.rate":"Taux horaire moyen (USD)","calc.team":"Nombre de personnes dans ce processus","calc.hours":"Heures par semaine sur ce processus","calc.monthly":"Perte mensuelle","calc.yearly":"Perte annuelle","calc.payback":"L'automatisation de 3 jours se rentabilise en environ","calc.note":"* Calcul: heures/semaine × taux × 4,3 semaines × nombre de personnes",
     "check.pill":"Liste de contrôle d'automatisation","check.title":"Qu'est-ce que vous pouvez automatiser?","check.sub":"Cochez les processus - je vous montrerai où les économies sont les plus importantes","check.i1":"Saisie manuelle des données dans CRM / documents","check.i1d":"Contacts, commandes, informations d'e-mails transférés manuellement","check.i2":"Rapports quotidiens / hebdomadaires","check.i2d":"Collecte manuelle de données, Excel, Google Sheets, envoi à la direction","check.i3":"Email marketing et campagnes","check.i3d":"Envoi de listes, vérification des abonnements, segmentation manuelle","check.i4":"Service client (FAQ, premier contact)","check.i4d":"Réponses aux questions répétitives, qualification des prospects","check.i5":"Coordination des réunions / planification","check.i5d":"Accord sur les horaires, envoi de rappels, synchronisation des calendriers","check.i6":"Paiements et facturation","check.i6d":"Factures, rappels de paiement, synchronisation des systèmes de paiement","check.i7":"Intégration de systèmes (copie de données)","check.i7d":"Données entre CRM, comptabilité, plateformes marketing","check.i8":"Contrôle de qualité et vérification","check.i8d":"Vérification des données, détection des doublons, formatage","check.summary":"Vous avez sélectionné:","check.cta":"Discuter du plan d'automatisation",
+    "cookie.accept":"Accepter","cookie.decline":"Refuser",
     "foot.legal":"© MorozAi. Tous droits réservés.","foot.top":"Haut","foot.contact":"Contact",
   },
   es: {
@@ -903,6 +960,7 @@ const I18N = {
     "faq.q7":"¿Sin pago anticipado?","faq.a7":"Estándar: 50/50. Tareas pequeñas - al entregar. Auditoría siempre gratis.",
     "calc.pill":"Calculadora de ahorros","calc.title":"¿Cuánto pierdes cada mes?","calc.sub":"Ingresa tus datos - te mostraré cuántas horas y dólares ahorras con la automatización","calc.rate":"Tarifa por hora promedio (USD)","calc.team":"Número de personas en este proceso","calc.hours":"Horas por semana en este proceso","calc.monthly":"Pérdida mensual","calc.yearly":"Pérdida anual","calc.payback":"La automatización de 3 días se amortiza en aproximadamente","calc.note":"* Cálculo: horas/semana × tarifa × 4.3 semanas × número de personas",
     "check.pill":"Lista de verificación de automatización","check.title":"¿Qué puedes automatizar?","check.sub":"Marca los procesos - te mostraré dónde el ahorro es mayor","check.i1":"Entrada manual de datos en CRM / documentos","check.i1d":"Contactos, pedidos, información de correos transferidos manualmente","check.i2":"Reportes diarios / semanales","check.i2d":"Recopilación manual de datos, Excel, Google Sheets, envío a gerencia","check.i3":"Email marketing y campañas","check.i3d":"Envío desde listas, verificación de suscripciones, segmentación manual","check.i4":"Atención al cliente (FAQ, primer contacto)","check.i4d":"Respuestas a preguntas repetidas, calificación de prospectos","check.i5":"Coordinación de reuniones / programación","check.i5d":"Acuerdo de horarios, envío de recordatorios, sincronización de calendario","check.i6":"Pagos y facturación","check.i6d":"Facturas, recordatorios de pago, sincronización de sistemas de pago","check.i7":"Integración de sistemas (copia de datos)","check.i7d":"Datos entre CRM, contabilidad, plataformas de marketing","check.i8":"Control de calidad y verificación","check.i8d":"Verificación de datos, detección de duplicados, formato","check.summary":"Has seleccionado:","check.cta":"Discutir plan de automatización",
+    "cookie.accept":"Aceptar","cookie.decline":"Rechazar",
     "foot.legal":"© MorozAi. Todos los derechos reservados.","foot.top":"Arriba","foot.contact":"Contacto",
   },
   pt: {
@@ -965,6 +1023,7 @@ const I18N = {
     "faq.q7":"Sem pagamento antecipado?","faq.a7":"Standard: 50/50. Tarefas pequenas - na entrega. Auditoria sempre gratuita.",
     "calc.pill":"Calculadora de poupança","calc.title":"Quanto você perde por mês?","calc.sub":"Digite seus dados - vou mostrar quantas horas e dólares você economiza com a automação","calc.rate":"Taxa horária média (USD)","calc.team":"Número de pessoas neste processo","calc.hours":"Horas por semana neste processo","calc.monthly":"Perda mensal","calc.yearly":"Perda anual","calc.payback":"A automação de 3 dias se amortiza em aproximadamente","calc.note":"* Cálculo: horas/semana × taxa × 4,3 semanas × número de pessoas",
     "check.pill":"Lista de verificação de automação","check.title":"O que você pode automatizar?","check.sub":"Marque os processos - vou mostrar onde a poupança é maior","check.i1":"Entrada manual de dados em CRM / documentos","check.i1d":"Contatos, pedidos, informações de email transferidas manualmente","check.i2":"Relatórios diários / semanais","check.i2d":"Coleta manual de dados, Excel, Google Sheets, envio para gerência","check.i3":"Email marketing e campanhas","check.i3d":"Envio de listas, verificação de inscrição, segmentação manual","check.i4":"Atendimento ao cliente (FAQ, primeiro contato)","check.i4d":"Respostas a perguntas repetidas, qualificação de prospectos","check.i5":"Coordenação de reuniões / agendamento","check.i5d":"Acordo sobre horários, envio de lembretes, sincronização de calendário","check.i6":"Pagamentos e faturamento","check.i6d":"Faturas, lembretes de pagamento, sincronização de sistemas de pagamento","check.i7":"Integração de sistemas (cópia de dados)","check.i7d":"Dados entre CRM, contabilidade, plataformas de marketing","check.i8":"Controle de qualidade e verificação","check.i8d":"Verificação de dados, detecção de duplicatas, formatação","check.summary":"Você selecionou:","check.cta":"Discutir plano de automação",
+    "cookie.accept":"Aceitar","cookie.decline":"Recusar",
     "foot.legal":"© MorozAi. Todos os direitos reservados.","foot.top":"Topo","foot.contact":"Contacto",
   },
   it: {
@@ -1027,6 +1086,7 @@ const I18N = {
     "faq.q7":"Senza anticipo?","faq.a7":"Standard: 50/50. Piccoli lavori - alla consegna. Audit sempre gratuito.",
     "calc.pill":"Calcolatrice di risparmio","calc.title":"Quanto perdi ogni mese?","calc.sub":"Inserisci i tuoi dati - ti mostrerò quante ore e dollari risparmierai con l'automazione","calc.rate":"Tariffa oraria media (USD)","calc.team":"Numero di persone in questo processo","calc.hours":"Ore per settimana su questo processo","calc.monthly":"Perdita mensile","calc.yearly":"Perdita annuale","calc.payback":"L'automazione di 3 giorni si ammortizza in circa","calc.note":"* Calcolo: ore/settimana × tariffa × 4,3 settimane × numero di persone",
     "check.pill":"Checklist di automazione","check.title":"Cosa puoi automatizzare?","check.sub":"Controlla i processi - ti mostrerò dove il risparmio è maggiore","check.i1":"Inserimento manuale dati in CRM / documenti","check.i1d":"Contatti, ordini, informazioni email trasferiti manualmente","check.i2":"Rapporti giornalieri / settimanali","check.i2d":"Raccolta manuale dati, Excel, Google Sheets, invio a gestione","check.i3":"Email marketing e campagne","check.i3d":"Invio da liste, controllo abbonamenti, segmentazione manuale","check.i4":"Servizio clienti (FAQ, primo contatto)","check.i4d":"Risposte a domande ricorrenti, qualificazione lead","check.i5":"Coordinamento riunioni / programmazione","check.i5d":"Accordo orari, invio promemoria, sincronizzazione calendario","check.i6":"Pagamenti e fatturazione","check.i6d":"Fatture, promemoria pagamento, sincronizzazione sistemi pagamento","check.i7":"Integrazione sistemi (copia dati)","check.i7d":"Dati tra CRM, contabilità, piattaforme marketing","check.i8":"Controllo qualità e verifica","check.i8d":"Verifica dati, rilevamento duplicati, formattazione","check.summary":"Hai selezionato:","check.cta":"Discuti piano di automazione",
+    "cookie.accept":"Accetta","cookie.decline":"Rifiuta",
     "foot.legal":"© MorozAi. Tutti i diritti riservati.","foot.top":"Su","foot.contact":"Contatto",
   },
   el: {
@@ -1089,6 +1149,7 @@ const I18N = {
     "faq.q7":"Χωρίς προκαταβολή;","faq.a7":"Standard: 50/50. Μικρές εργασίες - στην παράδοση. Έλεγχος πάντα δωρεάν.",
     "calc.pill":"Αριθμομachine αποταμίευσης","calc.title":"Πόσα χάνετε κάθε μήνα;","calc.sub":"Εισάγετε τα δεδομένα σας - θα σας δείξω πόσες ώρες και δολάρια εξοικονομείτε με την αυτοματοποίηση","calc.rate":"Μέσο ωριαίο κόστος (USD)","calc.team":"Αριθμός ατόμων σε αυτή τη διαδικασία","calc.hours":"Ώρες ανά εβδομάδα σε αυτή τη διαδικασία","calc.monthly":"Μηνιαία απώλεια","calc.yearly":"Ετήσια απώλεια","calc.payback":"Η αυτοματοποίηση 3 ημερών αποσβένεται σε περίπου","calc.note":"* Υπολογισμός: ώρες/εβδομάδα × ημερομίσθιο × 4,3 εβδομάδες × αριθμός ατόμων",
     "check.pill":"Λίστα ελέγχου αυτοματοποίησης","check.title":"Τι μπορείς να αυτοματοποιήσεις;","check.sub":"Σημειώστε τις διαδικασίες - θα σας δείξω πού είναι τα μεγαλύτερα οφέλη","check.i1":"Χειροκίνητη εισαγωγή δεδομένων σε CRM / έγγραφα","check.i1d":"Επαφές, παραγγελίες, πληροφορίες email που μεταφέρθηκαν χειροκίνητα","check.i2":"Ημερήσιες / εβδομαδιαίες αναφορές","check.i2d":"Χειροκίνητη συλλογή δεδομένων, Excel, Google Sheets, αποστολή στη διοίκηση","check.i3":"Email marketing και εκστρατείες","check.i3d":"Αποστολή από λίστες, έλεγχος συνδρομών, χειροκίνητη κατάτμηση","check.i4":"Εξυπηρέτηση πελατών (FAQ, πρώτη επαφή)","check.i4d":"Απαντήσεις σε επαναλαμβανόμενες ερωτήσεις, προσδιορισμός δυνητικών πελατών","check.i5":"Συντονισμός συναντήσεων / χρονοδιάγραμμα","check.i5d":"Συμφωνία χρόνου, αποστολή υπενθυμίσεων, συγχρονισμός ημερολογίου","check.i6":"Πληρωμές και τιμολόγηση","check.i6d":"Τιμολόγια, υπενθυμίσεις πληρωμής, συγχρονισμός συστημάτων πληρωμής","check.i7":"Ενσωμάτωση συστημάτων (αντιγραφή δεδομένων)","check.i7d":"Δεδομένα μεταξύ CRM, λογιστικής, πλατφορμών μάρκετινγκ","check.i8":"Έλεγχος ποιότητας και επαλήθευση","check.i8d":"Επαλήθευση δεδομένων, ανίχνευση διπλοτύπων, μορφοποίηση","check.summary":"Επιλέξατε:","check.cta":"Συζητήστε σχέδιο αυτοματοποίησης",
+    "cookie.accept":"Αποδοχή","cookie.decline":"Απόρριψη",
     "foot.legal":"© MorozAi. Όλα τα δικαιώματα διατηρούνται.","foot.top":"Πάνω","foot.contact":"Επικοινωνία",
   },
   nl: {
@@ -1151,6 +1212,7 @@ const I18N = {
     "faq.q7":"Zonder aanbetaling?","faq.a7":"Standaard: 50/50. Kleine taken - bij levering. Audit altijd gratis.",
     "calc.pill":"Besparingscalculator","calc.title":"Hoeveel verlies je elke maand?","calc.sub":"Voer je gegevens in - ik laat zien hoeveel uren en dollars je bespaard met automatisering","calc.rate":"Gemiddeld uurtarief (USD)","calc.team":"Aantal personen in dit proces","calc.hours":"Uren per week in dit proces","calc.monthly":"Maandelijks verlies","calc.yearly":"Jaarlijks verlies","calc.payback":"3-daagse automatisering betaalt zich terug in ongeveer","calc.note":"* Berekening: uren/week × tarief × 4,3 weken × aantal personen",
     "check.pill":"Automatiseringscontrolelijst","check.title":"Wat kun je automatiseren?","check.sub":"Vink processen aan - ik laat zien waar de besparingen het grootste zijn","check.i1":"Handmatige gegevensinvoer in CRM / documenten","check.i1d":"Handmatig overgebrachte contacten, bestellingen, e-mailinformatie","check.i2":"Dagelijkse / wekelijkse rapporten","check.i2d":"Handmatige gegevensverzameling, Excel, Google Sheets, verzending naar management","check.i3":"E-mailmarketing en campagnes","check.i3d":"Verzending van lijsten, abonnementcontrole, handmatige segmentatie","check.i4":"Klantenservice (FAQ, eerste contact)","check.i4d":"Antwoorden op herhaalde vragen, kwalificatie van potentiële klanten","check.i5":"Vergaderingcoördinatie / planning","check.i5d":"Akkoord over tijd, herinneringsberichten versturen, agenda synchroniseren","check.i6":"Betalingen en facturering","check.i6d":"Facturen, betalingsherinneringen, synchronisatie betalingssystemen","check.i7":"Systeemintegratie (gegevens kopiëren)","check.i7d":"Gegevens tussen CRM, boekhouding, marketingplatformen","check.i8":"Kwaliteitscontrole en verificatie","check.i8d":"Gegevensveri ficatie, duplicaatdetectie, opmaak","check.summary":"Je hebt geselecteerd:","check.cta":"Automatiseringsplan bespreken",
+    "cookie.accept":"Accepteren","cookie.decline":"Weigeren",
     "foot.legal":"© MorozAi. Alle rechten voorbehouden.","foot.top":"Omhoog","foot.contact":"Contact",
   },
   fi: {
@@ -1213,6 +1275,7 @@ const I18N = {
     "faq.q7":"Ilman ennakkomaksua?","faq.a7":"Standard: 50/50. Pienet tehtävät - toimituksessa. Auditointi aina ilmainen.",
     "calc.pill":"Säästölaskin","calc.title":"Kuinka paljon menetät kuukaudessa?","calc.sub":"Kirjoita tietosi - näytän kuinka monta tuntia ja dollaria säästät automaatiolla","calc.rate":"Keskimääräinen tuntipalkkio (USD)","calc.team":"Henkilöiden määrä tässä prosessissa","calc.hours":"Tunteja viikossa tähän prosessiin","calc.monthly":"Kuukausittainen menetys","calc.yearly":"Vuotuinen menetys","calc.payback":"3 päivän automatisointi maksaa itsensä noin","calc.note":"* Laskenta: tunnit/viikko × korko × 4,3 viikkoa × henkilöiden määrä",
     "check.pill":"Automaatiomuistilista","check.title":"Mitä voit automatisoida?","check.sub":"Merkitse prosessit - näytän missä säästöt ovat suurimmat","check.i1":"Tietojen manuaalinen syöttö CRM-järjestelmään / asiakirjoihin","check.i1d":"Manuaalisesti siirretyt yhteystiedot, tilaukset, sähköposti-tiedot","check.i2":"Päivittäiset / viikkottaiset raportit","check.i2d":"Manuaalinen tiedonkeruu, Excel, Google Sheets, lähettäminen johdolle","check.i3":"Sähköpostien markkinointi ja kampanjat","check.i3d":"Lähettäminen listoista, tilaustenhallinnan tarkistus, manuaalinen segmentointi","check.i4":"Asiakaspalvelu (FAQ, ensimmäinen yhteydenotto)","check.i4d":"Vastaukset toistuviin kysymyksiin, liidien pätevöinti","check.i5":"Kokousten koordinointi / aikataulu","check.i5d":"Aikapaikan sopiminen, muistutusviestit, kalenterin synkronointi","check.i6":"Maksut ja laskutus","check.i6d":"Laskut, maksumuistutukset, maksupalvelujärjestelmien synkronointi","check.i7":"Järjestelmien integrointi (tietojen kopiointi)","check.i7d":"Tiedot CRM-järjestelmän, kirjanpidon ja markkinointialustojen välillä","check.i8":"Laadun valvonta ja tarkistus","check.i8d":"Tietojen tarkistus, kaksoiskappaleiden havaitseminen, muotoilu","check.summary":"Valitsit:","check.cta":"Keskustele automaatiosuunnitelmasta",
+    "cookie.accept":"Hyväksy","cookie.decline":"Hylkää",
     "foot.legal":"© MorozAi. Kaikki oikeudet pidätetään.","foot.top":"Ylös","foot.contact":"Yhteystiedot",
   },
   uk: {
@@ -1275,6 +1338,7 @@ const I18N = {
     "faq.q7":"Можна без передоплати?","faq.a7":"Стандарт: 50/50. Малі задачі - по факту. Аудит безкоштовний.",
     "calc.pill":"Калькулятор збереження","calc.title":"Скільки ви втрачаєте щомісяця?","calc.sub":"Введіть ваші дані - покажу скільки годин та доларів ви заощадите з автоматизацією","calc.rate":"Середня ставка за годину (USD)","calc.team":"Кількість людей у цьому процесі","calc.hours":"Годин на тиждень для цього процесу","calc.monthly":"Місячна втрата","calc.yearly":"Річна втрата","calc.payback":"3-денна автоматизація окупиться приблизно за","calc.note":"* Розрахунок: годин/тиждень × ставка × 4,3 тиждня × кількість людей",
     "check.pill":"Інтерактивний чек-лист","check.title":"Що ви можете автоматизувати?","check.sub":"Позначте процеси - покажу де заощадження найбільші","check.i1":"Ручне введення даних в CRM / документи","check.i1d":"Вручну передані контакти, замовлення, інформація з листів","check.i2":"Щоденні / тижневі звіти","check.i2d":"Ручне збирання даних, Excel, Google Sheets, відправка керівництву","check.i3":"Email-маркетинг та кампанії","check.i3d":"Відправка зі списків, перевірка підписок, ручна сегментація","check.i4":"Обслуговування клієнтів (FAQ, перший контакт)","check.i4d":"Відповіді на повторювані питання, кваліфікація лідів","check.i5":"Координація зустрічей / розклад","check.i5d":"Узгодження часу, відправка нагадувань, синхронізація календарів","check.i6":"Платежи та рахунки","check.i6d":"Рахунки, нагадування про оплату, синхронізація платіжних систем","check.i7":"Інтеграція систем (копіювання даних)","check.i7d":"Дані між CRM, бухгалтерією, платформами маркетингу","check.i8":"Контроль якості та перевірка","check.i8d":"Перевірка даних, виявлення дублікатів, форматування","check.summary":"Ви вибрали:","check.cta":"Обговорити план автоматизації",
+    "cookie.accept":"Прийняти","cookie.decline":"Відхилити",
     "foot.legal":"© MorozAi. Усі права захищені.","foot.top":"Нагору","foot.contact":"Зв'язатися",
   },
   kk: {
@@ -1337,6 +1401,7 @@ const I18N = {
     "faq.q7":"Алдын ала төлемсіз болады ма?","faq.a7":"Стандарт: 50/50. Кішігірім тапсырмалар - нәтижесінде. Аудит тегін.",
     "calc.pill":"Үнеңі сақтау калькуляторы","calc.title":"Сіз ай сайын қанша жоғалтасыз?","calc.sub":"Деректеріңізді енгізіңіз - автоматизацияның арқасында қанша сағат және доллар үнегін сақтайтыныңызды көрсетемін","calc.rate":"Орташа сағаттық тариф (USD)","calc.team":"Осы процесте адам саны","calc.hours":"Бұл процесс үшін аптасына сағат","calc.monthly":"Ай сайындағы шығын","calc.yearly":"Жылдық шығын","calc.payback":"3 күндік автоматизация шамамасына төлейді","calc.note":"* Есепте: сағат/апта × тариф × 4,3 апта × адам саны",
     "check.pill":"Автоматизация тіркесімі","check.title":"Нені автоматизациялай аласыз?","check.sub":"Процестерді құмай қойыңыз - үнеңі ең үлкен болатын орындарды көрсетемін","check.i1":"CRM / құжаттарға деректерді қолмен енгізу","check.i1d":"Қолмен ауыстырылған контактілар, заказдар, хаттар ақпараты","check.i2":"Күнделік / аптасына есептемелер","check.i2d":"Қолмен деректер жинау, Excel, Google Sheets, басшылыққа жіберу","check.i3":"Email маркетинг және науылар","check.i3d":"Тізімдерден жіберу, абоненттерді тексеру, қолмен сегментация","check.i4":"Тұтынушы қызметі (FAQ, бірінші контакт)","check.i4d":"Қайталанатын сұрақтарға жауап, потенциалды тұтынушыларды сұрыптау","check.i5":"Кездесінді үйлесінді / кестесі","check.i5d":"Уақытқа келісу, еске салу хабарлары жіберу, күнтізбе синхрондеу","check.i6":"Төлемдер және есеп-шоттар","check.i6d":"Шоттар, төлем еске салуы, төлем жүйелерінің синхрондеуі","check.i7":"Жүйелерді біріктіру (деректерді көшіру)","check.i7d":"CRM, бухгалтерлік есеп және маркетинг платформалары арасындағы деректер","check.i8":"Сапа бақылау және тексеру","check.i8d":"Деректерді тексеру, қосмасын анықтау, пішіндеу","check.summary":"Сіз таңдадыңыз:","check.cta":"Автоматизация жоспарын талқылау",
+    "cookie.accept":"Қабылдау","cookie.decline":"Бастарту",
     "foot.legal":"© MorozAi. Барлық құқықтар сақталған.","foot.top":"Жоғары","foot.contact":"Байланысу",
   },
   be: {
@@ -1399,6 +1464,7 @@ const I18N = {
     "faq.q7":"Можна без перадаплаты?","faq.a7":"Стандарт: 50/50. Малыя задачы - па факту. Аўдыт заўсёды бясплатны.",
     "calc.pill":"Калькулятар эканоміі","calc.title":"Колькі вы траціце кожны месяц?","calc.sub":"Унесіце свае дадзеныя - покажу, колькі гадзін і долараў вы эканомяць дзякуючы аўтаматызацыі","calc.rate":"Средняя ставка за гадзіну (USD)","calc.team":"Колькасць людзей у гэтым працэсе","calc.hours":"Гадзін у тыдзень на гэты працэс","calc.monthly":"Месячныя страты","calc.yearly":"Гадавыя страты","calc.payback":"3-дзённая аўтаматызацыя окупіцца прыкладна за","calc.note":"* Разлік: гадзін/тыдзень × ставка × 4,3 тыдня × колькасць людзей",
     "check.pill":"Інтэрактыўны чек-ліст","check.title":"Што вы можаце аўтаматызаваць?","check.sub":"Адзначце працэсы - покажу дзе эканомія будзе максімальнай","check.i1":"Ручны ўвод дадзеных у CRM / дакументы","check.i1d":"Ручна перадаўньні контакты, заказы, інфармацыя з лістоў","check.i2":"Штодзённыя / штатыгоднявыя справаздачы","check.i2d":"Ручная зборка дадзеных, Excel, Google Sheets, адпраўка кіраўніцтву","check.i3":"Email-маркетынг і рассылкі","check.i3d":"Адпраўка па спісам, праверка падпісак, сегментацыя ручная","check.i4":"Абслугоўванне кліентаў (FAQ, першы кантакт)","check.i4d":"Адказы на паўторальныя пытанні, кваліфікацыя лідаў","check.i5":"Каардынацыя сустрэч / расклад","check.i5d":"Узгаданне часу, адпраўка нагадванняў, сінхранізацыя календара","check.i6":"Плацяжы і рахунасцеўніцтва","check.i6d":"Рахункі, нагадванні пра плацяж, сінхранізацыя сістэм плацяжу","check.i7":"Інтэграцыя сістэм (копіяванне дадзеных)","check.i7d":"Дадзеныя паміж CRM, бухгалтерыяй, платформамі маркетынгу","check.i8":"Контроль якасці і праверкі","check.i8d":"Праверка дадзеных, выяўленне дублікатаў, фарматаванне","check.summary":"Вы выбралі:","check.cta":"Абмяркаваць план аўтаматызацыі",
+    "cookie.accept":"Прыняць","cookie.decline":"Адхіліць",
     "foot.legal":"© MorozAi. Усе правы абарончаны.","foot.top":"Угору","foot.contact":"Звязацца",
   },
   lt: {
@@ -1461,6 +1527,7 @@ const I18N = {
     "faq.q7":"Ar galima be išankstinio apmokėjimo?","faq.a7":"Standartas: 50/50. Maži darbai - po pristatymo. Auditas visada nemokamas.",
     "calc.pill":"Taupymo skaičiuoklė","calc.title":"Kiek jūs praradeete kiekvieną mėnesį?","calc.sub":"Įveskite savo duomenis - parodysiu, kiek valandų ir dolerių sutaupysite dėl automatizavimo","calc.rate":"Vidutinis valandinis tarifas (USD)","calc.team":"Žmonių skaičius šiame procese","calc.hours":"Valandų per savaitę šiam procesui","calc.monthly":"Mėnesinė prarada","calc.yearly":"Metinė prarada","calc.payback":"3 dienų automatizavimas grąžinasi maždaug per","calc.note":"* Skaičiavimas: valandos/savaitė × tarifas × 4,3 savaitės × žmonių skaičius",
     "check.pill":"Automatizavimo kontrolinis sąrašas","check.title":"Ką galite automatizuoti?","check.sub":"Pažymėkite procesus - parodysiu kur taupymas didžiausias","check.i1":"Rankiniu būdu įvedami duomenys į CRM / dokumentus","check.i1d":"Rankiniu būdu perkelti kontaktai, užsakymai, el. pašto informacija","check.i2":"Kasdienės / savaitės ataskaitos","check.i2d":"Rankiniu būdu surinkti duomenys, Excel, Google Sheets, siuntimas vadovybei","check.i3":"El. pašto rinkodara ir kampanijos","check.i3d":"Siuntimas iš sąrašų, prenumeratos patikra, rankinė segmentacija","check.i4":"Klientų paslaugos (DUK, pirmasis kontaktas)","check.i4d":"Atsakymai į pasikartojančius klausimus, lygiui suforinti","check.i5":"Susitikimų koordinavimas / grafikas","check.i5d":"Laiko susitarimas, priminimų siuntimas, kalendoriaus sinchronizavimas","check.i6":"Mokėjimai ir sąskaitos","check.i6d":"Sąskaitos faktūros, mokėjimų priminimui, mokėjimo sistemų sinchronizavimas","check.i7":"Sistemų integracija (duomenų kopijosą)","check.i7d":"Duomenys tarp CRM, buhalterijos, rinkodaros platformų","check.i8":"Kokybės kontrolė ir patikra","check.i8d":"Duomenų patikra, dublikatų nustatymas, formatavimas","check.summary":"Jūs pasirinkote:","check.cta":"Aptarkite automatizavimo planą",
+    "cookie.accept":"Priimti","cookie.decline":"Atmesti",
     "foot.legal":"© MorozAi. Visos teisės saugomos.","foot.top":"Į viršų","foot.contact":"Susisiekti",
   },
   et: {
@@ -1523,6 +1590,7 @@ const I18N = {
     "faq.q7":"Kas on võimalik ilma ettemaksuta?","faq.a7":"Standard: 50/50. Väikesed tööd - peale üleandmist. Audit alati tasuta.",
     "calc.pill":"Säästu kalkulaator","calc.title":"Kui palju kaotate iga kuu?","calc.sub":"Sisestage oma andmed - näitan, kui palju tunde ja dollareid te automatiseerimisega säästetaksite","calc.rate":"Keskmine tunnitariif (USD)","calc.team":"Inimeste arv selles protsessis","calc.hours":"Tunde nädalas sellele protsessile","calc.monthly":"Kuu suurune kadu","calc.yearly":"Aastane kahju","calc.payback":"3-päevane automatiseerimine tasub end ära umbes","calc.note":"* Arvutus: tunnid/nädal × tariif × 4,3 nädalat × inimeste arv",
     "check.pill":"Automatiseerimise kontroll-nimekiri","check.title":"Mida saate automatiseerida?","check.sub":"Märkige protsessid - näitan kus on suurim kokkuhoid","check.i1":"Käsitsi andmete sisestamine CRM-i / dokumentidesse","check.i1d":"Käsitsi ülekantud kontaktid, tellimused, e-posti teave","check.i2":"Päev-/nädalaaruanded","check.i2d":"Käsitsi andmekogumik, Excel, Google Sheets, saatmine juhtimisele","check.i3":"E-postiturundus ja kampaaniad","check.i3d":"Saatmine nimekirjadest, tellimuste kontroll, käsitsi segmenteerimine","check.i4":"Klienditugi (KKK, esimene kontakt)","check.i4d":"Vastused korduvate küsimuste peale, juhtide kvalifitseerimine","check.i5":"Koosolekute koordineerimine / ajakava","check.i5d":"Ajakokkulepe, meeldetuletuste saatmine, kalender sünkroonimine","check.i6":"Maksed ja arved","check.i6d":"Arvete väljastamine, maksemeeldetuletused, maksesüsteemide sünkroonimine","check.i7":"Süsteemide integreerimine (andmete kopieerimine)","check.i7d":"Andmed CRM-i, raamatupidamise ja turundusplatvormide vahel","check.i8":"Kvaliteedikontroll ja verifitseerimine","check.i8d":"Andmete kontrollimine, duplikaatide tuvastamine, vormindamine","check.summary":"Te valisite:","check.cta":"Arutage automatiseerimisplaani",
+    "cookie.accept":"Nõustu","cookie.decline":"Keeldu",
     "foot.legal":"© MorozAi. Kõik õigused on kaitstud.","foot.top":"Üles","foot.contact":"Võtke ühendust",
   }
 };
@@ -1627,6 +1695,19 @@ function submitLead(e) {
   document.getElementById('formOk').classList.remove('hidden');
   form.reset();
   return false;
+}
+
+/* ====== Cookie Consent ====== */
+function acceptCookies() {
+  localStorage.setItem('cookieConsent', 'accepted');
+  document.getElementById('cookieBanner').classList.remove('show');
+}
+function declineCookies() {
+  localStorage.setItem('cookieConsent', 'declined');
+  document.getElementById('cookieBanner').classList.remove('show');
+}
+if (!localStorage.getItem('cookieConsent')) {
+  setTimeout(() => document.getElementById('cookieBanner').classList.add('show'), 500);
 }
 
 /* ====== Init ====== */
