@@ -157,8 +157,10 @@
   #cookieBanner .btn-cookie.accept:hover { filter:brightness(1.1); }
   #cookieBanner .btn-cookie.decline { background:var(--panel-2); border:1px solid var(--border); color:var(--text-muted); }
   #cookieBanner .btn-cookie.decline:hover { color:var(--text); }
-  /* Icon wrapper for services */
-  .serv-icon { width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:12px; background:linear-gradient(135deg,rgba(124,92,255,0.15),rgba(34,211,238,0.08)); font-size:1.25rem; margin-bottom:.75rem; }
+  /* Icon wrapper for services and benefits */
+  .serv-icon { width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:12px; background:linear-gradient(135deg,rgba(124,92,255,0.15),rgba(34,211,238,0.08)); font-size:1.35rem; margin-bottom:.75rem; flex-shrink:0; }
+  /* Top banner for hero slot */
+  .top-banner { background:linear-gradient(90deg,rgba(124,92,255,0.08),rgba(34,211,238,0.04)); border-bottom:1px solid var(--border-soft); padding:.625rem 0; text-align:center; font-size:.8rem; color:var(--text-muted); font-weight:500; }
 </style>
 </head>
 <body class="antialiased">
@@ -204,16 +206,18 @@
   </div>
 </header>
 
+<!-- TOP BANNER -->
+<div class="top-banner" data-i18n="hero.slots">Не более 2 проектов одновременно — гарантирую запуск за 3-7 дней</div>
+
 <!-- HERO -->
 <section id="top" class="grid-bg">
   <div class="max-w-6xl mx-auto px-5 pt-20 pb-24">
-    <div class="section-label" data-i18n="hero.slots">Не более 2 проектов одновременно — гарантирую запуск за 3-7 дней</div>
     <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
       <span data-i18n="hero.title1">Убираю до 80% рутины вашего бизнеса</span><br />
       <span class="gradient-text" data-i18n="hero.title2">за 3-7 дней — до запуска в продакшен</span>
     </h1>
     <p class="mt-6 text-lg md:text-xl text-muted max-w-2xl" data-i18n="hero.sub">
-      Строю AI-агентов, интеграции и автоматизации, которые убирают ручную работу и экономят десятки часов в неделю. Python, n8n, Claude, GPT, Voice API.
+      AI-агенты, интеграции и автоматизации на Python, n8n, Claude и GPT.
     </p>
     <div class="mt-8 flex flex-col sm:flex-row gap-3">
       <a href="#contact" class="btn-primary px-6 py-3 rounded-xl text-base" data-i18n="hero.cta1">Получить бесплатный аудит</a>
@@ -405,12 +409,12 @@
         <p class="text-muted" data-i18n="why.sub">Большинство «автоматизаторов» останавливаются там, где no-code упирается в лимиты. Я дохожу до Python, async, retry-логики и prompt caching - в проде решают эти детали.</p>
       </div>
       <div class="grid grid-cols-2 gap-3">
-        <div class="card rounded-2xl p-5"><div class="text-2xl">⚡</div><div class="font-semibold mt-2" data-i18n="why.b1.t">Быстро</div><div class="text-sm text-muted" data-i18n="why.b1.d">Прототип за дни</div></div>
-        <div class="card rounded-2xl p-5"><div class="text-2xl">🎯</div><div class="font-semibold mt-2" data-i18n="why.b2.t">Чётко</div><div class="text-sm text-muted" data-i18n="why.b2.d">Фикс-цена и фикс-срок</div></div>
-        <div class="card rounded-2xl p-5"><div class="text-2xl">🔍</div><div class="font-semibold mt-2" data-i18n="why.b3.t">Прозрачно</div><div class="text-sm text-muted" data-i18n="why.b3.d">Код на GitHub, доступ у вас</div></div>
-        <div class="card rounded-2xl p-5"><div class="text-2xl">🛡️</div><div class="font-semibold mt-2" data-i18n="why.b4.t">Надёжно</div><div class="text-sm text-muted" data-i18n="why.b4.d">Retry, логи, бэкапы</div></div>
-        <div class="card rounded-2xl p-5"><div class="text-2xl">🧩</div><div class="font-semibold mt-2" data-i18n="why.b5.t">Без вендор-лока</div><div class="text-sm text-muted" data-i18n="why.b5.d">Свой сервер, свои ключи</div></div>
-        <div class="card rounded-2xl p-5"><div class="text-2xl">💸</div><div class="font-semibold mt-2" data-i18n="why.b6.t">Экономно</div><div class="text-sm text-muted" data-i18n="why.b6.d">Prompt caching режет LLM-бюджет</div></div>
+        <div class="card rounded-2xl p-5"><div class="serv-icon">⚡</div><div class="font-semibold mt-2" data-i18n="why.b1.t">Быстро</div><div class="text-sm text-muted" data-i18n="why.b1.d">Прототип за дни</div></div>
+        <div class="card rounded-2xl p-5"><div class="serv-icon">🎯</div><div class="font-semibold mt-2" data-i18n="why.b2.t">Чётко</div><div class="text-sm text-muted" data-i18n="why.b2.d">Фикс-цена и фикс-срок</div></div>
+        <div class="card rounded-2xl p-5"><div class="serv-icon">🔍</div><div class="font-semibold mt-2" data-i18n="why.b3.t">Прозрачно</div><div class="text-sm text-muted" data-i18n="why.b3.d">Код на GitHub, доступ у вас</div></div>
+        <div class="card rounded-2xl p-5"><div class="serv-icon">🛡️</div><div class="font-semibold mt-2" data-i18n="why.b4.t">Надёжно</div><div class="text-sm text-muted" data-i18n="why.b4.d">Retry, логи, бэкапы</div></div>
+        <div class="card rounded-2xl p-5"><div class="serv-icon">🧩</div><div class="font-semibold mt-2" data-i18n="why.b5.t">Без вендор-лока</div><div class="text-sm text-muted" data-i18n="why.b5.d">Свой сервер, свои ключи</div></div>
+        <div class="card rounded-2xl p-5"><div class="serv-icon">💸</div><div class="font-semibold mt-2" data-i18n="why.b6.t">Экономно</div><div class="text-sm text-muted" data-i18n="why.b6.d">Prompt caching режет LLM-бюджет</div></div>
       </div>
     </div>
   </div>
@@ -568,14 +572,19 @@
 
 <!-- FOOTER -->
 <footer class="py-10" style="border-top:1px solid var(--border-soft);">
-  <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row justify-between gap-4 text-sm text-dim">
+  <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row justify-between gap-6 text-sm text-dim">
     <div>© <span id="year"></span> <span class="brand-logo" style="font-size:.85rem"><span class="brand-moroz">Moroz</span><span class="brand-ai">Ai</span></span> · <span data-i18n="foot.legal">Самозанятый, Республика Беларусь · УНП по запросу</span></div>
-    <div class="flex gap-4 flex-wrap">
+    <div class="flex flex-col gap-1">
+      <span class="text-xs font-semibold tracking-wider uppercase" style="color:var(--text-dim);">Legal</span>
+      <div class="flex gap-4 flex-wrap">
+        <a href="/privacy" class="hover:opacity-80">Конфиденциальность</a>
+        <a href="/terms" class="hover:opacity-80">Условия</a>
+        <a href="/cookies" class="hover:opacity-80">Cookies</a>
+      </div>
+    </div>
+    <div class="flex gap-4 flex-wrap items-start">
       <a href="#top" class="hover:opacity-80" data-i18n="foot.top">Наверх</a>
       <a href="#contact" class="hover:opacity-80" data-i18n="foot.contact">Связаться</a>
-      <a href="/privacy" class="hover:opacity-80">Конфиденциальность</a>
-      <a href="/terms" class="hover:opacity-80">Условия</a>
-      <a href="/cookies" class="hover:opacity-80">Cookies</a>
     </div>
   </div>
 </footer>
