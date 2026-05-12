@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Политика конфиденциальности — MorozAi</title>
+<meta name="description" content="Политика конфиденциальности MorozAi. Как обрабатываются персональные данные посетителей сайта и клиентов." />
+<meta name="robots" content="index, follow" />
+<link rel="icon" type="image/png" href="avatar.png" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] } } } }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Unbounded:wght@700&display=swap" rel="stylesheet" />
+<style>
+  :root { --bg:#08090B; --panel:#0F1115; --card:#0F1115; --border:#1F2128; --border-soft:rgba(255,255,255,0.06); --text:#E5E7EB; --text-muted:#9CA3AF; --text-dim:#6B7280; --glass:rgba(15,17,21,0.7); --glass-border:rgba(255,255,255,0.08); }
+  html.light { --bg:#FAFAFB; --panel:#F5F5F7; --card:#FFFFFF; --border:#E5E7EB; --border-soft:rgba(0,0,0,0.08); --text:#0F172A; --text-muted:#475569; --text-dim:#64748B; --glass:rgba(255,255,255,0.75); --glass-border:rgba(0,0,0,0.06); }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; }
+  .glass { background:var(--glass); backdrop-filter:blur(12px); border-bottom:1px solid var(--glass-border); }
+  .card { background:var(--card); border:1px solid var(--border); }
+  .text-muted { color:var(--text-muted); }
+  .text-dim { color:var(--text-dim); }
+  .border-soft { border-color:var(--border-soft); }
+  .brand-logo { font-family:'Unbounded',sans-serif; font-weight:700; font-size:1.15rem; letter-spacing:-0.5px; }
+  .brand-moroz { color:#22D3EE; text-shadow:0 0 8px rgba(34,211,238,0.65), 0 0 20px rgba(34,211,238,0.3); }
+  .brand-ai { color:#A78BFA; text-shadow:0 0 8px rgba(167,139,250,0.65), 0 0 20px rgba(167,139,250,0.3); }
+  html.light .brand-moroz { color:#0891B2; text-shadow:none; }
+  html.light .brand-ai { color:#7C3AED; text-shadow:none; }
+  .legal-content h2 { font-size:1.5rem; font-weight:700; margin-top:2rem; margin-bottom:0.75rem; }
+  .legal-content h3 { font-size:1.15rem; font-weight:600; margin-top:1.5rem; margin-bottom:0.5rem; }
+  .legal-content p, .legal-content li { color:var(--text-muted); line-height:1.7; }
+  .legal-content ul { list-style:disc; padding-left:1.5rem; margin:0.75rem 0; }
+  .legal-content a { color:#22D3EE; text-decoration:underline; }
+</style>
+</head>
+<body class="antialiased">
+
+<header class="sticky top-0 z-50 glass">
+  <div class="max-w-4xl mx-auto px-5 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2 font-bold">
+      <img src="avatar.png" alt="MorozAi logo" class="w-9 h-9 rounded-lg" style="background:#1B1E3A;object-fit:cover;" />
+      <span class="brand-logo"><span class="brand-moroz">Moroz</span><span class="brand-ai">Ai</span></span>
+    </a>
+    <a href="/" class="text-sm text-muted hover:opacity-80">← На главную</a>
+  </div>
+</header>
+
+<main class="max-w-4xl mx-auto px-5 py-12 legal-content">
+  <h1 class="text-4xl font-extrabold mb-2">Политика конфиденциальности</h1>
+  <p class="text-dim text-sm">Последнее обновление: 12 мая 2026 года</p>
+
+  <p class="mt-6">
+    Настоящая Политика конфиденциальности описывает, как <strong>MorozAi</strong> (далее — «мы», «нас» или «наш сайт»)
+    собирает, использует и защищает информацию, которую вы предоставляете при использовании сайта
+    <a href="https://automation-landing-dusky.vercel.app">automation-landing-dusky.vercel.app</a> и связанных
+    сервисов автоматизации.
+  </p>
+
+  <h2>1. Кто мы</h2>
+  <p>
+    MorozAi — индивидуальная практика по разработке AI-агентов, интеграций и автоматизаций для микро- и малого бизнеса.
+    Юридическая форма: самозанятый, Республика Беларусь. УНП предоставляется по запросу при заключении договора.
+    Контакт: <a href="mailto:andrei.maroz.eu@gmail.com">andrei.maroz.eu@gmail.com</a>.
+  </p>
+
+  <h2>2. Какие данные мы собираем</h2>
+  <h3>2.1. Данные, которые вы передаёте добровольно</h3>
+  <ul>
+    <li><strong>Имя</strong> — для обращения к вам по имени в переписке.</li>
+    <li><strong>Контакт</strong> — Telegram-username или email, чтобы ответить на вашу заявку.</li>
+    <li><strong>Описание задачи</strong> — текст, который вы вводите в форму обратной связи.</li>
+  </ul>
+  <h3>2.2. Технические данные</h3>
+  <ul>
+    <li>IP-адрес и страна посещения (через инфраструктуру хостинга Vercel).</li>
+    <li>Тип устройства и браузера, операционная система.</li>
+    <li>Локальные настройки сайта (язык, тема, валюта) — хранятся в localStorage вашего браузера и не передаются нам.</li>
+  </ul>
+
+  <h2>3. Как мы используем данные</h2>
+  <ul>
+    <li>Ответить на вашу заявку и провести аудит вашей задачи.</li>
+    <li>Подготовить коммерческое предложение и техническое задание.</li>
+    <li>Заключить договор, выставить счёт, передать закрывающие документы.</li>
+    <li>Поддерживать связь по проекту во время и после его реализации.</li>
+  </ul>
+  <p>
+    Мы <strong>не</strong> передаём ваши данные третьим лицам, не продаём их рекламным сетям, не используем для
+    автоматических рассылок и маркетинговых воронок без вашего явного согласия.
+  </p>
+
+  <h2>4. Передача данных через формы</h2>
+  <p>
+    Форма заявки на сайте отправляет введённые вами данные через Telegram (бот
+    <a href="https://t.me/automation_landing_bot">@automation_landing_bot</a>). Это означает, что текст вашего сообщения
+    также проходит через серверы Telegram FZ-LLC в соответствии с
+    <a href="https://telegram.org/privacy" target="_blank" rel="noopener">политикой конфиденциальности Telegram</a>.
+  </p>
+
+  <h2>5. Cookies и аналогичные технологии</h2>
+  <p>
+    Сайт использует <strong>localStorage</strong> для сохранения ваших настроек интерфейса (язык, тема, выбранная валюта).
+    Эти данные не передаются на наши серверы и хранятся только в вашем браузере. Удалить их можно в любой момент
+    через настройки браузера.
+  </p>
+  <p>Сторонние аналитические системы (Google Analytics, Яндекс.Метрика и подобные) на сайте <strong>не используются</strong>.</p>
+  <p>Подробнее — <a href="/cookies">Политика использования cookies</a>.</p>
+
+  <h2>6. Срок хранения данных</h2>
+  <ul>
+    <li>Данные из формы заявки хранятся в Telegram-чате до 12 месяцев или до вашего запроса об удалении.</li>
+    <li>Переписка и документы по реализованным проектам — 3 года после закрытия проекта (требования бухгалтерского учёта).</li>
+    <li>Локальные настройки в вашем браузере — до момента очистки вами.</li>
+  </ul>
+
+  <h2>7. Ваши права</h2>
+  <p>В соответствии с GDPR (для пользователей из ЕС) и применимым законодательством, вы имеете право:</p>
+  <ul>
+    <li>Запросить копию ваших данных, которые мы храним.</li>
+    <li>Потребовать исправления неточных данных.</li>
+    <li>Потребовать удаления данных («право на забвение»).</li>
+    <li>Ограничить обработку данных.</li>
+    <li>Подать жалобу в надзорный орган по защите данных в вашей стране.</li>
+  </ul>
+  <p>Запросы направляйте на <a href="mailto:andrei.maroz.eu@gmail.com">andrei.maroz.eu@gmail.com</a>. Срок ответа — до 30 дней.</p>
+
+  <h2>8. Безопасность</h2>
+  <p>
+    Мы применяем разумные технические и организационные меры для защиты ваших данных: HTTPS-шифрование сайта,
+    хранение паролей и ключей в защищённых менеджерах, ограниченный круг лиц, имеющих доступ к данным
+    (фактически — только владелец практики).
+  </p>
+
+  <h2>9. Дети</h2>
+  <p>Сайт не предназначен для лиц младше 18 лет. Мы сознательно не собираем данные детей.</p>
+
+  <h2>10. Изменения политики</h2>
+  <p>
+    Мы можем обновлять эту Политику. При существенных изменениях информируем через объявление на сайте или
+    индивидуально по email клиентам с действующими договорами. Дата последнего обновления указана в начале документа.
+  </p>
+
+  <h2>11. Контакты</h2>
+  <p>
+    Вопросы по обработке данных: <a href="mailto:andrei.maroz.eu@gmail.com">andrei.maroz.eu@gmail.com</a><br />
+    Telegram: <a href="https://t.me/automation_landing_bot">@automation_landing_bot</a>
+  </p>
+</main>
+
+<footer class="py-10 mt-10" style="border-top:1px solid var(--border-soft);">
+  <div class="max-w-4xl mx-auto px-5 flex flex-col md:flex-row justify-between gap-3 text-sm text-dim">
+    <div>© <span id="year"></span> MorozAi · Самозанятый, Республика Беларусь</div>
+    <div class="flex gap-4 flex-wrap">
+      <a href="/" class="hover:opacity-80">Главная</a>
+      <a href="/privacy" class="hover:opacity-80">Конфиденциальность</a>
+      <a href="/terms" class="hover:opacity-80">Условия</a>
+      <a href="/cookies" class="hover:opacity-80">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  document.documentElement.classList.remove('dark','light');
+  document.documentElement.classList.add(savedTheme);
+</script>
+</body>
+</html>
