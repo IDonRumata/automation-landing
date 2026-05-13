@@ -161,6 +161,58 @@
   .serv-icon { width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:12px; background:linear-gradient(135deg,rgba(124,92,255,0.15),rgba(34,211,238,0.08)); font-size:1.35rem; margin-bottom:.75rem; flex-shrink:0; }
   /* Top banner for hero slot */
   .top-banner { background:linear-gradient(90deg,rgba(124,92,255,0.08),rgba(34,211,238,0.04)); border-bottom:1px solid var(--border-soft); padding:.625rem 0; text-align:center; font-size:.8rem; color:var(--text-muted); font-weight:500; }
+
+  /* === Designer fixes 2026-05-13 === */
+
+  /* Secondary button — gradient border (matches .btn-primary visual weight) */
+  .btn-secondary { background:linear-gradient(var(--bg),var(--bg)) padding-box, linear-gradient(90deg,#7C5CFF,#22D3EE) border-box; border:1.5px solid transparent; color:var(--text); font-weight:700; transition:all .2s ease; }
+  .btn-secondary:hover { filter:brightness(1.15); transform:translateY(-1px); }
+  html.light .btn-secondary { background:linear-gradient(#fff,#fff) padding-box, linear-gradient(90deg,#7C5CFF,#22D3EE) border-box; color:#0F172A; }
+
+  /* Hamburger / mobile menu */
+  .burger { display:none; width:40px; height:40px; align-items:center; justify-content:center; border-radius:.5rem; border:1px solid var(--border); background:var(--panel-2); color:var(--text); cursor:pointer; }
+  .burger svg { width:20px; height:20px; }
+  @media (max-width:767px) { .burger { display:inline-flex; } }
+  #mobileMenu { display:none; position:fixed; inset:64px 0 0 0; z-index:45; background:var(--bg); padding:1.5rem 1.25rem; flex-direction:column; gap:.25rem; overflow-y:auto; }
+  #mobileMenu.open { display:flex; }
+  #mobileMenu a.mlink { display:flex; align-items:center; padding:1rem .25rem; font-size:1.125rem; font-weight:600; color:var(--text); border-bottom:1px solid var(--border-soft); }
+  #mobileMenu a.mlink:active { opacity:.6; }
+  #mobileMenu .mcta { margin-top:1.25rem; }
+
+  /* Process steps — visually separate number and duration */
+  .step-head { display:flex; align-items:baseline; flex-wrap:wrap; gap:.5rem; margin-bottom:.625rem; }
+  .step-num { font-size:.75rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#A78BFA; }
+  .step-dur { font-size:.75rem; font-weight:600; color:var(--text); background:rgba(255,255,255,0.06); padding:.15rem .5rem; border-radius:.375rem; }
+  html.light .step-dur { background:rgba(15,23,42,0.06); color:#0F172A; }
+
+  /* Form polish — smaller, grayer placeholders */
+  #leadForm input, #leadForm textarea, #modalForm input, #modalForm textarea { font-size:.95rem; }
+  #leadForm input::placeholder, #leadForm textarea::placeholder, #modalForm input::placeholder, #modalForm textarea::placeholder { color:var(--text-dim); opacity:.7; font-size:.9rem; }
+  .consent-row { display:flex; align-items:flex-start; gap:.625rem; font-size:.8rem; color:var(--text-muted); line-height:1.45; margin-top:.25rem; }
+  .consent-row input[type="checkbox"] { margin-top:.15rem; }
+  .consent-row a { color:#8B5CF6; text-decoration:underline; }
+  html.light .consent-row a { color:#6D28D9; }
+
+  /* Modal */
+  .modal-backdrop { position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.65); backdrop-filter:blur(4px); display:none; align-items:flex-start; justify-content:center; padding:1.5rem 1rem; overflow-y:auto; }
+  .modal-backdrop.open { display:flex; }
+  .modal-card { background:var(--card); border:1px solid var(--border); border-radius:1.25rem; padding:1.5rem; max-width:560px; width:100%; margin:auto; position:relative; }
+  .modal-close { position:absolute; top:.75rem; right:.75rem; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:.5rem; background:var(--panel-2); border:1px solid var(--border); color:var(--text-muted); cursor:pointer; font-size:1rem; line-height:1; }
+  .modal-close:hover { color:var(--text); }
+  .modal-card h3 { font-size:1.5rem; font-weight:800; margin-bottom:.25rem; }
+  .modal-tag { font-size:.75rem; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:#8B5CF6; margin-bottom:.5rem; }
+
+  /* Responsive typography — slightly smaller on mobile */
+  @media (max-width:640px) {
+    h1.hero-title { font-size:2rem !important; line-height:1.15 !important; }
+    section h2 { font-size:1.625rem !important; line-height:1.2 !important; }
+    .hero-sub { font-size:1rem !important; }
+    .stat-number { font-size:2rem !important; }
+    body { font-size:.95rem; }
+  }
+
+  /* Avoid hanging Russian prepositions (handled by JS-injected &nbsp; but provide style) */
+  .nbsp-fix { white-space:nowrap; }
 </style>
 </head>
 <body class="antialiased">
@@ -201,10 +253,23 @@
       <button id="themeToggle" class="icon-btn" aria-label="Theme">
         <span id="themeIcon">🌙</span>
       </button>
-      <a href="#contact" class="btn-primary px-4 py-2 rounded-lg text-sm hidden sm:inline-block" data-i18n="nav.cta">Аудит</a>
+      <a href="#contact" class="btn-primary px-4 py-2 rounded-lg text-sm hidden md:inline-block" data-i18n="nav.cta">Аудит</a>
+      <button id="burgerBtn" class="burger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg id="burgerIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+      </button>
     </div>
   </div>
 </header>
+
+<!-- MOBILE MENU -->
+<nav id="mobileMenu" aria-label="Mobile navigation">
+  <a href="#services" class="mlink" data-i18n="nav.services" onclick="closeMobileMenu()">Услуги</a>
+  <a href="#cases" class="mlink" data-i18n="nav.cases" onclick="closeMobileMenu()">Кейсы</a>
+  <a href="#process" class="mlink" data-i18n="nav.process" onclick="closeMobileMenu()">Процесс</a>
+  <a href="#pricing" class="mlink" data-i18n="nav.pricing" onclick="closeMobileMenu()">Тарифы</a>
+  <a href="#faq" class="mlink" onclick="closeMobileMenu()">FAQ</a>
+  <a href="#" class="btn-primary px-5 py-3 rounded-xl text-center mcta" data-action="openLeadModal" onclick="closeMobileMenu()" data-i18n="nav.cta">Аудит</a>
+</nav>
 
 <!-- TOP BANNER -->
 <div class="top-banner" data-i18n="hero.slots">Не более 2 проектов одновременно — гарантирую запуск за 3-7 дней</div>
@@ -212,15 +277,15 @@
 <!-- HERO -->
 <section id="top" class="grid-bg">
   <div class="max-w-6xl mx-auto px-5 pt-20 pb-24">
-    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
-      <span data-i18n="hero.title1">Убираю до 80% рутины вашего бизнеса</span><br />
-      <span class="gradient-text" data-i18n="hero.title2">за 3-7 дней — до запуска в продакшен</span>
+    <h1 class="hero-title text-4xl md:text-6xl font-extrabold leading-[1.1] tracking-tight">
+      <span data-i18n="hero.title1">Убираю до 80% рутины вашего бизнеса</span>
+      <span class="gradient-text block mt-1" data-i18n="hero.title2">за 3–7 дней — до запуска в продакшен</span>
     </h1>
-    <p class="mt-6 text-lg md:text-xl text-muted max-w-2xl" data-i18n="hero.sub">
+    <p class="hero-sub mt-6 text-lg md:text-xl text-muted max-w-2xl" data-i18n="hero.sub">
       AI-агенты, интеграции и автоматизации на Python, n8n, Claude и GPT.
     </p>
     <div class="mt-8 flex flex-col sm:flex-row gap-3">
-      <a href="#contact" class="btn-primary px-6 py-3 rounded-xl text-base" data-i18n="hero.cta1">Получить бесплатный аудит</a>
+      <a href="#" class="btn-primary px-6 py-3 rounded-xl text-base text-center" data-action="openLeadModal" data-i18n="hero.cta1">Получить бесплатный аудит</a>
       <a href="#cases" class="btn-secondary px-6 py-3 rounded-xl text-base text-center" data-i18n="hero.cta2">Смотреть кейсы</a>
     </div>
   </div>
@@ -377,7 +442,7 @@
           <h3 class="text-xl font-bold" data-i18n="cases.your.t">Ваш проект</h3>
           <p class="text-muted text-sm mt-2" data-i18n="cases.your.d">Бесплатный аудит, архитектура за 2 дня, прототип за неделю. Разберу вашу задачу честно, без «продажи воздуха».</p>
         </div>
-        <a href="#contact" class="btn-primary mt-5 px-5 py-3 rounded-lg text-center" data-i18n="cases.your.cta">Обсудить задачу</a>
+        <a href="#" class="btn-primary mt-5 px-5 py-3 rounded-lg text-center" data-action="openLeadModal" data-source="case-your" data-i18n="cases.your.cta">Обсудить задачу</a>
       </div>
     </div>
   </div>
@@ -389,12 +454,12 @@
     <div class="section-label" data-i18n="proc.pill">Как я работаю</div>
     <h2 class="text-3xl md:text-4xl font-bold mb-10" data-i18n="proc.title">6 шагов. Без сюрпризов и «ещё месяц-другой»</h2>
     <div class="grid md:grid-cols-3 gap-4">
-      <div class="card rounded-2xl p-6"><div class="font-bold text-sm mb-2" style="color:#a78bfa" data-i18n="proc.s1.n">Шаг 01 · 0</div><h3 class="font-semibold" data-i18n="proc.s1.t">Бесплатный аудит</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s1.d">30-минутный созвон. Разбираю ваши процессы, показываю, где деньги текут мимо кассы.</p></div>
-      <div class="card rounded-2xl p-6"><div class="font-bold text-sm mb-2" style="color:#a78bfa" data-i18n="proc.s2.n">Шаг 02 · 1-2 дня</div><h3 class="font-semibold" data-i18n="proc.s2.t">Архитектура</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s2.d">Схема решения, стек, сроки, бюджет. Письменно, без двусмысленностей.</p></div>
-      <div class="card rounded-2xl p-6"><div class="font-bold text-sm mb-2" style="color:#a78bfa" data-i18n="proc.s3.n">Шаг 03 · 3-14 дней</div><h3 class="font-semibold" data-i18n="proc.s3.t">Разработка</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s3.d">Код, интеграции, промпты. Прогресс каждые 2-3 дня, вы видите, за что платите.</p></div>
-      <div class="card rounded-2xl p-6"><div class="font-bold text-sm mb-2" style="color:#a78bfa" data-i18n="proc.s4.n">Шаг 04</div><h3 class="font-semibold" data-i18n="proc.s4.t">Тестирование</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s4.d">Прогон на ваших кейсах. Ловлю edge-cases до прода, а не после жалоб.</p></div>
-      <div class="card rounded-2xl p-6"><div class="font-bold text-sm mb-2" style="color:#a78bfa" data-i18n="proc.s5.n">Шаг 05</div><h3 class="font-semibold" data-i18n="proc.s5.t">Запуск</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s5.d">Деплой на ваш VPS, документация, видео-инструкция для команды.</p></div>
-      <div class="card rounded-2xl p-6"><div class="font-bold text-sm mb-2" style="color:#a78bfa" data-i18n="proc.s6.n">Шаг 06</div><h3 class="font-semibold" data-i18n="proc.s6.t">Поддержка</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s6.d">30 дней гарантии бесплатно. Дальше - абонемент или работа по часам.</p></div>
+      <div class="card rounded-2xl p-6"><div class="step-head"><span class="step-num" data-i18n="proc.s1.n">Шаг 01</span><span class="step-dur" data-i18n="proc.s1.dur">0 дней</span></div><h3 class="font-semibold" data-i18n="proc.s1.t">Бесплатный аудит</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s1.d">30-минутный созвон. Разбираю ваши процессы, показываю, где деньги текут мимо кассы.</p></div>
+      <div class="card rounded-2xl p-6"><div class="step-head"><span class="step-num" data-i18n="proc.s2.n">Шаг 02</span><span class="step-dur" data-i18n="proc.s2.dur">1–2 дня</span></div><h3 class="font-semibold" data-i18n="proc.s2.t">Архитектура</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s2.d">Схема решения, стек, сроки, бюджет. Письменно, без двусмысленностей.</p></div>
+      <div class="card rounded-2xl p-6"><div class="step-head"><span class="step-num" data-i18n="proc.s3.n">Шаг 03</span><span class="step-dur" data-i18n="proc.s3.dur">3–14 дней</span></div><h3 class="font-semibold" data-i18n="proc.s3.t">Разработка</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s3.d">Код, интеграции, промпты. Прогресс каждые 2-3 дня, вы видите, за что платите.</p></div>
+      <div class="card rounded-2xl p-6"><div class="step-head"><span class="step-num" data-i18n="proc.s4.n">Шаг 04</span><span class="step-dur" data-i18n="proc.s4.dur">1–2 дня</span></div><h3 class="font-semibold" data-i18n="proc.s4.t">Тестирование</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s4.d">Прогон на ваших кейсах. Ловлю edge-cases до прода, а не после жалоб.</p></div>
+      <div class="card rounded-2xl p-6"><div class="step-head"><span class="step-num" data-i18n="proc.s5.n">Шаг 05</span><span class="step-dur" data-i18n="proc.s5.dur">1 день</span></div><h3 class="font-semibold" data-i18n="proc.s5.t">Запуск</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s5.d">Деплой на ваш VPS, документация, видео-инструкция для команды.</p></div>
+      <div class="card rounded-2xl p-6"><div class="step-head"><span class="step-num" data-i18n="proc.s6.n">Шаг 06</span><span class="step-dur" data-i18n="proc.s6.dur">30 дней</span></div><h3 class="font-semibold" data-i18n="proc.s6.t">Поддержка</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s6.d">30 дней гарантии бесплатно. Дальше - абонемент или работа по часам.</p></div>
     </div>
   </div>
 </section>
@@ -480,7 +545,7 @@
           <li data-i18n="price.p1.l3">✓ Срок 3-5 дней</li>
           <li data-i18n="price.p1.l4">✓ Инструкция + 14 дней поддержки</li>
         </ul>
-        <a href="#contact" class="block text-center mt-6 px-4 py-2 rounded-lg btn-secondary" data-i18n="price.choose">Выбрать</a>
+        <a href="#" class="block text-center mt-6 px-4 py-2 rounded-lg btn-secondary" data-action="openLeadModal" data-source="price-mini" data-i18n="price.choose">Выбрать</a>
       </div>
 
       <div class="card rounded-2xl p-6 relative" style="border-color:#7C5CFF;">
@@ -495,7 +560,7 @@
           <li data-i18n="price.p2.l4">✓ Деплой на VPS, логи, бэкапы</li>
           <li data-i18n="price.p2.l5">✓ Срок 7-14 дней, 30 дней поддержки</li>
         </ul>
-        <a href="#contact" class="block text-center mt-6 px-4 py-2 rounded-lg btn-primary" data-i18n="price.choose">Выбрать</a>
+        <a href="#" class="block text-center mt-6 px-4 py-2 rounded-lg btn-primary" data-action="openLeadModal" data-source="price-standard" data-i18n="price.choose">Выбрать</a>
       </div>
 
       <div class="card rounded-2xl p-6">
@@ -509,7 +574,7 @@
           <li data-i18n="price.p3.l4">✓ Дашборды, роли, права</li>
           <li data-i18n="price.p3.l5">✓ Срок 3-6 недель, SLA</li>
         </ul>
-        <a href="#contact" class="block text-center mt-6 px-4 py-2 rounded-lg btn-secondary" data-i18n="price.discuss">Обсудить</a>
+        <a href="#" class="block text-center mt-6 px-4 py-2 rounded-lg btn-secondary" data-action="openLeadModal" data-source="price-premium" data-i18n="price.discuss">Обсудить</a>
       </div>
     </div>
     <p class="text-xs text-dim mt-6" data-i18n="price.legal">Оплата в USD / EUR / PLN / BYN / RUB / USDT. Самозанятый (Беларусь), закрывающие документы предоставляю.</p>
@@ -528,8 +593,11 @@
         <input required name="name" data-i18n-ph="form.name" placeholder="Ваше имя" class="rounded-lg px-4 py-3" />
         <input required name="contact" data-i18n-ph="form.contact" placeholder="Telegram @username или email" class="rounded-lg px-4 py-3" />
         <textarea name="task" rows="3" data-i18n-ph="form.task" placeholder="В 1-2 предложениях: что болит, что хочется автоматизировать" class="rounded-lg px-4 py-3"></textarea>
+        <label class="consent-row">
+          <input type="checkbox" required name="consent" />
+          <span data-i18n="form.consent">Я даю согласие на обработку моих персональных данных (имя, контакт, описание задачи) в соответствии с <a href="/privacy">Политикой конфиденциальности</a> с целью ответа на эту заявку. Согласие действует до его отзыва письмом на andrei.maroz.eu@gmail.com.</span>
+        </label>
         <button type="submit" class="btn-primary rounded-lg px-5 py-3 mt-1" data-i18n="form.submit">Получить бесплатный аудит</button>
-        <p class="text-xs text-dim" data-i18n="form.privacy">Нажимая кнопку, вы соглашаетесь на обработку данных. Не передаю третьим лицам.</p>
         <div id="formOk" class="hidden text-sm" style="color:#34D399" data-i18n="form.ok">Заявка отправлена. Напишу в течение нескольких часов.</div>
       </form>
 
@@ -562,10 +630,9 @@
 <!-- COOKIE CONSENT -->
 <div id="cookieBanner">
   <div class="inner">
-    <p>Этот сайт использует localStorage для хранения ваших настроек (тема, язык, валюта). Никаких трекеров, рекламных cookies или передачи данных третьим лицам. <a href="/cookies" class="hover:opacity-80" style="color:#8B5CF6;text-decoration:underline;">Подробнее</a></p>
+    <p data-i18n="cookie.text">Этот сайт использует localStorage для хранения ваших настроек. <a href="/privacy" style="color:#8B5CF6;text-decoration:underline;" data-i18n="cookie.more">Подробнее</a></p>
     <div class="actions">
-      <button class="btn-cookie decline" onclick="declineCookies()" data-i18n="cookie.decline">Отклонить</button>
-      <button class="btn-cookie accept" onclick="acceptCookies()" data-i18n="cookie.accept">Принять</button>
+      <button class="btn-cookie accept" onclick="acceptCookies()" data-i18n="cookie.ok">Принять</button>
     </div>
   </div>
 </div>
@@ -589,7 +656,27 @@
   </div>
 </footer>
 
-<a href="#contact" class="md:hidden fixed bottom-4 left-4 right-4 btn-primary text-center py-3 rounded-xl shadow-xl z-40" data-i18n="nav.cta">Аудит</a>
+<!-- MODAL — popup lead form for case/pricing CTAs -->
+<div id="leadModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-card">
+    <button class="modal-close" type="button" onclick="closeLeadModal()" aria-label="Закрыть">✕</button>
+    <div class="modal-tag" data-i18n="modal.tag">Заявка</div>
+    <h3 id="modalTitle" data-i18n="modal.title">Расскажите о задаче</h3>
+    <p class="text-muted text-sm mt-1" data-i18n="modal.sub">Отвечу в течение 4 часов в рабочее время.</p>
+    <form id="modalForm" class="mt-5 grid gap-3" onsubmit="return submitModalLead(event)">
+      <input required name="name" data-i18n-ph="form.name" placeholder="Ваше имя" class="rounded-lg px-4 py-3" />
+      <input required name="contact" data-i18n-ph="form.contact" placeholder="Telegram @username или email" class="rounded-lg px-4 py-3" />
+      <textarea name="task" rows="3" data-i18n-ph="form.task" placeholder="В 1-2 предложениях: что болит, что хочется автоматизировать" class="rounded-lg px-4 py-3"></textarea>
+      <input type="hidden" name="source" value="" />
+      <label class="consent-row">
+        <input type="checkbox" required name="consent" />
+        <span data-i18n="form.consent">Я даю согласие на обработку моих персональных данных (имя, контакт, описание задачи) в соответствии с <a href="/privacy">Политикой конфиденциальности</a> с целью ответа на эту заявку. Согласие действует до его отзыва письмом на andrei.maroz.eu@gmail.com.</span>
+      </label>
+      <button type="submit" class="btn-primary rounded-lg px-5 py-3" data-i18n="form.submit">Получить бесплатный аудит</button>
+      <div id="modalFormOk" class="hidden text-sm" style="color:#34D399" data-i18n="form.ok">Заявка отправлена. Напишу в течение нескольких часов.</div>
+    </form>
+  </div>
+</div>
 
 <script>
 /* ====== i18n ====== */
@@ -655,6 +742,10 @@ const I18N = {
     "calc.pill":"Калькулятор экономии","calc.title":"Сколько вы теряете каждый месяц?","calc.sub":"Введите данные - расскажу, сколько часов и денег экономите с автоматизацией","calc.rate":"Средняя ставка за час (USD)","calc.team":"Количество человек в процессе","calc.hours":"Часов в неделю на этот процесс","calc.monthly":"Потери в месяц","calc.yearly":"Потери в год","calc.payback":"Окупится за 3 дня автоматизации примерно через","calc.note":"* Расчёт: часов в неделю × ставка × 4.3 недели × количество человек",
     "check.pill":"Интерактивный чек-лист","check.title":"Что вы можете автоматизировать?","check.sub":"Отметьте процессы - покажу, где экономия максимальна","check.i1":"Ручной ввод данных в CRM / документы","check.i1d":"Перенесённые вручную контакты, заказы, информация из писем","check.i2":"Ежедневные / еженедельные отчёты","check.i2d":"Ручная сборка данных, Excel, Google Sheets, отправка руководству","check.i3":"Email-маркетинг и рассылки","check.i3d":"Отправка по спискам, проверка подписок, сегментация вручную","check.i4":"Обслуживание клиентов (FAQ, первый контакт)","check.i4d":"Ответы на повторяющиеся вопросы, квалификация лидов","check.i5":"Координация встреч / расписания","check.i5d":"Согласование времени, отправка напоминаний, синхронизация календарей","check.i6":"Платежи и биллинг","check.i6d":"Счета, напоминания об оплате, синхронизация платёжных систем","check.i7":"Интеграция систем (копирование данных)","check.i7d":"Данные между CRM, бухгалтерией, маркетинг-платформами","check.i8":"Контроль качества и проверки","check.i8d":"Проверка данных, выявление дубликатов, форматирование","check.summary":"Вы выбрали:","check.cta":"Обсудить план автоматизации",
     "cookie.accept":"Принять","cookie.decline":"Отклонить",
+    "cookie.text":"Этот сайт использует localStorage для хранения ваших настроек.","cookie.more":"Подробнее","cookie.ok":"Принять",
+    "form.consent":"Я даю согласие на обработку моих персональных данных (имя, контакт, описание задачи) в соответствии с <a href=\"/privacy\">Политикой конфиденциальности</a> с целью ответа на эту заявку. Согласие действует до его отзыва письмом на andrei.maroz.eu@gmail.com.",
+    "modal.tag":"Заявка","modal.title":"Расскажите о задаче","modal.sub":"Отвечу в течение 4 часов в рабочее время.",
+    "proc.s1.dur":"0 дней","proc.s2.dur":"1–2 дня","proc.s3.dur":"3–14 дней","proc.s4.dur":"1–2 дня","proc.s5.dur":"1 день","proc.s6.dur":"30 дней",
     "foot.legal":"© MorozzzAi. Все права защищены.","foot.top":"Наверх","foot.contact":"Связаться",
   },
   en: {
@@ -718,6 +809,10 @@ const I18N = {
     "calc.pill":"Savings Calculator","calc.title":"How much are you losing each month?","calc.sub":"Enter your data - I'll show you how many hours and dollars you save with automation","calc.rate":"Average hourly rate (USD)","calc.team":"Number of people on this process","calc.hours":"Hours per week on this process","calc.monthly":"Monthly loss","calc.yearly":"Yearly loss","calc.payback":"3-day automation pays back in approximately","calc.note":"* Calculation: hours/week × rate × 4.3 weeks × number of people",
     "check.pill":"Automation Checklist","check.title":"What can you automate?","check.sub":"Check the processes - I'll show where the savings are biggest","check.i1":"Manual data entry into CRM / documents","check.i1d":"Manually transferred contacts, orders, email information","check.i2":"Daily / weekly reports","check.i2d":"Manual data collection, Excel, Google Sheets, sending to management","check.i3":"Email marketing and campaigns","check.i3d":"Sending from lists, subscription checks, manual segmentation","check.i4":"Customer service (FAQ, first contact)","check.i4d":"Answers to repetitive questions, lead qualification","check.i5":"Meeting coordination / scheduling","check.i5d":"Time agreement, reminder sending, calendar sync","check.i6":"Payments and billing","check.i6d":"Invoices, payment reminders, payment system sync","check.i7":"System integration (data copying)","check.i7d":"Data between CRM, accounting, marketing platforms","check.i8":"Quality control and verification","check.i8d":"Data checks, duplicate detection, formatting","check.summary":"You selected:","check.cta":"Discuss automation plan",
     "cookie.accept":"Accept","cookie.decline":"Decline",
+    "cookie.text":"This site uses localStorage to remember your preferences.","cookie.more":"Learn more","cookie.ok":"Got it",
+    "form.consent":"I consent to the processing of my personal data (name, contact, task description) in accordance with the <a href=\"/privacy\">Privacy Policy</a> for the purpose of replying to this request. Consent stays in force until withdrawn by email to andrei.maroz.eu@gmail.com.",
+    "modal.tag":"Request","modal.title":"Tell me about your task","modal.sub":"I will reply within 4 business hours.",
+    "proc.s1.dur":"0 days","proc.s2.dur":"1–2 days","proc.s3.dur":"3–14 days","proc.s4.dur":"1–2 days","proc.s5.dur":"1 day","proc.s6.dur":"30 days",
     "foot.legal":"© MorozzzAi. All rights reserved.","foot.top":"Top","foot.contact":"Contact",
   },
   pl: {
@@ -1679,6 +1774,8 @@ function applyLang(lang) {
     if (dict[k]) el.placeholder = dict[k];
   });
   recalc();
+  // Replace single space after short prepositions with non-breaking space (mobile readability)
+  try { fixHangingPrepositions(lang); } catch (_) {}
 }
 document.getElementById('langSelect').addEventListener('change', e => applyLang(e.target.value));
 
@@ -1699,6 +1796,7 @@ document.getElementById('themeToggle').addEventListener('click', () => {
 function submitLead(e) {
   e.preventDefault();
   const form = e.target;
+  if (form.consent && !form.consent.checked) { form.consent.focus(); return false; }
   const msg = `Новая заявка\nИмя: ${form.name.value.trim()}\nКонтакт: ${form.contact.value.trim()}\nЗадача: ${form.task.value.trim() || '-'}`;
   window.open('https://t.me/automation_landing_bot?text=' + encodeURIComponent(msg), '_blank');
   document.getElementById('formOk').classList.remove('hidden');
@@ -1706,13 +1804,80 @@ function submitLead(e) {
   return false;
 }
 
+function submitModalLead(e) {
+  e.preventDefault();
+  const form = e.target;
+  if (form.consent && !form.consent.checked) { form.consent.focus(); return false; }
+  const source = form.source.value || 'modal';
+  const msg = `Новая заявка [${source}]\nИмя: ${form.name.value.trim()}\nКонтакт: ${form.contact.value.trim()}\nЗадача: ${form.task.value.trim() || '-'}`;
+  window.open('https://t.me/automation_landing_bot?text=' + encodeURIComponent(msg), '_blank');
+  document.getElementById('modalFormOk').classList.remove('hidden');
+  setTimeout(() => { form.reset(); document.getElementById('modalFormOk').classList.add('hidden'); closeLeadModal(); }, 1500);
+  return false;
+}
+
+/* ====== Lead modal ====== */
+function openLeadModal(source) {
+  const modal = document.getElementById('leadModal');
+  document.getElementById('modalForm').source.value = source || '';
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLeadModal() {
+  document.getElementById('leadModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('click', (e) => {
+  const trigger = e.target.closest('[data-action="openLeadModal"]');
+  if (trigger) {
+    e.preventDefault();
+    openLeadModal(trigger.dataset.source || '');
+  }
+  if (e.target.id === 'leadModal') closeLeadModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeLeadModal();
+    closeMobileMenu();
+  }
+});
+
+/* ====== Mobile menu ====== */
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const btn = document.getElementById('burgerBtn');
+  const open = menu.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('burgerBtn').setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+document.getElementById('burgerBtn').addEventListener('click', toggleMobileMenu);
+
+/* ====== Non-breaking prepositions (avoid hanging short words) ====== */
+const SHORT_WORDS = {
+  ru: /(?:^|\s)(а|и|в|во|на|с|со|к|ко|у|о|об|по|за|до|из|от|без|для|при|про|через|над|под|или|но|же|бы|ли|не|ни|это)\s/giu,
+  en: /(?:^|\s)(a|an|the|in|on|at|to|of|for|by|with|and|or|but|is|as|if)\s/giu,
+  uk: /(?:^|\s)(а|і|в|у|на|з|до|та|чи|але|що|як|по|за|для|про|без)\s/giu,
+  be: /(?:^|\s)(а|і|у|ў|на|з|за|да|без|для|па|пры|але|што|як)\s/giu,
+};
+function fixHangingPrepositions(lang) {
+  const re = SHORT_WORDS[lang];
+  if (!re) return;
+  document.querySelectorAll('[data-i18n], p, li, h1, h2, h3, .stat-label').forEach(el => {
+    if (el.children.length > 0) return; // skip nodes with child elements to keep markup
+    const t = el.innerHTML;
+    if (!t) return;
+    el.innerHTML = t.replace(re, (m, w) => (m.startsWith(' ') ? ' ' : '') + w + ' ');
+  });
+}
+
 /* ====== Cookie Consent ====== */
 function acceptCookies() {
   localStorage.setItem('cookieConsent', 'accepted');
-  document.getElementById('cookieBanner').classList.remove('show');
-}
-function declineCookies() {
-  localStorage.setItem('cookieConsent', 'declined');
   document.getElementById('cookieBanner').classList.remove('show');
 }
 if (!localStorage.getItem('cookieConsent')) {
