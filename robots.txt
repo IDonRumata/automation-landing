@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://morozzzai.vercel.app/sitemap.xml

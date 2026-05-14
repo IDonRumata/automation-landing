@@ -10,6 +10,18 @@
 <meta property="og:type" content="website" />
 <link rel="icon" type="image/png" href="avatar.png" />
 <link rel="apple-touch-icon" href="avatar.png" />
+<link rel="canonical" href="https://morozzzai.vercel.app" />
+<meta property="og:url" content="https://morozzzai.vercel.app" />
+<meta property="og:image" content="https://morozzzai.vercel.app/avatar.png" />
+<meta property="og:image:width" content="400" />
+<meta property="og:image:height" content="400" />
+<meta property="og:locale" content="ru_RU" />
+<meta property="og:site_name" content="MorozzzAi" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="MorozzzAi — AI-автоматизация бизнеса под ключ" />
+<meta name="twitter:description" content="AI-агенты, интеграции, автоматизации для микробизнеса. Python, n8n, Claude, GPT. Прототип за 3–7 дней." />
+<meta name="twitter:image" content="https://morozzzai.vercel.app/avatar.png" />
+<meta name="theme-color" content="#08090B" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
@@ -213,15 +225,60 @@
 
   /* Avoid hanging Russian prepositions (handled by JS-injected &nbsp; but provide style) */
   .nbsp-fix { white-space:nowrap; }
+  /* Skip navigation */
+  .skip-nav { position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+  .skip-nav:focus { left:0; top:0; width:auto; height:auto; padding:.75rem 1.5rem; background:#7C5CFF; color:#fff; z-index:9999; border-radius:0 0 .5rem 0; font-weight:700; outline:none; text-decoration:none; }
+
+  /* Focus visible — keyboard navigation */
+  a:focus-visible, button:focus-visible, select:focus-visible, [tabindex="0"]:focus-visible { outline:2px solid #7C5CFF; outline-offset:3px; border-radius:4px; }
+  input:focus-visible, textarea:focus-visible { outline:none; border-color:#7C5CFF !important; box-shadow:0 0 0 3px rgba(124,92,255,0.25) !important; }
+
+  /* Back to top */
+  #backToTop { position:fixed; bottom:1.5rem; right:1.5rem; z-index:900; width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,#7C5CFF,#22D3EE); color:#0B0B10; display:flex; align-items:center; justify-content:center; font-size:1.15rem; font-weight:700; cursor:pointer; border:none; opacity:0; pointer-events:none; transform:translateY(10px); transition:opacity .25s ease, transform .25s ease; box-shadow:0 4px 16px rgba(124,92,255,0.4); }
+  #backToTop.visible { opacity:1; pointer-events:auto; transform:translateY(0); }
+  #backToTop:hover { filter:brightness(1.12); }
+  @media (max-width:640px) { #backToTop { bottom:1rem; right:1rem; width:40px; height:40px; font-size:1rem; } }
 </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "MorozzzAi",
+  "description": "AI-агенты, интеграции и автоматизации для микро- и малого бизнеса. Python, n8n, Claude, GPT.",
+  "url": "https://morozzzai.vercel.app",
+  "logo": "https://morozzzai.vercel.app/avatar.png",
+  "image": "https://morozzzai.vercel.app/avatar.png",
+  "founder": {
+    "@type": "Person",
+    "name": "Андрей Мороз",
+    "email": "andrei.maroz.eu@gmail.com"
+  },
+  "serviceType": ["AI automation", "Chatbot development", "API integration", "n8n automation", "Telegram bot development"],
+  "areaServed": "Worldwide",
+  "priceRange": "$300–$2000+",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "email": "andrei.maroz.eu@gmail.com",
+    "availableLanguage": ["Russian", "English", "Polish"]
+  },
+  "sameAs": [
+    "https://github.com/IDonRumata",
+    "https://t.me/automation_landing_bot"
+  ]
+}
+</script>
 </head>
 <body class="antialiased">
+
+<a href="#main-content" class="skip-nav">Перейти к основному содержимому</a>
 
 <!-- NAV -->
 <header class="sticky top-0 z-50 glass">
   <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between gap-3">
     <a href="#top" class="flex items-center gap-2 font-bold">
-      <img src="avatar.png" alt="logo" class="w-9 h-9 rounded-lg" style="background:#1B1E3A;object-fit:cover;" />
+      <img src="avatar.png" alt="MorozzzAi логотип" class="w-9 h-9 rounded-lg" style="background:#1B1E3A;object-fit:cover;" />
       <span class="brand-logo"><span class="brand-moroz">Morozzz</span><span class="brand-ai">Ai</span></span>
     </a>
     <nav class="hidden md:flex items-center gap-6 text-sm text-muted">
@@ -275,7 +332,7 @@
 <div class="top-banner" data-i18n="hero.slots">Не более 2 проектов одновременно — гарантирую запуск за 3-7 дней</div>
 
 <!-- HERO -->
-<section id="top" class="grid-bg">
+<section id="top" class="grid-bg" tabindex="-1">
   <div class="max-w-6xl mx-auto px-5 pt-20 pb-24">
     <h1 class="hero-title text-4xl md:text-6xl font-extrabold leading-[1.1] tracking-tight">
       <span data-i18n="hero.title1">Убираю до 80% рутины вашего бизнеса</span>
@@ -590,9 +647,9 @@
       <p class="text-muted mt-3" data-i18n="form.sub">Отвечу в течение 4 часов в рабочее время. Без спама и автоворонок.</p>
 
       <form id="leadForm" class="mt-6 grid gap-3" onsubmit="return submitLead(event)">
-        <input required name="name" data-i18n-ph="form.name" placeholder="Ваше имя" class="rounded-lg px-4 py-3" />
-        <input required name="contact" data-i18n-ph="form.contact" placeholder="Telegram @username или email" class="rounded-lg px-4 py-3" />
-        <textarea name="task" rows="3" data-i18n-ph="form.task" placeholder="В 1-2 предложениях: что болит, что хочется автоматизировать" class="rounded-lg px-4 py-3"></textarea>
+        <input required name="name" id="leadName" aria-label="Ваше имя" data-i18n-ph="form.name" placeholder="Ваше имя" class="rounded-lg px-4 py-3" autocomplete="name" />
+        <input required name="contact" id="leadContact" aria-label="Telegram или email" data-i18n-ph="form.contact" placeholder="Telegram @username или email" class="rounded-lg px-4 py-3" autocomplete="email" />
+        <textarea name="task" id="leadTask" rows="3" aria-label="Описание задачи" data-i18n-ph="form.task" placeholder="В 1-2 предложениях: что болит, что хочется автоматизировать" class="rounded-lg px-4 py-3"></textarea>
         <label class="consent-row">
           <input type="checkbox" required name="consent" />
           <span data-i18n="form.consent">Я даю согласие на обработку моих персональных данных (имя, контакт, описание задачи) в соответствии с <a href="/privacy">Политикой конфиденциальности</a> с целью ответа на эту заявку. Согласие действует до его отзыва письмом на andrei.maroz.eu@gmail.com.</span>
@@ -656,6 +713,9 @@
   </div>
 </footer>
 
+<!-- BACK TO TOP -->
+<button id="backToTop" aria-label="Вернуться наверх">↑</button>
+
 <!-- MODAL — popup lead form for case/pricing CTAs -->
 <div id="leadModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal-card">
@@ -664,9 +724,9 @@
     <h3 id="modalTitle" data-i18n="modal.title">Расскажите о задаче</h3>
     <p class="text-muted text-sm mt-1" data-i18n="modal.sub">Отвечу в течение 4 часов в рабочее время.</p>
     <form id="modalForm" class="mt-5 grid gap-3" onsubmit="return submitModalLead(event)">
-      <input required name="name" data-i18n-ph="form.name" placeholder="Ваше имя" class="rounded-lg px-4 py-3" />
-      <input required name="contact" data-i18n-ph="form.contact" placeholder="Telegram @username или email" class="rounded-lg px-4 py-3" />
-      <textarea name="task" rows="3" data-i18n-ph="form.task" placeholder="В 1-2 предложениях: что болит, что хочется автоматизировать" class="rounded-lg px-4 py-3"></textarea>
+      <input required name="name" id="modalName" aria-label="Ваше имя" data-i18n-ph="form.name" placeholder="Ваше имя" class="rounded-lg px-4 py-3" autocomplete="name" />
+      <input required name="contact" id="modalContact" aria-label="Telegram или email" data-i18n-ph="form.contact" placeholder="Telegram @username или email" class="rounded-lg px-4 py-3" autocomplete="email" />
+      <textarea name="task" id="modalTask" rows="3" aria-label="Описание задачи" data-i18n-ph="form.task" placeholder="В 1-2 предложениях: что болит, что хочется автоматизировать" class="rounded-lg px-4 py-3"></textarea>
       <input type="hidden" name="source" value="" />
       <label class="consent-row">
         <input type="checkbox" required name="consent" />
@@ -1883,6 +1943,15 @@ function acceptCookies() {
 if (!localStorage.getItem('cookieConsent')) {
   setTimeout(() => document.getElementById('cookieBanner').classList.add('show'), 500);
 }
+
+/* ====== Back to top ====== */
+(function() {
+  const btn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
 
 /* ====== Init ====== */
 document.getElementById('year').textContent = new Date().getFullYear();
