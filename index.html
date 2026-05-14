@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" class="dark">
+<html lang="ru" class="light">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,8 +18,8 @@
 <meta property="og:locale" content="ru_RU" />
 <meta property="og:site_name" content="MorozzzAi" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="MorozzzAi — AI-автоматизация бизнеса под ключ" />
-<meta name="twitter:description" content="AI-агенты, интеграции, автоматизации для микробизнеса. Python, n8n, Claude, GPT. Прототип за 3–7 дней." />
+<meta name="twitter:title" content="MorozzzAi - AI-автоматизация бизнеса под ключ" />
+<meta name="twitter:description" content="AI-агенты, интеграции, автоматизации для микробизнеса. Python, n8n, Claude, GPT. Прототип за 3-7 дней." />
 <meta name="twitter:image" content="https://morozzzai.vercel.app/avatar.png" />
 <meta name="theme-color" content="#08090B" />
 <script src="https://cdn.tailwindcss.com"></script>
@@ -76,8 +76,9 @@
   .marquee-track { animation: scroll 30s linear infinite; }
   @keyframes scroll { from { transform:translateX(0); } to { transform:translateX(-50%); } }
   .mitem { display:inline-flex; align-items:center; gap:5px; }
-  .micon { width:15px; height:15px; flex-shrink:0; opacity:0.65; filter:brightness(0) invert(1); }
-  html.light .micon { filter:brightness(0); opacity:0.45; }
+  .micon { width:15px; height:15px; flex-shrink:0; opacity:0.8; filter:brightness(0) invert(1); }
+  html.light .micon { filter:none; opacity:0.65; color:var(--text-muted); }
+  html.light img.micon { filter:brightness(0); opacity:0.75; }
   .mdot { opacity:0.25; margin:0 2px; }
   input, textarea, select { background:var(--panel-2); border:1px solid var(--border); color:var(--text); }
   input:focus, textarea:focus, select:focus { outline:none; border-color:#7C5CFF; box-shadow:0 0 0 3px rgba(124,92,255,0.2); }
@@ -176,7 +177,7 @@
 
   /* === Designer fixes 2026-05-13 === */
 
-  /* Secondary button — gradient border (matches .btn-primary visual weight) */
+  /* Secondary button - gradient border (matches .btn-primary visual weight) */
   .btn-secondary { background:linear-gradient(var(--bg),var(--bg)) padding-box, linear-gradient(90deg,#7C5CFF,#22D3EE) border-box; border:1.5px solid transparent; color:var(--text); font-weight:700; transition:all .2s ease; }
   .btn-secondary:hover { filter:brightness(1.15); transform:translateY(-1px); }
   html.light .btn-secondary { background:linear-gradient(#fff,#fff) padding-box, linear-gradient(90deg,#7C5CFF,#22D3EE) border-box; color:#0F172A; }
@@ -191,13 +192,13 @@
   #mobileMenu a.mlink:active { opacity:.6; }
   #mobileMenu .mcta { margin-top:1.25rem; }
 
-  /* Process steps — visually separate number and duration */
+  /* Process steps - visually separate number and duration */
   .step-head { display:flex; align-items:baseline; flex-wrap:wrap; gap:.5rem; margin-bottom:.625rem; }
   .step-num { font-size:.75rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#A78BFA; }
   .step-dur { font-size:.75rem; font-weight:600; color:var(--text); background:rgba(255,255,255,0.06); padding:.15rem .5rem; border-radius:.375rem; }
   html.light .step-dur { background:rgba(15,23,42,0.06); color:#0F172A; }
 
-  /* Form polish — smaller, grayer placeholders */
+  /* Form polish - smaller, grayer placeholders */
   #leadForm input, #leadForm textarea, #modalForm input, #modalForm textarea { font-size:.95rem; }
   #leadForm input::placeholder, #leadForm textarea::placeholder, #modalForm input::placeholder, #modalForm textarea::placeholder { color:var(--text-dim); opacity:.7; font-size:.9rem; }
   .consent-row { display:flex; align-items:flex-start; gap:.625rem; font-size:.8rem; color:var(--text-muted); line-height:1.45; margin-top:.25rem; }
@@ -214,7 +215,7 @@
   .modal-card h3 { font-size:1.5rem; font-weight:800; margin-bottom:.25rem; }
   .modal-tag { font-size:.75rem; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:#8B5CF6; margin-bottom:.5rem; }
 
-  /* Responsive typography — slightly smaller on mobile */
+  /* Responsive typography - slightly smaller on mobile */
   @media (max-width:640px) {
     h1.hero-title { font-size:2rem !important; line-height:1.15 !important; }
     section h2 { font-size:1.625rem !important; line-height:1.2 !important; }
@@ -229,7 +230,7 @@
   .skip-nav { position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
   .skip-nav:focus { left:0; top:0; width:auto; height:auto; padding:.75rem 1.5rem; background:#7C5CFF; color:#fff; z-index:9999; border-radius:0 0 .5rem 0; font-weight:700; outline:none; text-decoration:none; }
 
-  /* Focus visible — keyboard navigation */
+  /* Focus visible - keyboard navigation */
   a:focus-visible, button:focus-visible, select:focus-visible, [tabindex="0"]:focus-visible { outline:2px solid #7C5CFF; outline-offset:3px; border-radius:4px; }
   input:focus-visible, textarea:focus-visible { outline:none; border-color:#7C5CFF !important; box-shadow:0 0 0 3px rgba(124,92,255,0.25) !important; }
 
@@ -256,7 +257,7 @@
   },
   "serviceType": ["AI automation", "Chatbot development", "API integration", "n8n automation", "Telegram bot development"],
   "areaServed": "Worldwide",
-  "priceRange": "$300–$2000+",
+  "priceRange": "$300-$2000+",
   "contactPoint": {
     "@type": "ContactPoint",
     "contactType": "customer service",
@@ -282,33 +283,33 @@
       <span class="brand-logo"><span class="brand-moroz">Morozzz</span><span class="brand-ai">Ai</span></span>
     </a>
     <nav class="hidden md:flex items-center gap-6 text-sm text-muted">
-      <a href="#services" class="hover:opacity-100 opacity-80" data-i18n="nav.services">Услуги</a>
-      <a href="#cases" class="hover:opacity-100 opacity-80" data-i18n="nav.cases">Кейсы</a>
-      <a href="#process" class="hover:opacity-100 opacity-80" data-i18n="nav.process">Процесс</a>
-      <a href="#pricing" class="hover:opacity-100 opacity-80" data-i18n="nav.pricing">Тарифы</a>
-      <a href="#faq" class="hover:opacity-100 opacity-80">FAQ</a>
+      <a href="#services" class="hover:opacity-100 opacity-90" data-i18n="nav.services">Услуги</a>
+      <a href="#cases" class="hover:opacity-100 opacity-90" data-i18n="nav.cases">Кейсы</a>
+      <a href="#process" class="hover:opacity-100 opacity-90" data-i18n="nav.process">Процесс</a>
+      <a href="#pricing" class="hover:opacity-100 opacity-90" data-i18n="nav.pricing">Тарифы</a>
+      <a href="#faq" class="hover:opacity-100 opacity-90">FAQ</a>
     </nav>
     <div class="flex items-center gap-2">
       <select id="langSelect" class="chip !py-1.5 !pr-7 max-w-[82px] sm:max-w-none" aria-label="Language">
-        <option value="ru">RU — Русский</option>
-        <option value="en">EN — English</option>
-        <option value="pl">PL — Polski</option>
-        <option value="de">DE — Deutsch</option>
-        <option value="fr">FR — Français</option>
-        <option value="es">ES — Español</option>
-        <option value="pt">PT — Português</option>
-        <option value="it">IT — Italiano</option>
-        <option value="el">EL — Ελληνικά</option>
-        <option value="nl">NL — Nederlands</option>
-        <option value="fi">FI — Suomi</option>
-        <option value="uk">UK — Українська</option>
-        <option value="kk">KK — Қазақша</option>
-        <option value="be">BE — Беларуская</option>
-        <option value="lt">LT — Lietuvių</option>
-        <option value="et">ET — Eesti</option>
+        <option value="ru">Русский</option>
+        <option value="en">English</option>
+        <option value="pl">Polski</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+        <option value="it">Italiano</option>
+        <option value="el">Ελληνικά</option>
+        <option value="nl">Nederlands</option>
+        <option value="fi">Suomi</option>
+        <option value="uk">Українська</option>
+        <option value="kk">Қазақша</option>
+        <option value="be">Беларуская</option>
+        <option value="lt">Lietuvių</option>
+        <option value="et">Eesti</option>
       </select>
       <button id="themeToggle" class="icon-btn" aria-label="Theme">
-        <span id="themeIcon">🌙</span>
+        <span id="themeIcon">☀️</span>
       </button>
       <a href="#contact" class="btn-primary px-4 py-2 rounded-lg text-sm hidden md:inline-block" data-i18n="nav.cta">Аудит</a>
       <button id="burgerBtn" class="burger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
@@ -329,14 +330,14 @@
 </nav>
 
 <!-- TOP BANNER -->
-<div class="top-banner" data-i18n="hero.slots">Не более 2 проектов одновременно — гарантирую запуск за 3-7 дней</div>
+<div class="top-banner" data-i18n="hero.slots">Не более 2 проектов одновременно - гарантирую запуск за 3-7 дней</div>
 
 <!-- HERO -->
 <section id="top" class="grid-bg" tabindex="-1">
   <div class="max-w-6xl mx-auto px-5 pt-20 pb-24">
     <h1 class="hero-title text-4xl md:text-6xl font-extrabold leading-[1.1] tracking-tight">
       <span data-i18n="hero.title1">Убираю до 80% рутины вашего бизнеса</span>
-      <span class="gradient-text block mt-1" data-i18n="hero.title2">за 3–7 дней — до запуска в продакшен</span>
+      <span class="gradient-text block mt-1" data-i18n="hero.title2">за 3-7 дней - до запуска в продакшен</span>
     </h1>
     <p class="hero-sub mt-6 text-lg md:text-xl text-muted max-w-2xl" data-i18n="hero.sub">
       AI-агенты, интеграции и автоматизации на Python, n8n, Claude и GPT.
@@ -360,9 +361,9 @@
   </div>
 
   <div class="divider-y panel-soft py-5 marquee overflow-hidden">
-    <div class="marquee-track flex gap-10 whitespace-nowrap text-dim text-sm px-5">
-      <span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/python" alt="" onerror="this.style.display='none'"/>Python</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/n8n" alt="" onerror="this.style.display='none'"/>n8n</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/make" alt="" onerror="this.style.display='none'"/>Make</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/zapier" alt="" onerror="this.style.display='none'"/>Zapier</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/anthropic" alt="" onerror="this.style.display='none'"/>Claude</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/openai" alt="" onerror="this.style.display='none'"/>GPT-4o</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/fastapi" alt="" onerror="this.style.display='none'"/>FastAPI</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/telegram" alt="" onerror="this.style.display='none'"/>aiogram</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/postgresql" alt="" onerror="this.style.display='none'"/>PostgreSQL</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/redis" alt="" onerror="this.style.display='none'"/>Redis</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/docker" alt="" onerror="this.style.display='none'"/>Docker</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/openai" alt="" onerror="this.style.display='none'"/>Whisper</span><span class="mdot">·</span><span class="mitem">🎙️ Voice API</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/telegram" alt="" onerror="this.style.display='none'"/>Telegram Mini App</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/whatsapp" alt="" onerror="this.style.display='none'"/>WhatsApp</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/nocodb" alt="" onerror="this.style.display='none'"/>NocoDB</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/supabase" alt="" onerror="this.style.display='none'"/>Supabase</span>
-      <span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/python" alt="" onerror="this.style.display='none'"/>Python</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/n8n" alt="" onerror="this.style.display='none'"/>n8n</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/make" alt="" onerror="this.style.display='none'"/>Make</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/zapier" alt="" onerror="this.style.display='none'"/>Zapier</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/anthropic" alt="" onerror="this.style.display='none'"/>Claude</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/openai" alt="" onerror="this.style.display='none'"/>GPT-4o</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/fastapi" alt="" onerror="this.style.display='none'"/>FastAPI</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/telegram" alt="" onerror="this.style.display='none'"/>aiogram</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/postgresql" alt="" onerror="this.style.display='none'"/>PostgreSQL</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/redis" alt="" onerror="this.style.display='none'"/>Redis</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/docker" alt="" onerror="this.style.display='none'"/>Docker</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/openai" alt="" onerror="this.style.display='none'"/>Whisper</span><span class="mdot">·</span><span class="mitem">🎙️ Voice API</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/telegram" alt="" onerror="this.style.display='none'"/>Telegram Mini App</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/whatsapp" alt="" onerror="this.style.display='none'"/>WhatsApp</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/nocodb" alt="" onerror="this.style.display='none'"/>NocoDB</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/supabase" alt="" onerror="this.style.display='none'"/>Supabase</span>
+    <div class="marquee-track flex gap-10 whitespace-nowrap text-muted text-sm px-5">
+      <span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/python" alt="" onerror="this.style.display='none'"/>Python</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/n8n" alt="" onerror="this.style.display='none'"/>n8n</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/make" alt="" onerror="this.style.display='none'"/>Make</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/zapier" alt="" onerror="this.style.display='none'"/>Zapier</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/anthropic" alt="" onerror="this.style.display='none'"/>Claude</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/openai" alt="" onerror="this.style.display='none'"/>GPT-4o</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/fastapi" alt="" onerror="this.style.display='none'"/>FastAPI</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/telegram" alt="" onerror="this.style.display='none'"/>aiogram</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/postgresql" alt="" onerror="this.style.display='none'"/>PostgreSQL</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/redis" alt="" onerror="this.style.display='none'"/>Redis</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/docker" alt="" onerror="this.style.display='none'"/>Docker</span><span class="mdot">·</span><span class="mitem"><svg class="micon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0014 0h2a9 9 0 01-8 8.94V21h2v2H9v-2h2v-2.06A9 9 0 013 10h2z"/></svg>Whisper</span><span class="mdot">·</span><span class="mitem">🎙️ Voice API</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/telegram" alt="" onerror="this.style.display='none'"/>Telegram Mini App</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/whatsapp" alt="" onerror="this.style.display='none'"/>WhatsApp</span><span class="mdot">·</span><span class="mitem"><svg class="micon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="2" y="2" width="9" height="9" rx="1.5"/><rect x="13" y="2" width="9" height="9" rx="1.5"/><rect x="2" y="13" width="9" height="9" rx="1.5"/><rect x="13" y="13" width="9" height="9" rx="1.5"/></svg>NocoDB</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/supabase" alt="" onerror="this.style.display='none'"/>Supabase</span>
+      <span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/python" alt="" onerror="this.style.display='none'"/>Python</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/n8n" alt="" onerror="this.style.display='none'"/>n8n</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/make" alt="" onerror="this.style.display='none'"/>Make</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/zapier" alt="" onerror="this.style.display='none'"/>Zapier</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/anthropic" alt="" onerror="this.style.display='none'"/>Claude</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/openai" alt="" onerror="this.style.display='none'"/>GPT-4o</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/fastapi" alt="" onerror="this.style.display='none'"/>FastAPI</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/telegram" alt="" onerror="this.style.display='none'"/>aiogram</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/postgresql" alt="" onerror="this.style.display='none'"/>PostgreSQL</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/redis" alt="" onerror="this.style.display='none'"/>Redis</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/docker" alt="" onerror="this.style.display='none'"/>Docker</span><span class="mdot">·</span><span class="mitem"><svg class="micon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0014 0h2a9 9 0 01-8 8.94V21h2v2H9v-2h2v-2.06A9 9 0 013 10h2z"/></svg>Whisper</span><span class="mdot">·</span><span class="mitem">🎙️ Voice API</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/telegram" alt="" onerror="this.style.display='none'"/>Telegram Mini App</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/whatsapp" alt="" onerror="this.style.display='none'"/>WhatsApp</span><span class="mdot">·</span><span class="mitem"><svg class="micon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="2" y="2" width="9" height="9" rx="1.5"/><rect x="13" y="2" width="9" height="9" rx="1.5"/><rect x="2" y="13" width="9" height="9" rx="1.5"/><rect x="13" y="13" width="9" height="9" rx="1.5"/></svg>NocoDB</span><span class="mdot">·</span><span class="mitem"><img class="micon" src="https://cdn.simpleicons.org/supabase" alt="" onerror="this.style.display='none'"/>Supabase</span>
     </div>
   </div>
 </section>
@@ -512,9 +513,9 @@
     <h2 class="text-3xl md:text-4xl font-bold mb-10" data-i18n="proc.title">6 шагов. Без сюрпризов и «ещё месяц-другой»</h2>
     <div class="grid md:grid-cols-3 gap-4">
       <div class="card rounded-2xl p-6"><div class="step-head"><span class="step-num" data-i18n="proc.s1.n">Шаг 01</span><span class="step-dur" data-i18n="proc.s1.dur">0 дней</span></div><h3 class="font-semibold" data-i18n="proc.s1.t">Бесплатный аудит</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s1.d">30-минутный созвон. Разбираю ваши процессы, показываю, где деньги текут мимо кассы.</p></div>
-      <div class="card rounded-2xl p-6"><div class="step-head"><span class="step-num" data-i18n="proc.s2.n">Шаг 02</span><span class="step-dur" data-i18n="proc.s2.dur">1–2 дня</span></div><h3 class="font-semibold" data-i18n="proc.s2.t">Архитектура</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s2.d">Схема решения, стек, сроки, бюджет. Письменно, без двусмысленностей.</p></div>
-      <div class="card rounded-2xl p-6"><div class="step-head"><span class="step-num" data-i18n="proc.s3.n">Шаг 03</span><span class="step-dur" data-i18n="proc.s3.dur">3–14 дней</span></div><h3 class="font-semibold" data-i18n="proc.s3.t">Разработка</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s3.d">Код, интеграции, промпты. Прогресс каждые 2-3 дня, вы видите, за что платите.</p></div>
-      <div class="card rounded-2xl p-6"><div class="step-head"><span class="step-num" data-i18n="proc.s4.n">Шаг 04</span><span class="step-dur" data-i18n="proc.s4.dur">1–2 дня</span></div><h3 class="font-semibold" data-i18n="proc.s4.t">Тестирование</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s4.d">Прогон на ваших кейсах. Ловлю edge-cases до прода, а не после жалоб.</p></div>
+      <div class="card rounded-2xl p-6"><div class="step-head"><span class="step-num" data-i18n="proc.s2.n">Шаг 02</span><span class="step-dur" data-i18n="proc.s2.dur">1-2 дня</span></div><h3 class="font-semibold" data-i18n="proc.s2.t">Архитектура</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s2.d">Схема решения, стек, сроки, бюджет. Письменно, без двусмысленностей.</p></div>
+      <div class="card rounded-2xl p-6"><div class="step-head"><span class="step-num" data-i18n="proc.s3.n">Шаг 03</span><span class="step-dur" data-i18n="proc.s3.dur">3-14 дней</span></div><h3 class="font-semibold" data-i18n="proc.s3.t">Разработка</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s3.d">Код, интеграции, промпты. Прогресс каждые 2-3 дня, вы видите, за что платите.</p></div>
+      <div class="card rounded-2xl p-6"><div class="step-head"><span class="step-num" data-i18n="proc.s4.n">Шаг 04</span><span class="step-dur" data-i18n="proc.s4.dur">1-2 дня</span></div><h3 class="font-semibold" data-i18n="proc.s4.t">Тестирование</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s4.d">Прогон на ваших кейсах. Ловлю edge-cases до прода, а не после жалоб.</p></div>
       <div class="card rounded-2xl p-6"><div class="step-head"><span class="step-num" data-i18n="proc.s5.n">Шаг 05</span><span class="step-dur" data-i18n="proc.s5.dur">1 день</span></div><h3 class="font-semibold" data-i18n="proc.s5.t">Запуск</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s5.d">Деплой на ваш VPS, документация, видео-инструкция для команды.</p></div>
       <div class="card rounded-2xl p-6"><div class="step-head"><span class="step-num" data-i18n="proc.s6.n">Шаг 06</span><span class="step-dur" data-i18n="proc.s6.dur">30 дней</span></div><h3 class="font-semibold" data-i18n="proc.s6.t">Поддержка</h3><p class="text-muted text-sm mt-2" data-i18n="proc.s6.d">30 дней гарантии бесплатно. Дальше - абонемент или работа по часам.</p></div>
     </div>
@@ -673,13 +674,13 @@
     <div class="section-label">FAQ</div>
     <h2 class="text-3xl md:text-4xl font-bold mb-8" data-i18n="faq.title">Частые вопросы</h2>
     <div class="space-y-3">
-      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q1">Сколько реально займёт проект?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a1">Простая автоматизация — 3-5 дней. Telegram-бот с AI — 1-2 недели. Сложный MVP — 3-6 недель. Точный срок фиксируем после аудита.</p></details>
-      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q2">Что, если я не разбираюсь в технологиях?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a2">Это норма. На аудите говорю на вашем языке — в деньгах и часах. Технические решения принимаю сам.</p></details>
-      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q3">Где будут жить мои данные?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a3">На вашем сервере или вашем аккаунте у провайдера (OpenAI, Anthropic). Ключи — ваши. Без привязки ко мне.</p></details>
-      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q4">Даёте ли гарантию?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a4">30 дней бесплатной поддержки на все баги. Если не работает как договорились — возврат 100%. В договоре.</p></details>
+      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q1">Сколько реально займёт проект?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a1">Простая автоматизация - 3-5 дней. Telegram-бот с AI - 1-2 недели. Сложный MVP - 3-6 недель. Точный срок фиксируем после аудита.</p></details>
+      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q2">Что, если я не разбираюсь в технологиях?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a2">Это норма. На аудите говорю на вашем языке - в деньгах и часах. Технические решения принимаю сам.</p></details>
+      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q3">Где будут жить мои данные?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a3">На вашем сервере или вашем аккаунте у провайдера (OpenAI, Anthropic). Ключи - ваши. Без привязки ко мне.</p></details>
+      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q4">Даёте ли гарантию?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a4">30 дней бесплатной поддержки на все баги. Если не работает как договорились - возврат 100%. В договоре.</p></details>
       <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q5">Работаете с клиентами из ЕС / СНГ?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a5">Да. Оплата USD / EUR / PLN / BYN / RUB / USDT. Документы корректно под юрисдикцию.</p></details>
-      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q6">А если GPT / n8n «отвалится»?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a6">Архитектура модульная: LLM-провайдер меняется через конфиг, n8n-ноды — на Python. Vendor lock — мой враг.</p></details>
-      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q7">Можно ли без предоплаты?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a7">Стандарт: 50% до старта, 50% после сдачи. На малых задачах (до $300) — по факту. Аудит всегда бесплатный.</p></details>
+      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q6">А если GPT / n8n «отвалится»?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a6">Архитектура модульная: LLM-провайдер меняется через конфиг, n8n-ноды - на Python. Vendor lock - мой враг.</p></details>
+      <details class="card rounded-xl p-5 faq-card"><summary class="flex justify-between font-semibold" data-i18n="faq.q7">Можно ли без предоплаты?<span class="chev">▾</span></summary><p class="text-muted mt-3 text-sm" data-i18n="faq.a7">Стандарт: 50% до старта, 50% после сдачи. На малых задачах (до $300) - по факту. Аудит всегда бесплатный.</p></details>
     </div>
   </div>
 </section>
@@ -696,15 +697,15 @@
 
 <!-- FOOTER -->
 <footer class="py-10" style="border-top:1px solid var(--border-soft);">
-  <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row justify-between items-start gap-6 text-sm text-dim">
+  <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row justify-between items-start gap-6 text-sm text-muted">
 
     <!-- Copyright -->
     <div>
       <div>© <span id="year"></span>&nbsp;<span class="brand-logo" style="font-size:.85rem"><span class="brand-moroz">Morozzz</span><span class="brand-ai">Ai</span></span> · <span data-i18n="foot.legal">Все права защищены</span></div>
-      <div class="mt-1 text-xs" style="opacity:.55">Самозанятый · Республика Беларусь</div>
+      
     </div>
 
-    <!-- Legal documents — per GDPR/best practices: full names, vertically stacked -->
+    <!-- Legal documents - per GDPR/best practices: full names, vertically stacked -->
     <nav aria-label="Правовые документы" class="flex flex-col gap-1.5">
       <span class="text-xs font-semibold tracking-wider uppercase" style="color:var(--text-dim);">Legal</span>
       <a href="/privacy" class="hover:opacity-80">Политика конфиденциальности</a>
@@ -724,7 +725,7 @@
 <!-- BACK TO TOP -->
 <button id="backToTop" aria-label="Вернуться наверх">↑</button>
 
-<!-- MODAL — popup lead form for case/pricing CTAs -->
+<!-- MODAL - popup lead form for case/pricing CTAs -->
 <div id="leadModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal-card">
     <button class="modal-close" type="button" onclick="closeLeadModal()" aria-label="Закрыть">✕</button>
@@ -754,7 +755,7 @@ const I18N = {
     "hero.slots":"Не более 2 проектов одновременно - так гарантирую запуск за 3-7 дней",
     "hero.title1":"Убираю до 80% рутины вашего бизнеса",
     "hero.title2":"за 3-7 дней - до запуска в продакшен",
-    "hero.sub":"Ваш отдел тратит часы на то, что AI делает за секунды. Строю ботов и автоматизации — они работают 24/7 без участия сотрудников. Python, n8n, Claude, GPT.",
+    "hero.sub":"Ваш отдел тратит часы на то, что AI делает за секунды. Строю ботов и автоматизации - они работают 24/7 без участия сотрудников. Python, n8n, Claude, GPT.",
     "hero.cta1":"Получить бесплатный аудит","hero.cta2":"Смотреть кейсы",
     "hero.m1":"production-ботов в работе","hero.m2":"экономия токенов LLM через pre-filter","hero.m3":"автономная работа на VPS","hero.m4":"от идеи до MVP на n8n","hero.m4v":"3 дня",
     "serv.pill":"Что я делаю","serv.title":"Полный цикл автоматизации - от идеи до продакшена","serv.sub":"Проектирую архитектуру, пишу код, деплою на ваш сервер, передаю с документацией.",
@@ -813,14 +814,14 @@ const I18N = {
     "cookie.text":"Этот сайт использует localStorage для хранения ваших настроек.","cookie.more":"Подробнее","cookie.ok":"Принять",
     "form.consent":"Я даю согласие на обработку моих персональных данных (имя, контакт, описание задачи) в соответствии с <a href=\"/privacy\">Политикой конфиденциальности</a> с целью ответа на эту заявку. Согласие действует до его отзыва письмом на andrei.maroz.eu@gmail.com.",
     "modal.tag":"Заявка","modal.title":"Расскажите о задаче","modal.sub":"Отвечу в течение 4 часов в рабочее время.",
-    "proc.s1.dur":"0 дней","proc.s2.dur":"1–2 дня","proc.s3.dur":"3–14 дней","proc.s4.dur":"1–2 дня","proc.s5.dur":"1 день","proc.s6.dur":"30 дней",
+    "proc.s1.dur":"0 дней","proc.s2.dur":"1-2 дня","proc.s3.dur":"3-14 дней","proc.s4.dur":"1-2 дня","proc.s5.dur":"1 день","proc.s6.dur":"30 дней",
     "foot.legal":"Все права защищены","foot.top":"Наверх","foot.contact":"Связаться",
   },
   en: {
     "nav.services":"Services","nav.cases":"Cases","nav.process":"Process","nav.pricing":"Pricing","nav.cta":"Audit",
-    "hero.slots":"Max 2 projects at a time — that's how I guarantee 3-7 day delivery",
+    "hero.slots":"Max 2 projects at a time - that's how I guarantee 3-7 day delivery",
     "hero.title1":"I eliminate up to 80% of your business routine",
-    "hero.title2":"in 3-7 days — live in production",
+    "hero.title2":"in 3-7 days - live in production",
     "hero.sub":"Your team spends hours on what AI does in seconds. I build bots and automations that run 24/7 without your staff. Python, n8n, Claude, GPT.",
     "hero.cta1":"Get a free audit","hero.cta2":"See cases",
     "hero.m1":"bots in production","hero.m2":"LLM token savings via pre-filter","hero.m3":"autonomous VPS operation","hero.m4":"from idea to n8n MVP","hero.m4v":"3 days",
@@ -880,14 +881,14 @@ const I18N = {
     "cookie.text":"This site uses localStorage to remember your preferences.","cookie.more":"Learn more","cookie.ok":"Got it",
     "form.consent":"I consent to the processing of my personal data (name, contact, task description) in accordance with the <a href=\"/privacy\">Privacy Policy</a> for the purpose of replying to this request. Consent stays in force until withdrawn by email to andrei.maroz.eu@gmail.com.",
     "modal.tag":"Request","modal.title":"Tell me about your task","modal.sub":"I will reply within 4 business hours.",
-    "proc.s1.dur":"0 days","proc.s2.dur":"1–2 days","proc.s3.dur":"3–14 days","proc.s4.dur":"1–2 days","proc.s5.dur":"1 day","proc.s6.dur":"30 days",
+    "proc.s1.dur":"0 days","proc.s2.dur":"1-2 days","proc.s3.dur":"3-14 days","proc.s4.dur":"1-2 days","proc.s5.dur":"1 day","proc.s6.dur":"30 days",
     "foot.legal":"All rights reserved","foot.top":"Top","foot.contact":"Contact",
   },
   pl: {
     "nav.services":"Usługi","nav.cases":"Projekty","nav.process":"Proces","nav.pricing":"Cennik","nav.cta":"Audyt",
-    "hero.slots":"Maks. 2 projekty jednocześnie — gwarantuję realizację w 3-7 dni",
+    "hero.slots":"Maks. 2 projekty jednocześnie - gwarantuję realizację w 3-7 dni",
     "hero.title1":"Eliminuję do 80% rutynowych zadań Twojego biznesu",
-    "hero.title2":"w 3-7 dni — gotowe do produkcji",
+    "hero.title2":"w 3-7 dni - gotowe do produkcji",
     "hero.sub":"Twój zespół spędza godziny na tym, co AI robi w sekundy. Buduję boty i automatyzacje, które działają 24/7 bez pracowników. Python, n8n, Claude, GPT.",
     "hero.cta1":"Bezpłatny audyt","hero.cta2":"Zobacz projekty",
     "hero.m1":"botów na produkcji","hero.m2":"oszczędność tokenów LLM","hero.m3":"autonomiczna praca na VPS","hero.m4":"od pomysłu do MVP w n8n","hero.m4v":"3 dni",
@@ -948,9 +949,9 @@ const I18N = {
   },
   de: {
     "nav.services":"Leistungen","nav.cases":"Projekte","nav.process":"Prozess","nav.pricing":"Preise","nav.cta":"Audit",
-    "hero.slots":"Max. 2 Projekte gleichzeitig — so garantiere ich Launch in 3-7 Tagen",
+    "hero.slots":"Max. 2 Projekte gleichzeitig - so garantiere ich Launch in 3-7 Tagen",
     "hero.title1":"Ich eliminiere bis zu 80% Ihrer Routinearbeit",
-    "hero.title2":"in 3-7 Tagen — live in Produktion",
+    "hero.title2":"in 3-7 Tagen - live in Produktion",
     "hero.sub":"Ihr Team verbringt Stunden mit dem, was KI in Sekunden erledigt. Ich baue Bots, die 24/7 ohne Mitarbeiter laufen. Python, n8n, Claude, GPT.",
     "hero.cta1":"Kostenloses Audit","hero.cta2":"Projekte ansehen",
     "hero.m1":"Bots in Produktion","hero.m2":"LLM-Token-Ersparnis via Pre-Filter","hero.m3":"autonomer VPS-Betrieb","hero.m4":"von Idee zu n8n-MVP","hero.m4v":"3 Tage",
@@ -1011,9 +1012,9 @@ const I18N = {
   },
   fr: {
     "nav.services":"Services","nav.cases":"Projets","nav.process":"Processus","nav.pricing":"Tarifs","nav.cta":"Audit",
-    "hero.slots":"Max 2 projets simultanément — lancement garanti en 3-7 jours",
+    "hero.slots":"Max 2 projets simultanément - lancement garanti en 3-7 jours",
     "hero.title1":"J'élimine jusqu'à 80% des tâches routinières",
-    "hero.title2":"en 3-7 jours — en production",
+    "hero.title2":"en 3-7 jours - en production",
     "hero.sub":"Votre équipe passe des heures sur ce que l'IA fait en secondes. Je construis des bots qui tournent 24/7 sans personnel. Python, n8n, Claude, GPT.",
     "hero.cta1":"Audit gratuit","hero.cta2":"Voir les projets",
     "hero.m1":"bots en production","hero.m2":"économie de tokens LLM via pre-filter","hero.m3":"fonctionnement autonome VPS","hero.m4":"de l'idée au MVP n8n","hero.m4v":"3 jours",
@@ -1074,9 +1075,9 @@ const I18N = {
   },
   es: {
     "nav.services":"Servicios","nav.cases":"Proyectos","nav.process":"Proceso","nav.pricing":"Precios","nav.cta":"Auditoría",
-    "hero.slots":"Máx. 2 proyectos a la vez — garantizo el lanzamiento en 3-7 días",
+    "hero.slots":"Máx. 2 proyectos a la vez - garantizo el lanzamiento en 3-7 días",
     "hero.title1":"Elimino hasta el 80% de las tareas rutinarias",
-    "hero.title2":"en 3-7 días — en producción",
+    "hero.title2":"en 3-7 días - en producción",
     "hero.sub":"Tu equipo dedica horas a lo que la IA hace en segundos. Construyo bots que funcionan 24/7 sin personal. Python, n8n, Claude, GPT.",
     "hero.cta1":"Auditoría gratuita","hero.cta2":"Ver proyectos",
     "hero.m1":"bots en producción","hero.m2":"ahorro de tokens LLM via pre-filter","hero.m3":"operación autónoma VPS","hero.m4":"de idea a MVP en n8n","hero.m4v":"3 días",
@@ -1137,9 +1138,9 @@ const I18N = {
   },
   pt: {
     "nav.services":"Serviços","nav.cases":"Projetos","nav.process":"Processo","nav.pricing":"Preços","nav.cta":"Auditoria",
-    "hero.slots":"Máx. 2 projetos simultâneos — lançamento garantido em 3-7 dias",
+    "hero.slots":"Máx. 2 projetos simultâneos - lançamento garantido em 3-7 dias",
     "hero.title1":"Elimino até 80% das tarefas rotineiras",
-    "hero.title2":"em 3-7 dias — em produção",
+    "hero.title2":"em 3-7 dias - em produção",
     "hero.sub":"A sua equipa passa horas no que a IA faz em segundos. Construo bots que funcionam 24/7 sem pessoal. Python, n8n, Claude, GPT.",
     "hero.cta1":"Auditoria gratuita","hero.cta2":"Ver projetos",
     "hero.m1":"bots em produção","hero.m2":"economia de tokens LLM via pre-filter","hero.m3":"operação autónoma VPS","hero.m4":"de ideia a MVP em n8n","hero.m4v":"3 dias",
@@ -1200,9 +1201,9 @@ const I18N = {
   },
   it: {
     "nav.services":"Servizi","nav.cases":"Progetti","nav.process":"Processo","nav.pricing":"Prezzi","nav.cta":"Audit",
-    "hero.slots":"Max 2 progetti contemporaneamente — lancio garantito in 3-7 giorni",
+    "hero.slots":"Max 2 progetti contemporaneamente - lancio garantito in 3-7 giorni",
     "hero.title1":"Elimino fino all'80% del lavoro di routine",
-    "hero.title2":"in 3-7 giorni — in produzione",
+    "hero.title2":"in 3-7 giorni - in produzione",
     "hero.sub":"Il tuo team trascorre ore su ciò che l'IA fa in secondi. Costruisco bot che lavorano 24/7 senza personale. Python, n8n, Claude, GPT.",
     "hero.cta1":"Audit gratuito","hero.cta2":"Vedi progetti",
     "hero.m1":"bot in produzione","hero.m2":"risparmio token LLM via pre-filter","hero.m3":"operazione autonoma VPS","hero.m4":"dall'idea a MVP in n8n","hero.m4v":"3 giorni",
@@ -1263,9 +1264,9 @@ const I18N = {
   },
   el: {
     "nav.services":"Υπηρεσίες","nav.cases":"Έργα","nav.process":"Διαδικασία","nav.pricing":"Τιμές","nav.cta":"Έλεγχος",
-    "hero.slots":"Μέγ. 2 έργα ταυτόχρονα — εγγυώμαι εκκίνηση σε 3-7 μέρες",
+    "hero.slots":"Μέγ. 2 έργα ταυτόχρονα - εγγυώμαι εκκίνηση σε 3-7 μέρες",
     "hero.title1":"Εξαλείφω έως 80% των ρουτινών εργασιών",
-    "hero.title2":"σε 3-7 μέρες — σε παραγωγή",
+    "hero.title2":"σε 3-7 μέρες - σε παραγωγή",
     "hero.sub":"Η ομάδα σας περνά ώρες σε αυτό που η ΑΙ κάνει σε δευτερόλεπτα. Φτιάχνω bots που τρέχουν 24/7 χωρίς προσωπικό. Python, n8n, Claude, GPT.",
     "hero.cta1":"Δωρεάν έλεγχος","hero.cta2":"Δείτε έργα",
     "hero.m1":"bots σε παραγωγή","hero.m2":"εξοικονόμηση tokens LLM","hero.m3":"αυτόνομη λειτουργία VPS","hero.m4":"από ιδέα σε MVP n8n","hero.m4v":"3 μέρες",
@@ -1326,9 +1327,9 @@ const I18N = {
   },
   nl: {
     "nav.services":"Diensten","nav.cases":"Projecten","nav.process":"Proces","nav.pricing":"Prijzen","nav.cta":"Audit",
-    "hero.slots":"Max. 2 projecten tegelijk — zo garandeer ik lancering in 3-7 dagen",
+    "hero.slots":"Max. 2 projecten tegelijk - zo garandeer ik lancering in 3-7 dagen",
     "hero.title1":"Ik elimineer tot 80% van het routinewerk",
-    "hero.title2":"in 3-7 dagen — live in productie",
+    "hero.title2":"in 3-7 dagen - live in productie",
     "hero.sub":"Uw team besteedt uren aan wat AI in seconden doet. Ik bouw bots die 24/7 draaien zonder personeel. Python, n8n, Claude, GPT.",
     "hero.cta1":"Gratis audit","hero.cta2":"Projecten bekijken",
     "hero.m1":"bots in productie","hero.m2":"LLM token-besparing via pre-filter","hero.m3":"autonome VPS-werking","hero.m4":"van idee naar n8n MVP","hero.m4v":"3 dagen",
@@ -1389,9 +1390,9 @@ const I18N = {
   },
   fi: {
     "nav.services":"Palvelut","nav.cases":"Projektit","nav.process":"Prosessi","nav.pricing":"Hinnat","nav.cta":"Auditointi",
-    "hero.slots":"Max 2 projektia kerrallaan — takaan lanseerauksen 3-7 päivässä",
+    "hero.slots":"Max 2 projektia kerrallaan - takaan lanseerauksen 3-7 päivässä",
     "hero.title1":"Poistan jopa 80% rutiinityöstä",
-    "hero.title2":"3-7 päivässä — tuotannossa",
+    "hero.title2":"3-7 päivässä - tuotannossa",
     "hero.sub":"Tiimisi käyttää tunteja siihen, mitä tekoäly tekee sekunneissa. Rakennan botteja, jotka toimivat 24/7 ilman henkilöstöä. Python, n8n, Claude, GPT.",
     "hero.cta1":"Ilmainen auditointi","hero.cta2":"Katso projektit",
     "hero.m1":"bottia tuotannossa","hero.m2":"LLM-tokensäästö esifilterin kautta","hero.m3":"autonominen VPS-toiminta","hero.m4":"ideasta n8n MVP:ksi","hero.m4v":"3 päivää",
@@ -1452,10 +1453,10 @@ const I18N = {
   },
   uk: {
     "nav.services":"Послуги","nav.cases":"Кейси","nav.process":"Процес","nav.pricing":"Тарифи","nav.cta":"Аудит",
-    "hero.slots":"Не більше 2 проектів одночасно — гарантую запуск за 3-7 днів",
+    "hero.slots":"Не більше 2 проектів одночасно - гарантую запуск за 3-7 днів",
     "hero.title1":"Прибираю до 80% рутини вашого бізнесу",
     "hero.title2":"за 3-7 днів - до запуску в продакшен",
-    "hero.sub":"Ваш відділ витрачає години на те, що AI робить за секунди. Будую ботів і автоматизації — вони працюють 24/7 без участі співробітників. Python, n8n, Claude, GPT.",
+    "hero.sub":"Ваш відділ витрачає години на те, що AI робить за секунди. Будую ботів і автоматизації - вони працюють 24/7 без участі співробітників. Python, n8n, Claude, GPT.",
     "hero.cta1":"Отримати безкоштовний аудит","hero.cta2":"Дивитися кейси",
     "hero.m1":"production-ботів у роботі","hero.m2":"економія токенів LLM через pre-filter","hero.m3":"автономна робота на VPS","hero.m4":"від ідеї до MVP на n8n","hero.m4v":"3 дня",
     "serv.pill":"Що я роблю","serv.title":"Повний цикл автоматизації - від ідеї до продакшену","serv.sub":"Проектую архітектуру, пишу код, деплою на ваш сервер, передаю з документацією.",
@@ -1515,9 +1516,9 @@ const I18N = {
   },
   kk: {
     "nav.services":"Қызметтер","nav.cases":"Кейстер","nav.process":"Процесс","nav.pricing":"Тарифтер","nav.cta":"Аудит",
-    "hero.slots":"Бір мезгілде 2-ден аспайтын жоба — 3-7 күнде іске қосуға кепілдік",
+    "hero.slots":"Бір мезгілде 2-ден аспайтын жоба - 3-7 күнде іске қосуға кепілдік",
     "hero.title1":"Бизнестің 80%-ға дейін рутинасын жоямын",
-    "hero.title2":"3-7 күнде — продакшенге дейін",
+    "hero.title2":"3-7 күнде - продакшенге дейін",
     "hero.sub":"Бөліміңіз AI секундтарда жасайтын нәрсеге сағаттар жұмсайды. 24/7 қызметкерлерсіз жұмыс жасайтын боттар мен автоматтандыруларды жасаймын. Python, n8n, Claude, GPT.",
     "hero.cta1":"Тегін аудит алу","hero.cta2":"Кейстерді қарау",
     "hero.m1":"production-боттар жұмыста","hero.m2":"pre-filter арқылы LLM токен үнемі","hero.m3":"VPS-та автономды жұмыс","hero.m4":"идеядан n8n MVP-ке дейін","hero.m4v":"3 күн",
@@ -1578,10 +1579,10 @@ const I18N = {
   },
   be: {
     "nav.services":"Паслугі","nav.cases":"Кейсы","nav.process":"Працэс","nav.pricing":"Тарыфы","nav.cta":"Аўдыт",
-    "hero.slots":"Не больш за 2 праекты адначасова — гарантую запуск за 3-7 дзён",
+    "hero.slots":"Не больш за 2 праекты адначасова - гарантую запуск за 3-7 дзён",
     "hero.title1":"Прыбіраю да 80% руціны вашага бізнесу",
     "hero.title2":"за 3-7 дзён - да запуску ў прадакшэн",
-    "hero.sub":"Ваш аддзел трацыць гадзіны на тое, што AI робіць за секунды. Будую ботаў і аўтаматызацыі — яны працуюць 24/7 без удзелу супрацоўнікаў. Python, n8n, Claude, GPT.",
+    "hero.sub":"Ваш аддзел трацыць гадзіны на тое, што AI робіць за секунды. Будую ботаў і аўтаматызацыі - яны працуюць 24/7 без удзелу супрацоўнікаў. Python, n8n, Claude, GPT.",
     "hero.cta1":"Атрымаць бясплатны аўдыт","hero.cta2":"Глядзець кейсы",
     "hero.m1":"production-ботаў у працы","hero.m2":"эканомія токенаў LLM праз pre-filter","hero.m3":"аўтаномная праца на VPS","hero.m4":"ад ідэі да MVP на n8n","hero.m4v":"3 дні",
     "serv.pill":"Што я раблю","serv.title":"Поўны цыкл аўтаматызацыі - ад ідэі да прадакшэна","serv.sub":"Праектую архітэктуру, пішу код, дэплою на ваш сервер, перадаю з дакументацыяй.",
@@ -1641,9 +1642,9 @@ const I18N = {
   },
   lt: {
     "nav.services":"Paslaugos","nav.cases":"Atvejai","nav.process":"Procesas","nav.pricing":"Kainos","nav.cta":"Auditas",
-    "hero.slots":"Maks. 2 projektai vienu metu — garantuoju paleidimą per 3-7 dienas",
+    "hero.slots":"Maks. 2 projektai vienu metu - garantuoju paleidimą per 3-7 dienas",
     "hero.title1":"Šalinu iki 80% jūsų verslo rutinos",
-    "hero.title2":"per 3-7 dienas — į gamybą",
+    "hero.title2":"per 3-7 dienas - į gamybą",
     "hero.sub":"Jūsų komanda praleidžia valandas tam, ką AI daro per sekundes. Kuriu botus, kurie dirba 24/7 be darbuotojų. Python, n8n, Claude, GPT.",
     "hero.cta1":"Gauti nemokamą auditą","hero.cta2":"Žiūrėti atvejus",
     "hero.m1":"gamybiniai botai veikia","hero.m2":"LLM žetonų taupymas per pre-filter","hero.m3":"autonominis veikimas VPS","hero.m4":"nuo idėjos iki n8n MVP","hero.m4v":"3 dienos",
@@ -1704,9 +1705,9 @@ const I18N = {
   },
   et: {
     "nav.services":"Teenused","nav.cases":"Juhtumid","nav.process":"Protsess","nav.pricing":"Hinnad","nav.cta":"Audit",
-    "hero.slots":"Maks 2 projekti korraga — garanteerin käivitamise 3-7 päevaga",
+    "hero.slots":"Maks 2 projekti korraga - garanteerin käivitamise 3-7 päevaga",
     "hero.title1":"Kõrvaldan kuni 80% teie äri rutiinist",
-    "hero.title2":"3-7 päevaga — tootmisse",
+    "hero.title2":"3-7 päevaga - tootmisse",
     "hero.sub":"Teie meeskond kulutab tunde sellele, mida AI teeb sekunditega. Loon botte, mis töötavad 24/7 ilma töötajateta. Python, n8n, Claude, GPT.",
     "hero.cta1":"Saa tasuta audit","hero.cta2":"Vaata juhtumeid",
     "hero.m1":"tootmisbotid töötavad","hero.m2":"LLM märgisäästmine pre-filteri kaudu","hero.m3":"autonoomne töö VPS-il","hero.m4":"ideest n8n MVP-ni","hero.m4v":"3 päeva",
@@ -1963,7 +1964,7 @@ if (!localStorage.getItem('cookieConsent')) {
 
 /* ====== Init ====== */
 document.getElementById('year').textContent = new Date().getFullYear();
-const savedTheme = localStorage.getItem('theme') || 'dark';
+const savedTheme = localStorage.getItem('theme') || 'light';
 applyTheme(savedTheme);
 const savedLang = localStorage.getItem('lang') || 'ru';
 document.getElementById('langSelect').value = savedLang;
